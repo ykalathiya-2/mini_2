@@ -1,0 +1,4 @@
+ts_utc=20260501T034617Z
+overlay=/Users/spartan/mini_2/config/topo/chain.yaml
+host=MLK-SCS-K36CX9YFNV
+nodes=I H G F E D C B A

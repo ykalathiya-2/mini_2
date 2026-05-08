@@ -1,0 +1,18 @@
+{
+  "mode": "local",
+  "topos": [
+    {
+      "name": "star",
+      "path": "/Users/spartan/mini_2/bench/results/star.json"
+    },
+    {
+      "name": "tree",
+      "path": "/Users/spartan/mini_2/bench/results/tree.json"
+    },
+    {
+      "name": "chain",
+      "path": "/Users/spartan/mini_2/bench/results/chain.json"
+    }
+  ],
+  "started": "2026-05-01T03:32:52Z"
+}

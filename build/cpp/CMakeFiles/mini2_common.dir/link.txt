@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmini2_common.a CMakeFiles/mini2_common.dir/common/overlay.cpp.o CMakeFiles/mini2_common.dir/common/csv_store.cpp.o CMakeFiles/mini2_common.dir/common/scheduler.cpp.o CMakeFiles/mini2_common.dir/common/telemetry.cpp.o
+/usr/bin/ranlib libmini2_common.a

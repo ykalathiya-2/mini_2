@@ -1,0 +1,6 @@
+[launcher] node=F impl=python overlay=/Users/spartan/mini_2/config/topo/star.yaml data=/Users/spartan/mini_2/data/partitions
+2026-04-30 20:26:09,341 INFO mini2.node: [F] loaded 3333333 partition rows from /Users/spartan/mini_2/data/partitions/F.csv
+2026-04-30 20:26:09,351 INFO mini2.node: [F] Python node listening on 0.0.0.0:50056 (advertised 127.0.0.1:50056), role=peer team=yellow
+2026-04-30 20:26:31,227 INFO mini2.node: [F] rid=req-180060183168541-1 range_search matched=91046 of 3333333 in 7.21 ms
+2026-04-30 20:26:31,228 INFO mini2.node: [F] accepted forwarded query req-180060183168541-1 (target=F)
+2026-04-30 20:26:46,672 INFO mini2.node: [F] shutting down

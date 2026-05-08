@@ -1,0 +1,3 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions
+20:25:44 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+20:26:04 [A] shutdown requested

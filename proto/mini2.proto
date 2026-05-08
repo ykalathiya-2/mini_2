@@ -1,0 +1,151 @@
+// mini2.proto — unary-only gRPC contract for Mini 2.
+//
+// We deliberately avoid server-streaming / bidi-streaming / async stubs.
+// All flow control, chunking, and back-pressure are implemented on top of
+// plain request/response calls.
+syntax = "proto3";
+
+package mini2;
+
+// A typed row from the NYC Yellow Taxi dataset. We use proper scalar types
+// (not "string for everything") so the wire format reflects realistic data.
+message TaxiRow {
+  int32  vendor_id             = 1;
+  // Unix epoch seconds (UTC). Converted from the source CSV's
+  // "YYYY Mon DD HH:MM:SS AM/PM" format once at split time so every node
+  // stores a fixed-size int64 instead of a heap-allocated string.
+  int64  pickup_datetime       = 2;
+  int64  dropoff_datetime      = 3;
+  int32  passenger_count       = 4;
+  double trip_distance         = 5;
+  int32  ratecode_id           = 6;
+  int32  pu_location_id        = 7;
+  int32  do_location_id        = 8;
+  bool   store_and_fwd_flag    = 9;
+  int32  payment_type          = 10;
+  double fare_amount           = 11;
+  double extra                 = 12;
+  double mta_tax               = 13;
+  double tip_amount            = 14;
+  double tolls_amount          = 15;
+  double improvement_surcharge = 16;
+  double total_amount          = 17;
+}
+
+// A range predicate on one column (AND-combined client-side).
+message RangePredicate {
+  string column    = 1;
+  double low       = 2;
+  double high      = 3;
+  bool   inclusive = 4;
+}
+
+// A query from the client (or forwarded peer-to-peer).
+message Query {
+  string                request_id   = 1;  // unique per in-flight request
+  repeated RangePredicate predicates = 2;
+  int32                 limit        = 3;  // 0 = no cap
+  // For routing context: the logical origin (always "A" for external client).
+  string                origin       = 4;
+  // Hop list (debug only — not used for routing decisions).
+  repeated string       hops         = 5;
+}
+
+// Reply to a Query: first hop returns metadata + readiness; payload is
+// retrieved via PullChunk calls so the caller controls pacing.
+message QueryAck {
+  string request_id  = 1;
+  bool   accepted    = 2;
+  string reject_reason = 3;
+  int64  estimated_rows = 4;  // best-effort (-1 = unknown)
+}
+
+// Pull a chunk of a previously-accepted request. The producer remembers
+// how far each consumer has read per request.
+message PullRequest {
+  string request_id     = 1;
+  int32  max_rows       = 2;  // 0 = let server decide (dynamic)
+  int64  last_seq       = 3;  // last chunk seq the client ack'd; -1 for first
+  // If non-empty, intermediate nodes relay this pull along the route toward
+  // `target_owner` instead of picking their own first-available downstream.
+  // Empty = pull locally (used by gateway→owner direct pulls on leaf owners).
+  string target_owner   = 4;
+}
+
+// One chunk of result rows. `seq` is monotonic per request; `is_last` ends
+// the stream. `producer` lets A know which peer this data came from.
+message Chunk {
+  string            request_id = 1;
+  int64             seq        = 2;
+  bool              is_last    = 3;
+  repeated TaxiRow  rows       = 4;
+  string            producer   = 5;
+  // Back-pressure hint: how many rows the producer still has buffered.
+  int64             backlog    = 6;
+  // Wall-clock timestamps (ns) for measurement.
+  int64             produced_at_ns = 7;
+}
+
+// Cancel cleanup for a request at every node that knows about it.
+message CancelRequest {
+  string request_id = 1;
+  string reason     = 2;
+}
+
+message CancelResponse {
+  bool   acknowledged = 1;
+  int32  rows_dropped = 2;
+}
+
+// Health / liveness ping, also used to pre-register peers.
+message Heartbeat {
+  string from_node   = 1;
+  int64  sent_at_ns  = 2;
+  int64  in_flight   = 3;   // number of active requests
+}
+message HeartbeatAck {
+  string to_node     = 1;
+  int64  recv_at_ns  = 2;
+  bool   healthy     = 3;
+}
+
+// Peer-to-peer forwarding envelope. Lets the receiving node know where to
+// send results back via PushChunk (so A doesn't need to poll every peer
+// directly — intermediate nodes match by request_id).
+message ForwardedQuery {
+  Query  query        = 1;
+  string forwarder    = 2;   // immediate sender (not origin)
+  string reply_to     = 3;   // node to push chunks back to
+  int32  ttl          = 4;   // hop-count guard
+  // Specific data owner this forward is routed to. Gateway fans out once per
+  // owner so the overlay can handle multi-owner scatter correctly.
+  string target_owner = 5;
+}
+
+// A peer pushing a chunk back along the overlay toward A.
+message PushChunkAck {
+  bool   accepted = 1;
+  int64  next_seq = 2;
+}
+
+// Client-facing external API (only A implements this for external clients).
+service ClientGateway {
+  rpc SubmitQuery  (Query)         returns (QueryAck);
+  rpc FetchChunk   (PullRequest)   returns (Chunk);
+  rpc CancelQuery  (CancelRequest) returns (CancelResponse);
+  rpc Ping         (Heartbeat)     returns (HeartbeatAck);
+}
+
+// Node-to-node API. Every process (A–I) implements this.
+service PeerLink {
+  // Peer A asks peer B to start answering a query. B returns an ack with
+  // estimated row count; B then locally enqueues rows for later PullChunk.
+  rpc ForwardQuery (ForwardedQuery) returns (QueryAck);
+  // Peer A pulls chunks from peer B for a request previously forwarded.
+  rpc PullChunk    (PullRequest)    returns (Chunk);
+  // Parent forwards a push (not used in the pure pull model, but present
+  // so we can experiment with mixed models).
+  rpc PushChunk    (Chunk)          returns (PushChunkAck);
+  rpc CancelQuery  (CancelRequest)  returns (CancelResponse);
+  rpc Ping         (Heartbeat)      returns (HeartbeatAck);
+}

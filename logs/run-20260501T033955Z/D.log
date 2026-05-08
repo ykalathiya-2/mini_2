@@ -1,0 +1,172 @@
+[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions
+2026-04-30 20:39:58,781 INFO mini2.node: [D] loaded 3333334 partition rows from /Users/spartan/mini_2/data/partitions/D.csv
+2026-04-30 20:39:58,790 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
+2026-04-30 20:40:01,394 INFO mini2.node: [D] rid=req-180870411737041-1 range_search matched=8232 of 3333334 in 4.11 ms
+2026-04-30 20:40:01,394 INFO mini2.node: [D] accepted forwarded query req-180870411737041-1 (target=D)
+2026-04-30 20:40:01,550 INFO mini2.node: [D] rid=req-180870569776083-1 range_search matched=8232 of 3333334 in 2.24 ms
+2026-04-30 20:40:01,550 INFO mini2.node: [D] accepted forwarded query req-180870569776083-1 (target=D)
+2026-04-30 20:40:01,686 INFO mini2.node: [D] rid=req-180870705980583-1 range_search matched=8232 of 3333334 in 2.26 ms
+2026-04-30 20:40:01,686 INFO mini2.node: [D] accepted forwarded query req-180870705980583-1 (target=D)
+2026-04-30 20:40:01,838 INFO mini2.node: [D] rid=req-180870856571541-2 range_search matched=8232 of 3333334 in 2.25 ms
+2026-04-30 20:40:01,838 INFO mini2.node: [D] accepted forwarded query req-180870856571541-2 (target=D)
+2026-04-30 20:40:01,840 INFO mini2.node: [D] rid=req-180870856569708-1 range_search matched=8232 of 3333334 in 2.25 ms
+2026-04-30 20:40:01,840 INFO mini2.node: [D] accepted forwarded query req-180870856569708-1 (target=D)
+2026-04-30 20:40:01,999 INFO mini2.node: [D] rid=req-180871018602458-1 range_search matched=8232 of 3333334 in 2.16 ms
+2026-04-30 20:40:01,999 INFO mini2.node: [D] accepted forwarded query req-180871018602458-1 (target=D)
+2026-04-30 20:40:02,002 INFO mini2.node: [D] rid=req-180871018620916-2 range_search matched=8232 of 3333334 in 2.16 ms
+2026-04-30 20:40:02,002 INFO mini2.node: [D] accepted forwarded query req-180871018620916-2 (target=D)
+2026-04-30 20:40:02,170 INFO mini2.node: [D] rid=req-180871189476333-1 range_search matched=8232 of 3333334 in 2.29 ms
+2026-04-30 20:40:02,171 INFO mini2.node: [D] accepted forwarded query req-180871189476333-1 (target=D)
+2026-04-30 20:40:02,173 INFO mini2.node: [D] rid=req-180871189490291-2 range_search matched=8232 of 3333334 in 2.20 ms
+2026-04-30 20:40:02,173 INFO mini2.node: [D] accepted forwarded query req-180871189490291-2 (target=D)
+2026-04-30 20:40:02,338 INFO mini2.node: [D] rid=req-180871357142250-1 range_search matched=8232 of 3333334 in 2.18 ms
+2026-04-30 20:40:02,338 INFO mini2.node: [D] accepted forwarded query req-180871357142250-1 (target=D)
+2026-04-30 20:40:02,341 INFO mini2.node: [D] rid=req-180871357167208-4 range_search matched=8232 of 3333334 in 2.40 ms
+2026-04-30 20:40:02,341 INFO mini2.node: [D] accepted forwarded query req-180871357167208-4 (target=D)
+2026-04-30 20:40:02,343 INFO mini2.node: [D] rid=req-180871357151125-2 range_search matched=8232 of 3333334 in 2.33 ms
+2026-04-30 20:40:02,343 INFO mini2.node: [D] accepted forwarded query req-180871357151125-2 (target=D)
+2026-04-30 20:40:02,346 INFO mini2.node: [D] rid=req-180871357154375-3 range_search matched=8232 of 3333334 in 2.18 ms
+2026-04-30 20:40:02,346 INFO mini2.node: [D] accepted forwarded query req-180871357154375-3 (target=D)
+2026-04-30 20:40:02,550 INFO mini2.node: [D] rid=req-180871568504083-1 range_search matched=8232 of 3333334 in 2.25 ms
+2026-04-30 20:40:02,550 INFO mini2.node: [D] accepted forwarded query req-180871568504083-1 (target=D)
+2026-04-30 20:40:02,553 INFO mini2.node: [D] rid=req-180871568507500-2 range_search matched=8232 of 3333334 in 2.38 ms
+2026-04-30 20:40:02,553 INFO mini2.node: [D] accepted forwarded query req-180871568507500-2 (target=D)
+2026-04-30 20:40:02,555 INFO mini2.node: [D] rid=req-180871568522583-4 range_search matched=8232 of 3333334 in 2.18 ms
+2026-04-30 20:40:02,555 INFO mini2.node: [D] accepted forwarded query req-180871568522583-4 (target=D)
+2026-04-30 20:40:02,557 INFO mini2.node: [D] rid=req-180871568516416-3 range_search matched=8232 of 3333334 in 2.11 ms
+2026-04-30 20:40:02,557 INFO mini2.node: [D] accepted forwarded query req-180871568516416-3 (target=D)
+2026-04-30 20:40:02,784 INFO mini2.node: [D] rid=req-180871802464333-1 range_search matched=8232 of 3333334 in 2.36 ms
+2026-04-30 20:40:02,784 INFO mini2.node: [D] accepted forwarded query req-180871802464333-1 (target=D)
+2026-04-30 20:40:02,787 INFO mini2.node: [D] rid=req-180871802477916-3 range_search matched=8232 of 3333334 in 2.20 ms
+2026-04-30 20:40:02,787 INFO mini2.node: [D] accepted forwarded query req-180871802477916-3 (target=D)
+2026-04-30 20:40:02,789 INFO mini2.node: [D] rid=req-180871802465041-2 range_search matched=8232 of 3333334 in 2.12 ms
+2026-04-30 20:40:02,789 INFO mini2.node: [D] accepted forwarded query req-180871802465041-2 (target=D)
+2026-04-30 20:40:02,791 INFO mini2.node: [D] rid=req-180871802483208-4 range_search matched=8232 of 3333334 in 2.12 ms
+2026-04-30 20:40:02,791 INFO mini2.node: [D] accepted forwarded query req-180871802483208-4 (target=D)
+2026-04-30 20:40:03,011 INFO mini2.node: [D] rid=req-180872030467291-1 range_search matched=90785 of 3333334 in 2.98 ms
+2026-04-30 20:40:03,011 INFO mini2.node: [D] accepted forwarded query req-180872030467291-1 (target=D)
+2026-04-30 20:40:03,481 INFO mini2.node: [D] rid=req-180872499608958-1 range_search matched=90785 of 3333334 in 3.82 ms
+2026-04-30 20:40:03,481 INFO mini2.node: [D] accepted forwarded query req-180872499608958-1 (target=D)
+2026-04-30 20:40:03,946 INFO mini2.node: [D] rid=req-180872965383708-1 range_search matched=90785 of 3333334 in 2.85 ms
+2026-04-30 20:40:03,946 INFO mini2.node: [D] accepted forwarded query req-180872965383708-1 (target=D)
+2026-04-30 20:40:04,420 INFO mini2.node: [D] rid=req-180873437261500-1 range_search matched=90785 of 3333334 in 3.65 ms
+2026-04-30 20:40:04,420 INFO mini2.node: [D] accepted forwarded query req-180873437261500-1 (target=D)
+2026-04-30 20:40:04,423 INFO mini2.node: [D] rid=req-180873437264666-2 range_search matched=90785 of 3333334 in 3.29 ms
+2026-04-30 20:40:04,424 INFO mini2.node: [D] accepted forwarded query req-180873437264666-2 (target=D)
+2026-04-30 20:40:05,139 INFO mini2.node: [D] rid=req-180874156537250-1 range_search matched=90785 of 3333334 in 3.69 ms
+2026-04-30 20:40:05,139 INFO mini2.node: [D] accepted forwarded query req-180874156537250-1 (target=D)
+2026-04-30 20:40:05,142 INFO mini2.node: [D] rid=req-180874156551250-2 range_search matched=90785 of 3333334 in 3.38 ms
+2026-04-30 20:40:05,143 INFO mini2.node: [D] accepted forwarded query req-180874156551250-2 (target=D)
+2026-04-30 20:40:05,878 INFO mini2.node: [D] rid=req-180874894364500-2 range_search matched=90785 of 3333334 in 3.42 ms
+2026-04-30 20:40:05,878 INFO mini2.node: [D] accepted forwarded query req-180874894364500-2 (target=D)
+2026-04-30 20:40:05,881 INFO mini2.node: [D] rid=req-180874894361500-1 range_search matched=90785 of 3333334 in 3.29 ms
+2026-04-30 20:40:05,881 INFO mini2.node: [D] accepted forwarded query req-180874894361500-1 (target=D)
+2026-04-30 20:40:06,605 INFO mini2.node: [D] rid=req-180875622786208-1 range_search matched=90785 of 3333334 in 3.05 ms
+2026-04-30 20:40:06,605 INFO mini2.node: [D] accepted forwarded query req-180875622786208-1 (target=D)
+2026-04-30 20:40:06,608 INFO mini2.node: [D] rid=req-180875622806666-4 range_search matched=90785 of 3333334 in 3.20 ms
+2026-04-30 20:40:06,609 INFO mini2.node: [D] accepted forwarded query req-180875622806666-4 (target=D)
+2026-04-30 20:40:06,612 INFO mini2.node: [D] rid=req-180875622793000-2 range_search matched=90785 of 3333334 in 3.27 ms
+2026-04-30 20:40:06,612 INFO mini2.node: [D] accepted forwarded query req-180875622793000-2 (target=D)
+2026-04-30 20:40:06,616 INFO mini2.node: [D] rid=req-180875622796833-3 range_search matched=90785 of 3333334 in 3.73 ms
+2026-04-30 20:40:06,616 INFO mini2.node: [D] accepted forwarded query req-180875622796833-3 (target=D)
+2026-04-30 20:40:07,867 INFO mini2.node: [D] rid=req-180876884849666-1 range_search matched=90785 of 3333334 in 3.03 ms
+2026-04-30 20:40:07,867 INFO mini2.node: [D] accepted forwarded query req-180876884849666-1 (target=D)
+2026-04-30 20:40:07,871 INFO mini2.node: [D] rid=req-180876884854875-2 range_search matched=90785 of 3333334 in 3.08 ms
+2026-04-30 20:40:07,871 INFO mini2.node: [D] accepted forwarded query req-180876884854875-2 (target=D)
+2026-04-30 20:40:07,875 INFO mini2.node: [D] rid=req-180876884871375-4 range_search matched=90785 of 3333334 in 3.24 ms
+2026-04-30 20:40:07,875 INFO mini2.node: [D] accepted forwarded query req-180876884871375-4 (target=D)
+2026-04-30 20:40:07,878 INFO mini2.node: [D] rid=req-180876884864458-3 range_search matched=90785 of 3333334 in 3.17 ms
+2026-04-30 20:40:07,878 INFO mini2.node: [D] accepted forwarded query req-180876884864458-3 (target=D)
+2026-04-30 20:40:09,135 INFO mini2.node: [D] rid=req-180878151806750-2 range_search matched=90785 of 3333334 in 3.41 ms
+2026-04-30 20:40:09,135 INFO mini2.node: [D] accepted forwarded query req-180878151806750-2 (target=D)
+2026-04-30 20:40:09,139 INFO mini2.node: [D] rid=req-180878151803666-1 range_search matched=90785 of 3333334 in 4.29 ms
+2026-04-30 20:40:09,139 INFO mini2.node: [D] accepted forwarded query req-180878151803666-1 (target=D)
+2026-04-30 20:40:09,143 INFO mini2.node: [D] rid=req-180878151816541-3 range_search matched=90785 of 3333334 in 3.74 ms
+2026-04-30 20:40:09,143 INFO mini2.node: [D] accepted forwarded query req-180878151816541-3 (target=D)
+2026-04-30 20:40:09,147 INFO mini2.node: [D] rid=req-180878151825833-4 range_search matched=90785 of 3333334 in 3.77 ms
+2026-04-30 20:40:09,147 INFO mini2.node: [D] accepted forwarded query req-180878151825833-4 (target=D)
+2026-04-30 20:40:10,477 INFO mini2.node: [D] rid=req-180879489867041-1 range_search matched=1660503 of 3333334 in 3.94 ms
+2026-04-30 20:40:10,477 INFO mini2.node: [D] accepted forwarded query req-180879489867041-1 (target=D)
+2026-04-30 20:40:16,890 INFO mini2.node: [D] rid=req-180885903654000-1 range_search matched=1660503 of 3333334 in 4.22 ms
+2026-04-30 20:40:16,890 INFO mini2.node: [D] accepted forwarded query req-180885903654000-1 (target=D)
+2026-04-30 20:40:23,255 INFO mini2.node: [D] rid=req-180892270310458-1 range_search matched=1660503 of 3333334 in 3.31 ms
+2026-04-30 20:40:23,255 INFO mini2.node: [D] accepted forwarded query req-180892270310458-1 (target=D)
+2026-04-30 20:40:29,487 INFO mini2.node: [D] rid=req-180898498095666-2 range_search matched=1660503 of 3333334 in 3.85 ms
+2026-04-30 20:40:29,487 INFO mini2.node: [D] accepted forwarded query req-180898498095666-2 (target=D)
+2026-04-30 20:40:29,490 INFO mini2.node: [D] rid=req-180898498089750-1 range_search matched=1660503 of 3333334 in 3.69 ms
+2026-04-30 20:40:29,491 INFO mini2.node: [D] accepted forwarded query req-180898498089750-1 (target=D)
+2026-04-30 20:40:40,639 INFO mini2.node: [D] rid=req-180909649076916-1 range_search matched=1660503 of 3333334 in 3.84 ms
+2026-04-30 20:40:40,640 INFO mini2.node: [D] accepted forwarded query req-180909649076916-1 (target=D)
+2026-04-30 20:40:40,643 INFO mini2.node: [D] rid=req-180909649084208-2 range_search matched=1660503 of 3333334 in 3.82 ms
+2026-04-30 20:40:40,643 INFO mini2.node: [D] accepted forwarded query req-180909649084208-2 (target=D)
+2026-04-30 20:40:51,938 INFO mini2.node: [D] rid=req-180920949251750-2 range_search matched=1660503 of 3333334 in 4.09 ms
+2026-04-30 20:40:51,938 INFO mini2.node: [D] accepted forwarded query req-180920949251750-2 (target=D)
+2026-04-30 20:40:51,942 INFO mini2.node: [D] rid=req-180920949247208-1 range_search matched=1660503 of 3333334 in 3.76 ms
+2026-04-30 20:40:51,942 INFO mini2.node: [D] accepted forwarded query req-180920949247208-1 (target=D)
+2026-04-30 20:41:03,154 INFO mini2.node: [D] rid=req-180932165269583-1 range_search matched=1660503 of 3333334 in 3.87 ms
+2026-04-30 20:41:03,154 INFO mini2.node: [D] accepted forwarded query req-180932165269583-1 (target=D)
+2026-04-30 20:41:03,161 INFO mini2.node: [D] rid=req-180932165279000-2 range_search matched=1660503 of 3333334 in 3.34 ms
+2026-04-30 20:41:03,161 INFO mini2.node: [D] accepted forwarded query req-180932165279000-2 (target=D)
+2026-04-30 20:41:03,210 INFO mini2.node: [D] rid=req-180932165288666-4 range_search matched=1660503 of 3333334 in 3.68 ms
+2026-04-30 20:41:03,210 INFO mini2.node: [D] accepted forwarded query req-180932165288666-4 (target=D)
+2026-04-30 20:41:03,214 INFO mini2.node: [D] rid=req-180932165280541-3 range_search matched=1660503 of 3333334 in 3.20 ms
+2026-04-30 20:41:03,214 INFO mini2.node: [D] accepted forwarded query req-180932165280541-3 (target=D)
+2026-04-30 20:41:24,849 INFO mini2.node: [D] rid=req-180953859548291-1 range_search matched=1660503 of 3333334 in 4.30 ms
+2026-04-30 20:41:24,849 INFO mini2.node: [D] accepted forwarded query req-180953859548291-1 (target=D)
+2026-04-30 20:41:24,909 INFO mini2.node: [D] rid=req-180953859569500-4 range_search matched=1660503 of 3333334 in 3.29 ms
+2026-04-30 20:41:24,909 INFO mini2.node: [D] accepted forwarded query req-180953859569500-4 (target=D)
+2026-04-30 20:41:24,912 INFO mini2.node: [D] rid=req-180953859560083-3 range_search matched=1660503 of 3333334 in 3.33 ms
+2026-04-30 20:41:24,912 INFO mini2.node: [D] accepted forwarded query req-180953859560083-3 (target=D)
+2026-04-30 20:41:24,916 INFO mini2.node: [D] rid=req-180953859559875-2 range_search matched=1660503 of 3333334 in 3.42 ms
+2026-04-30 20:41:24,916 INFO mini2.node: [D] accepted forwarded query req-180953859559875-2 (target=D)
+2026-04-30 20:41:46,566 INFO mini2.node: [D] rid=req-180975576283750-1 range_search matched=1660503 of 3333334 in 4.17 ms
+2026-04-30 20:41:46,566 INFO mini2.node: [D] accepted forwarded query req-180975576283750-1 (target=D)
+2026-04-30 20:41:46,600 INFO mini2.node: [D] rid=req-180975576298833-3 range_search matched=1660503 of 3333334 in 3.07 ms
+2026-04-30 20:41:46,600 INFO mini2.node: [D] accepted forwarded query req-180975576298833-3 (target=D)
+2026-04-30 20:41:46,603 INFO mini2.node: [D] rid=req-180975576291291-2 range_search matched=1660503 of 3333334 in 3.11 ms
+2026-04-30 20:41:46,603 INFO mini2.node: [D] accepted forwarded query req-180975576291291-2 (target=D)
+2026-04-30 20:41:46,607 INFO mini2.node: [D] rid=req-180975576307041-4 range_search matched=1660503 of 3333334 in 3.97 ms
+2026-04-30 20:41:46,607 INFO mini2.node: [D] accepted forwarded query req-180975576307041-4 (target=D)
+2026-04-30 20:42:08,271 INFO mini2.node: [D] rid=req-180997284107250-1 range_search matched=3331982 of 3333334 in 4.28 ms
+2026-04-30 20:42:08,271 INFO mini2.node: [D] accepted forwarded query req-180997284107250-1 (target=D)
+2026-04-30 20:42:20,890 INFO mini2.node: [D] rid=req-181009905165750-1 range_search matched=3331982 of 3333334 in 4.02 ms
+2026-04-30 20:42:20,891 INFO mini2.node: [D] accepted forwarded query req-181009905165750-1 (target=D)
+2026-04-30 20:42:33,587 INFO mini2.node: [D] rid=req-181022603255791-1 range_search matched=3331982 of 3333334 in 3.58 ms
+2026-04-30 20:42:33,587 INFO mini2.node: [D] accepted forwarded query req-181022603255791-1 (target=D)
+2026-04-30 20:42:46,378 INFO mini2.node: [D] rid=req-181035390832458-2 range_search matched=3331982 of 3333334 in 5.20 ms
+2026-04-30 20:42:46,378 INFO mini2.node: [D] accepted forwarded query req-181035390832458-2 (target=D)
+2026-04-30 20:42:46,383 INFO mini2.node: [D] rid=req-181035390831083-1 range_search matched=3331982 of 3333334 in 4.22 ms
+2026-04-30 20:42:46,383 INFO mini2.node: [D] accepted forwarded query req-181035390831083-1 (target=D)
+2026-04-30 20:43:08,890 INFO mini2.node: [D] rid=req-181057901066583-1 range_search matched=3331982 of 3333334 in 4.41 ms
+2026-04-30 20:43:08,891 INFO mini2.node: [D] accepted forwarded query req-181057901066583-1 (target=D)
+2026-04-30 20:43:08,894 INFO mini2.node: [D] rid=req-181057901087833-2 range_search matched=3331982 of 3333334 in 3.14 ms
+2026-04-30 20:43:08,894 INFO mini2.node: [D] accepted forwarded query req-181057901087833-2 (target=D)
+2026-04-30 20:43:31,260 INFO mini2.node: [D] rid=req-181080271773500-1 range_search matched=3331982 of 3333334 in 4.01 ms
+2026-04-30 20:43:31,260 INFO mini2.node: [D] accepted forwarded query req-181080271773500-1 (target=D)
+2026-04-30 20:43:31,264 INFO mini2.node: [D] rid=req-181080271786416-2 range_search matched=3331982 of 3333334 in 3.40 ms
+2026-04-30 20:43:31,264 INFO mini2.node: [D] accepted forwarded query req-181080271786416-2 (target=D)
+2026-04-30 20:43:54,025 INFO mini2.node: [D] rid=req-181103037291416-1 range_search matched=3331982 of 3333334 in 3.55 ms
+2026-04-30 20:43:54,025 INFO mini2.node: [D] accepted forwarded query req-181103037291416-1 (target=D)
+2026-04-30 20:43:54,061 INFO mini2.node: [D] rid=req-181103037315875-4 range_search matched=3331982 of 3333334 in 3.44 ms
+2026-04-30 20:43:54,061 INFO mini2.node: [D] accepted forwarded query req-181103037315875-4 (target=D)
+2026-04-30 20:43:54,065 INFO mini2.node: [D] rid=req-181103037310708-3 range_search matched=3331982 of 3333334 in 3.30 ms
+2026-04-30 20:43:54,065 INFO mini2.node: [D] accepted forwarded query req-181103037310708-3 (target=D)
+2026-04-30 20:43:54,070 INFO mini2.node: [D] rid=req-181103037308041-2 range_search matched=3331982 of 3333334 in 4.59 ms
+2026-04-30 20:43:54,070 INFO mini2.node: [D] accepted forwarded query req-181103037308041-2 (target=D)
+2026-04-30 20:44:39,429 INFO mini2.node: [D] rid=req-181148433501708-1 range_search matched=3331982 of 3333334 in 9.62 ms
+2026-04-30 20:44:39,430 INFO mini2.node: [D] accepted forwarded query req-181148433501708-1 (target=D)
+2026-04-30 20:44:39,436 INFO mini2.node: [D] rid=req-181148433507250-2 range_search matched=3331982 of 3333334 in 5.83 ms
+2026-04-30 20:44:39,436 INFO mini2.node: [D] accepted forwarded query req-181148433507250-2 (target=D)
+2026-04-30 20:44:39,509 INFO mini2.node: [D] rid=req-181148433519125-3 range_search matched=3331982 of 3333334 in 6.34 ms
+2026-04-30 20:44:39,509 INFO mini2.node: [D] accepted forwarded query req-181148433519125-3 (target=D)
+2026-04-30 20:44:39,514 INFO mini2.node: [D] rid=req-181148433521916-4 range_search matched=3331982 of 3333334 in 4.94 ms
+2026-04-30 20:44:39,514 INFO mini2.node: [D] accepted forwarded query req-181148433521916-4 (target=D)
+2026-04-30 20:45:27,568 INFO mini2.node: [D] rid=req-181196547520000-1 range_search matched=3331982 of 3333334 in 27.12 ms
+2026-04-30 20:45:27,568 INFO mini2.node: [D] accepted forwarded query req-181196547520000-1 (target=D)
+2026-04-30 20:45:27,580 INFO mini2.node: [D] rid=req-181196547534166-3 range_search matched=3331982 of 3333334 in 11.42 ms
+2026-04-30 20:45:27,580 INFO mini2.node: [D] accepted forwarded query req-181196547534166-3 (target=D)
+2026-04-30 20:45:27,602 INFO mini2.node: [D] rid=req-181196547557875-4 range_search matched=3331982 of 3333334 in 11.42 ms
+2026-04-30 20:45:27,602 INFO mini2.node: [D] accepted forwarded query req-181196547557875-4 (target=D)
+2026-04-30 20:45:27,615 INFO mini2.node: [D] rid=req-181196547533416-2 range_search matched=3331982 of 3333334 in 12.17 ms
+2026-04-30 20:45:27,615 INFO mini2.node: [D] accepted forwarded query req-181196547533416-2 (target=D)
+2026-04-30 20:46:15,293 INFO mini2.node: [D] shutting down

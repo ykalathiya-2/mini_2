@@ -1,0 +1,6 @@
+/Users/spartan/mini_2/build/cpp/CMakeFiles/mini2_proto.dir
+/Users/spartan/mini_2/build/cpp/CMakeFiles/mini2_common.dir
+/Users/spartan/mini_2/build/cpp/CMakeFiles/mini2_node.dir
+/Users/spartan/mini_2/build/cpp/CMakeFiles/mini2_client.dir
+/Users/spartan/mini_2/build/cpp/CMakeFiles/edit_cache.dir
+/Users/spartan/mini_2/build/cpp/CMakeFiles/rebuild_cache.dir

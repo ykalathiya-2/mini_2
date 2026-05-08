@@ -1,0 +1,442 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/topo/star.yaml data=/Users/spartan/mini_2/data/partitions
+20:29:19 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+20:29:19 [A] SubmitQuery rid=req-180228400100083-1 preds=1
+20:29:19 [A] forward→D via D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+20:29:20 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:21 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:22 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:23 [A] rid=req-180228400100083-1 done; total=0
+20:29:23 [A] SubmitQuery rid=req-180232551321250-1 preds=1
+20:29:23 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:23 [A] rid=req-180232551321250-1 done; total=16402
+20:29:23 [A] SubmitQuery rid=req-180232700252166-1 preds=1
+20:29:23 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:23 [A] rid=req-180232700252166-1 done; total=16402
+20:29:23 [A] SubmitQuery rid=req-180232833291041-1 preds=1
+20:29:23 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:23 [A] rid=req-180232833291041-1 done; total=16402
+20:29:23 [A] SubmitQuery rid=req-180232970361291-1 preds=1
+20:29:23 [A] SubmitQuery rid=req-180232970376708-2 preds=1
+20:29:23 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:23 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] rid=req-180232970361291-1 done; total=16402
+20:29:24 [A] rid=req-180232970376708-2 done; total=16402
+20:29:24 [A] SubmitQuery rid=req-180233130870000-2 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233130866916-1 preds=1
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] rid=req-180233130870000-2 done; total=16402
+20:29:24 [A] rid=req-180233130866916-1 done; total=16402
+20:29:24 [A] SubmitQuery rid=req-180233292810291-2 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233292807708-1 preds=1
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] rid=req-180233292810291-2 done; total=16402
+20:29:24 [A] rid=req-180233292807708-1 done; total=16402
+20:29:24 [A] SubmitQuery rid=req-180233457306666-1 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233457332500-4 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233457314625-2 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233457323416-3 preds=1
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] rid=req-180233457306666-1 done; total=16402
+20:29:24 [A] rid=req-180233457332500-4 done; total=16402
+20:29:24 [A] rid=req-180233457323416-3 done; total=16402
+20:29:24 [A] rid=req-180233457314625-2 done; total=16402
+20:29:24 [A] SubmitQuery rid=req-180233658884625-1 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233658893416-2 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233658897583-3 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233658909791-4 preds=1
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] rid=req-180233658909791-4 done; total=16402
+20:29:24 [A] rid=req-180233658884625-1 done; total=16402
+20:29:24 [A] rid=req-180233658897583-3 done; total=16402
+20:29:24 [A] rid=req-180233658893416-2 done; total=16402
+20:29:24 [A] SubmitQuery rid=req-180233861303125-3 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233861287500-1 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233861315250-4 preds=1
+20:29:24 [A] SubmitQuery rid=req-180233861296750-2 preds=1
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:24 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:24 [A] rid=req-180233861296750-2 done; total=16402
+20:29:24 [A] rid=req-180233861303125-3 done; total=16402
+20:29:24 [A] rid=req-180233861315250-4 done; total=16402
+20:29:24 [A] rid=req-180233861287500-1 done; total=16402
+20:29:25 [A] SubmitQuery rid=req-180234074163916-1 preds=1
+20:29:25 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:25 [A] rid=req-180234074163916-1 done; total=181742
+20:29:25 [A] SubmitQuery rid=req-180234476946250-1 preds=1
+20:29:25 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:25 [A] rid=req-180234476946250-1 done; total=181742
+20:29:25 [A] SubmitQuery rid=req-180234867437708-1 preds=1
+20:29:25 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:25 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:26 [A] rid=req-180234867437708-1 done; total=181742
+20:29:26 [A] SubmitQuery rid=req-180235270275416-1 preds=1
+20:29:26 [A] SubmitQuery rid=req-180235270279291-2 preds=1
+20:29:26 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:26 [A] rid=req-180235270275416-1 done; total=181742
+20:29:26 [A] rid=req-180235270279291-2 done; total=181742
+20:29:26 [A] SubmitQuery rid=req-180235880198416-1 preds=1
+20:29:26 [A] SubmitQuery rid=req-180235880214000-2 preds=1
+20:29:26 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:26 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:27 [A] rid=req-180235880214000-2 done; total=181742
+20:29:27 [A] rid=req-180235880198416-1 done; total=181742
+20:29:27 [A] SubmitQuery rid=req-180236477010708-1 preds=1
+20:29:27 [A] SubmitQuery rid=req-180236477018708-2 preds=1
+20:29:27 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:27 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:27 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:27 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:27 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:27 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:27 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:27 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:27 [A] rid=req-180236477010708-1 done; total=181742
+20:29:27 [A] rid=req-180236477018708-2 done; total=181742
+20:29:28 [A] SubmitQuery rid=req-180237075607958-2 preds=1
+20:29:28 [A] SubmitQuery rid=req-180237075605458-1 preds=1
+20:29:28 [A] SubmitQuery rid=req-180237075622416-4 preds=1
+20:29:28 [A] SubmitQuery rid=req-180237075613958-3 preds=1
+20:29:28 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:28 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:28 [A] rid=req-180237075605458-1 done; total=181742
+20:29:28 [A] rid=req-180237075613958-3 done; total=181742
+20:29:28 [A] rid=req-180237075622416-4 done; total=181742
+20:29:29 [A] rid=req-180237075607958-2 done; total=181742
+20:29:29 [A] SubmitQuery rid=req-180238132287041-1 preds=1
+20:29:29 [A] SubmitQuery rid=req-180238132298000-2 preds=1
+20:29:29 [A] SubmitQuery rid=req-180238132310791-4 preds=1
+20:29:29 [A] SubmitQuery rid=req-180238132297750-3 preds=1
+20:29:29 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:29 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:30 [A] rid=req-180238132298000-2 done; total=181742
+20:29:30 [A] rid=req-180238132297750-3 done; total=181742
+20:29:30 [A] rid=req-180238132310791-4 done; total=181742
+20:29:30 [A] rid=req-180238132287041-1 done; total=181742
+20:29:30 [A] SubmitQuery rid=req-180239207318666-1 preds=1
+20:29:30 [A] SubmitQuery rid=req-180239207325875-2 preds=1
+20:29:30 [A] SubmitQuery rid=req-180239207340458-4 preds=1
+20:29:30 [A] SubmitQuery rid=req-180239207336541-3 preds=1
+20:29:30 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:30 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:31 [A] rid=req-180239207336541-3 done; total=181742
+20:29:31 [A] rid=req-180239207325875-2 done; total=181742
+20:29:31 [A] rid=req-180239207318666-1 done; total=181742
+20:29:31 [A] rid=req-180239207340458-4 done; total=181742
+20:29:31 [A] SubmitQuery rid=req-180240267077041-1 preds=1
+20:29:31 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:31 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:31 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:31 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:36 [A] rid=req-180240267077041-1 done; total=3321423
+20:29:36 [A] SubmitQuery rid=req-180245514698666-1 preds=1
+20:29:36 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:36 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:36 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:36 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:41 [A] rid=req-180245514698666-1 done; total=3321423
+20:29:41 [A] SubmitQuery rid=req-180250811255916-1 preds=1
+20:29:41 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:41 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:41 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:41 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:47 [A] rid=req-180250811255916-1 done; total=3321423
+20:29:47 [A] SubmitQuery rid=req-180256164313375-2 preds=1
+20:29:47 [A] SubmitQuery rid=req-180256164310875-1 preds=1
+20:29:47 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:47 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:47 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:47 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:47 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:47 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:47 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:47 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:56 [A] rid=req-180256164310875-1 done; total=3321423
+20:29:56 [A] rid=req-180256164313375-2 done; total=3321423
+20:29:56 [A] SubmitQuery rid=req-180265902377916-1 preds=1
+20:29:56 [A] SubmitQuery rid=req-180265902386416-2 preds=1
+20:29:56 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:56 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:56 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:56 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:29:56 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:29:56 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:29:56 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:29:56 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:06 [A] rid=req-180265902377916-1 done; total=3321423
+20:30:06 [A] rid=req-180265902386416-2 done; total=3321423
+20:30:06 [A] SubmitQuery rid=req-180275638447750-1 preds=1
+20:30:06 [A] SubmitQuery rid=req-180275638452875-2 preds=1
+20:30:06 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:06 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:06 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:06 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:06 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:06 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:06 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:06 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:16 [A] rid=req-180275638447750-1 done; total=3321423
+20:30:16 [A] rid=req-180275638452875-2 done; total=3321423
+20:30:16 [A] SubmitQuery rid=req-180285507720791-2 preds=1
+20:30:16 [A] SubmitQuery rid=req-180285507720916-1 preds=1
+20:30:16 [A] SubmitQuery rid=req-180285507731083-3 preds=1
+20:30:16 [A] SubmitQuery rid=req-180285507736416-4 preds=1
+20:30:16 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:16 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:36 [A] rid=req-180285507736416-4 done; total=3321423
+20:30:36 [A] rid=req-180285507720916-1 done; total=3321423
+20:30:37 [A] rid=req-180285507731083-3 done; total=3321423
+20:30:37 [A] rid=req-180285507720791-2 done; total=3321423
+20:30:37 [A] SubmitQuery rid=req-180306204111583-1 preds=1
+20:30:37 [A] SubmitQuery rid=req-180306204119500-2 preds=1
+20:30:37 [A] SubmitQuery rid=req-180306204133958-4 preds=1
+20:30:37 [A] SubmitQuery rid=req-180306204129750-3 preds=1
+20:30:37 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:37 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:58 [A] rid=req-180306204133958-4 done; total=3321423
+20:30:58 [A] rid=req-180306204119500-2 done; total=3321423
+20:30:58 [A] rid=req-180306204111583-1 done; total=3321423
+20:30:58 [A] rid=req-180306204129750-3 done; total=3321423
+20:30:58 [A] SubmitQuery rid=req-180327484360625-1 preds=1
+20:30:58 [A] SubmitQuery rid=req-180327484367625-2 preds=1
+20:30:58 [A] SubmitQuery rid=req-180327484378458-3 preds=1
+20:30:58 [A] SubmitQuery rid=req-180327484382666-4 preds=1
+20:30:58 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:30:58 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:31:19 [A] rid=req-180327484360625-1 done; total=3321423
+20:31:19 [A] rid=req-180327484378458-3 done; total=3321423
+20:31:19 [A] rid=req-180327484367625-2 done; total=3321423
+20:31:19 [A] rid=req-180327484382666-4 done; total=3321423
+20:31:19 [A] SubmitQuery rid=req-180348936255583-1 preds=1
+20:31:19 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:31:19 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:31:19 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:31:19 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:31:32 [A] rid=req-180348936255583-1 done; total=6664031
+20:31:32 [A] SubmitQuery rid=req-180361412057833-1 preds=1
+20:31:32 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:31:32 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:31:32 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:31:32 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:31:44 [A] rid=req-180361412057833-1 done; total=6664031
+20:31:44 [A] SubmitQuery rid=req-180373508885458-1 preds=1
+20:31:44 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:31:44 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:31:44 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:31:44 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:31:56 [A] rid=req-180373508885458-1 done; total=6664031
+20:31:56 [A] SubmitQuery rid=req-180385566370125-1 preds=1
+20:31:56 [A] SubmitQuery rid=req-180385566377125-2 preds=1
+20:31:56 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:31:56 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:31:56 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:31:56 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:31:56 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:31:56 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:31:56 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:31:56 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:32:18 [A] rid=req-180385566377125-2 done; total=6664031
+20:32:18 [A] rid=req-180385566370125-1 done; total=6664031
+20:32:18 [A] SubmitQuery rid=req-180407737640250-2 preds=1
+20:32:18 [A] SubmitQuery rid=req-180407737633666-1 preds=1
+20:32:18 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:32:18 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:32:18 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:32:18 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:32:18 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:32:18 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:32:18 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:32:18 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:32:41 [A] rid=req-180407737633666-1 done; total=6664031
+20:32:42 [A] rid=req-180407737640250-2 done; total=6664031
+20:32:42 [A] SubmitQuery rid=req-180431469012875-1 preds=1
+20:32:42 [A] SubmitQuery rid=req-180431469021250-2 preds=1
+20:32:42 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:32:42 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:32:42 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:32:42 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:32:42 [A] forward→F via F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:32:42 [A] forward→G via G failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50057: Failed to connect to remote host: Connection refused
+20:32:42 [A] forward→H via H failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:32:42 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+20:32:52 [A] PullChunk→D failed: CANCELLED
+20:32:52 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+20:32:52 [A] shutdown requested

@@ -1,0 +1,369 @@
+{
+  "topology": "star",
+  "mode": "local",
+  "overlay": "config/topo/star.yaml",
+  "run_dir": "/Users/spartan/mini_2/logs/run-20260501T033254Z",
+  "started": "2026-05-01T03:33:01Z",
+  "workloads": [
+    {
+      "concurrency": 1,
+      "repeats": 3,
+      "samples": 3,
+      "rows_mean": 8170,
+      "ms": {
+        "min": 11.98,
+        "p50": 12.82,
+        "p95": 116.42,
+        "p99": 116.42,
+        "max": 116.42,
+        "mean": 47.08,
+        "std": 49.04
+      },
+      "first_chunk_ms": {
+        "min": 3.87,
+        "p50": 3.94,
+        "p95": 12.49,
+        "p99": 12.49,
+        "max": 12.49,
+        "mean": 6.76,
+        "std": 4.05
+      },
+      "jains_index": 0.4796,
+      "workload": "narrow",
+      "range": [
+        5.0,
+        5.05
+      ]
+    },
+    {
+      "concurrency": 2,
+      "repeats": 3,
+      "samples": 6,
+      "rows_mean": 8170,
+      "ms": {
+        "min": 16.56,
+        "p50": 17.74,
+        "p95": 18.59,
+        "p99": 18.59,
+        "max": 18.59,
+        "mean": 17.79,
+        "std": 0.65
+      },
+      "first_chunk_ms": {
+        "min": 6.74,
+        "p50": 8.01,
+        "p95": 8.82,
+        "p99": 8.82,
+        "max": 8.82,
+        "mean": 8.01,
+        "std": 0.71
+      },
+      "jains_index": 0.9987,
+      "workload": "narrow",
+      "range": [
+        5.0,
+        5.05
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 3,
+      "samples": 12,
+      "rows_mean": 16402,
+      "ms": {
+        "min": 223.55,
+        "p50": 272.83,
+        "p95": 317.25,
+        "p99": 323.45,
+        "max": 323.45,
+        "mean": 274.35,
+        "std": 32.14
+      },
+      "first_chunk_ms": {
+        "min": 16.68,
+        "p50": 30.6,
+        "p95": 41.01,
+        "p99": 82.73,
+        "max": 82.73,
+        "mean": 31.58,
+        "std": 16.95
+      },
+      "jains_index": 0.9865,
+      "workload": "narrow",
+      "range": [
+        5.0,
+        5.05
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 3,
+      "samples": 3,
+      "rows_mean": 181742,
+      "ms": {
+        "min": 614.12,
+        "p50": 657.45,
+        "p95": 692.21,
+        "p99": 692.21,
+        "max": 692.21,
+        "mean": 654.6,
+        "std": 31.94
+      },
+      "first_chunk_ms": {
+        "min": 7.93,
+        "p50": 8.78,
+        "p95": 13.1,
+        "p99": 13.1,
+        "max": 13.1,
+        "mean": 9.94,
+        "std": 2.26
+      },
+      "jains_index": 0.9976,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 2,
+      "repeats": 3,
+      "samples": 6,
+      "rows_mean": 181742,
+      "ms": {
+        "min": 1133.74,
+        "p50": 1260.29,
+        "p95": 1301,
+        "p99": 1301,
+        "max": 1301,
+        "mean": 1247.24,
+        "std": 52.77
+      },
+      "first_chunk_ms": {
+        "min": 9.71,
+        "p50": 24.1,
+        "p95": 83.82,
+        "p99": 83.82,
+        "max": 83.82,
+        "mean": 36.66,
+        "std": 25.05
+      },
+      "jains_index": 0.9982,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 3,
+      "samples": 12,
+      "rows_mean": 181742,
+      "ms": {
+        "min": 2294.63,
+        "p50": 2470.73,
+        "p95": 2494.01,
+        "p99": 2497.02,
+        "max": 2497.02,
+        "mean": 2454.42,
+        "std": 53.39
+      },
+      "first_chunk_ms": {
+        "min": 19.84,
+        "p50": 36.05,
+        "p95": 44.52,
+        "p99": 92.08,
+        "max": 92.08,
+        "mean": 36.88,
+        "std": 18.93
+      },
+      "jains_index": 0.9995,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 3,
+      "samples": 3,
+      "rows_mean": 3321423,
+      "ms": {
+        "min": 11160.9,
+        "p50": 11290.4,
+        "p95": 11401.8,
+        "p99": 11401.8,
+        "max": 11401.8,
+        "mean": 11284.37,
+        "std": 98.44
+      },
+      "first_chunk_ms": {
+        "min": 15.98,
+        "p50": 41.59,
+        "p95": 51.72,
+        "p99": 51.72,
+        "max": 51.72,
+        "mean": 36.43,
+        "std": 15.04
+      },
+      "jains_index": 0.9999,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    },
+    {
+      "concurrency": 2,
+      "repeats": 3,
+      "samples": 6,
+      "rows_mean": 3321423,
+      "ms": {
+        "min": 11527.8,
+        "p50": 20196,
+        "p95": 22069.5,
+        "p99": 22069.5,
+        "max": 22069.5,
+        "mean": 17937.77,
+        "std": 4560.78
+      },
+      "first_chunk_ms": {
+        "min": 48.02,
+        "p50": 57.99,
+        "p95": 72.81,
+        "p99": 72.81,
+        "max": 72.81,
+        "mean": 62.05,
+        "std": 10.86
+      },
+      "jains_index": 0.9393,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 3,
+      "samples": 12,
+      "rows_mean": 3321423,
+      "ms": {
+        "min": 21581.3,
+        "p50": 22077.3,
+        "p95": 22464.8,
+        "p99": 22479.5,
+        "max": 22479.5,
+        "mean": 22044.88,
+        "std": 307.28
+      },
+      "first_chunk_ms": {
+        "min": 44.09,
+        "p50": 58.99,
+        "p95": 67.75,
+        "p99": 68.26,
+        "max": 68.26,
+        "mean": 57.61,
+        "std": 8.14
+      },
+      "jains_index": 0.9998,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 3,
+      "samples": 3,
+      "rows_mean": 6664031,
+      "ms": {
+        "min": 11919.4,
+        "p50": 12031.8,
+        "p95": 12242.4,
+        "p99": 12242.4,
+        "max": 12242.4,
+        "mean": 12064.53,
+        "std": 133.88
+      },
+      "first_chunk_ms": {
+        "min": 19.32,
+        "p50": 19.77,
+        "p95": 44.98,
+        "p99": 44.98,
+        "max": 44.98,
+        "mean": 28.02,
+        "std": 11.99
+      },
+      "jains_index": 0.9999,
+      "workload": "broad",
+      "range": [
+        0.0,
+        30.0
+      ]
+    },
+    {
+      "concurrency": 2,
+      "repeats": 3,
+      "samples": 6,
+      "rows_mean": 6664031,
+      "ms": {
+        "min": 22137.9,
+        "p50": 22235.7,
+        "p95": 22431.9,
+        "p99": 22431.9,
+        "max": 22431.9,
+        "mean": 22284.77,
+        "std": 114.44
+      },
+      "first_chunk_ms": {
+        "min": 21.84,
+        "p50": 54.73,
+        "p95": 67.32,
+        "p99": 67.32,
+        "max": 67.32,
+        "mean": 50.37,
+        "std": 17.56
+      },
+      "jains_index": 1.0,
+      "workload": "broad",
+      "range": [
+        0.0,
+        30.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 3,
+      "samples": 12,
+      "rows_mean": 6664031,
+      "ms": {
+        "min": 43412.4,
+        "p50": 44517.9,
+        "p95": 46086,
+        "p99": 46122.1,
+        "max": 46122.1,
+        "mean": 44686.73,
+        "std": 1059.36
+      },
+      "first_chunk_ms": {
+        "min": 73.87,
+        "p50": 91.0,
+        "p95": 133.63,
+        "p99": 133.66,
+        "max": 133.66,
+        "mean": 94.13,
+        "std": 18.65
+      },
+      "jains_index": 0.9994,
+      "workload": "broad",
+      "range": [
+        0.0,
+        30.0
+      ]
+    }
+  ]
+}

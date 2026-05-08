@@ -1,0 +1,85 @@
+[
+  {
+    "case": "cancel mid-stream",
+    "ok": true,
+    "ms": 241.2,
+    "detail": {
+      "chunks_before_cancel": 2,
+      "rows": 161
+    },
+    "error": null
+  },
+  {
+    "case": "abandon without cancel",
+    "ok": true,
+    "ms": 531.4,
+    "detail": {
+      "abandoned_chunks": 3,
+      "followup_rows": 3702,
+      "followup_ms": 56.551
+    },
+    "error": null
+  },
+  {
+    "case": "oversized result, bounded chunks",
+    "ok": true,
+    "ms": 605.8,
+    "detail": {
+      "rows": 120000,
+      "chunks": 119,
+      "avg_chunk_rows": 1008.4
+    },
+    "error": null
+  },
+  {
+    "case": "concurrent no starvation (n=3)",
+    "ok": true,
+    "ms": 785.7,
+    "detail": {
+      "jains_index": 0.9999,
+      "times_ms": [
+        585.753,
+        575.917,
+        586.977
+      ]
+    },
+    "error": null
+  },
+  {
+    "case": "unknown request_id \u2192 NOT_FOUND",
+    "ok": true,
+    "ms": 16.6,
+    "detail": {
+      "got": "NOT_FOUND"
+    },
+    "error": null
+  },
+  {
+    "case": "non-gateway rejects client API",
+    "ok": true,
+    "ms": 11.8,
+    "detail": {
+      "got": "FAILED_PRECONDITION"
+    },
+    "error": null
+  },
+  {
+    "case": "empty range \u2192 0 rows",
+    "ok": true,
+    "ms": 374.0,
+    "detail": {
+      "rows": 0,
+      "chunks": 216
+    },
+    "error": null
+  },
+  {
+    "case": "column filter (passenger_count=1)",
+    "ok": true,
+    "ms": 410.4,
+    "detail": {
+      "rows_passenger_1": 84099
+    },
+    "error": null
+  }
+]
