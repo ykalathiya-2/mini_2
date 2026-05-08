@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-604a8049a57e95be8639cdda733d8910 gen/mini2.pb.cc

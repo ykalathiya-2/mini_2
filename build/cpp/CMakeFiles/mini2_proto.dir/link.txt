@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmini2_proto.a CMakeFiles/mini2_proto.dir/gen/mini2.pb.cc.o CMakeFiles/mini2_proto.dir/gen/mini2.grpc.pb.cc.o
-/usr/bin/ranlib libmini2_proto.a
