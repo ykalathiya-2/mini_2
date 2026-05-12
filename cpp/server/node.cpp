@@ -743,7 +743,11 @@ private:
             auto st = get_request(rid);
             if (!st) { continue; }
             if (st->cancelled.load() || st->done_producing.load()) continue;
-            if (part_.empty()) continue;
+            if (part_.empty()) {
+                st->done_producing.store(true);
+                st->prefetch_cv.notify_all();
+                continue;
+            }
 
             // Yield if downstream consumer is behind — no point queuing more.
             {

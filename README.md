@@ -82,19 +82,11 @@ mini_2/
     overlay.yaml         active overlay (multihost tree)
     topo/*.yaml          alternate topologies for the topology sweep
   bench/
-    topo_bench.py        driver: starts cluster, runs workloads, parses telemetry
-    topo_compare.py      post-process bench/results/*.json into a side-by-side table
     edge_cases.py        spec checklist: cancel/abandon/oversize/concurrent/unknown-rid
-    run_full_bench.sh    orchestrates the four sweeps (scheme/topo/chunk/threads)
+    topo_bench.py        legacy cluster-launching harness (depended on scripts/, see below)
+    topo_compare.py      post-process bench/results/*.json into a side-by-side table
     results/             *.json per (topology, scheme, threads, chunk) cell
-  scripts/
-    start_node.sh        single-node launcher (dispatches to C++ or Python)
-    start_all_local.sh   localhost cluster (9 procs on one host)
-    stop_all.sh          tear down a local cluster
-    start_multihost.sh   ssh + launch on Fedora, then launch locally
-    stop_multihost.sh    kill + rsync remote logs back to Mac
-    deploy.sh            rsync source + build C++ on Fedora
-    split_taxi_csv.py    split master CSV into per-owner shards (any scheme)
+  benchmark_results/     latest end-to-end JSON results (see BENCHMARKS.md)
   logs/
     latest -> run-…/     symlinked to most recent run; per-node *.log + telemetry-*.jsonl
 ```
@@ -133,36 +125,127 @@ cmake -S cpp -B build/cpp -DCMAKE_BUILD_TYPE=Release
 cmake --build build/cpp -j
 ```
 
-`scripts/deploy.sh` rsyncs the source tree to Fedora and builds the C++
-side there in one shot.
+For the Fedora side, push the source over with `rsync` and build:
+
+```bash
+rsync -aH --exclude='.venv' --exclude='build' --exclude='logs' \
+      --exclude='data' /Users/spartan/mini_2/ \
+      yash@192.168.50.1:~/mini_2/
+ssh yash@192.168.50.1 \
+  "cd ~/mini_2 && cmake -S cpp -B build/cpp -DCMAKE_BUILD_TYPE=Release && cmake --build build/cpp -j"
+```
 
 ---
 
-## Run
+## Run — manual launch in separate terminals
 
-### Local (single-host, 9 procs on Mac)
+There are no orchestration scripts. Each of the 9 nodes runs as its own
+process; you launch them in separate terminals so each one's log is
+visible live. Then the client talks to the gateway (A) from a tenth
+terminal.
 
-```bash
-./scripts/start_all_local.sh                # logs go to logs/latest/<N>.log
-./build/cpp/mini2_client --column trip_distance --low 5 --high 6
-./scripts/stop_all.sh
-```
-
-Per-node launch (when debugging one):
+**Common env vars** (all node commands below assume these are set):
 
 ```bash
-./scripts/start_node.sh A      # dispatches to C++ or Python by overlay.yaml's impl: field
+export MINI2_OVERLAY=/Users/spartan/mini_2/config/overlay.yaml
+export MINI2_DATA_DIR=/Users/spartan/mini_2/data/partitions
 ```
 
-### Multi-host (Mac + Fedora)
+### Mac side — 5 terminals (A, B, C, D, E)
+
+A, B, C, E are C++; D is Python. Open five terminals on the Mac:
 
 ```bash
-# from Mac
-bash scripts/deploy.sh                       # rsync + build remotely
-bash scripts/start_multihost.sh              # launches F G H I on Fedora, A B C D E locally
-./build/cpp/mini2_client --column trip_distance --low 5 --high 6
-bash scripts/stop_multihost.sh               # pulls remote logs into logs/<run>/
+# Terminal 1 — node A (gateway, C++)
+/Users/spartan/mini_2/build/cpp/mini2_node --name A \
+  --overlay $MINI2_OVERLAY --data-dir $MINI2_DATA_DIR
+
+# Terminal 2 — node B (C++)
+/Users/spartan/mini_2/build/cpp/mini2_node --name B \
+  --overlay $MINI2_OVERLAY --data-dir $MINI2_DATA_DIR
+
+# Terminal 3 — node C (C++)
+/Users/spartan/mini_2/build/cpp/mini2_node --name C \
+  --overlay $MINI2_OVERLAY --data-dir $MINI2_DATA_DIR
+
+# Terminal 4 — node D (Python)
+cd /Users/spartan/mini_2 && source .venv/bin/activate
+python -m py.server.node --name D \
+  --overlay $MINI2_OVERLAY --data-dir $MINI2_DATA_DIR
+
+# Terminal 5 — node E (C++)
+/Users/spartan/mini_2/build/cpp/mini2_node --name E \
+  --overlay $MINI2_OVERLAY --data-dir $MINI2_DATA_DIR
 ```
+
+### Fedora side — 4 SSH sessions (F, G, H, I)
+
+F and H are Python; G and I are C++. Open four SSH sessions to the
+Fedora box and launch one node in each:
+
+```bash
+# Terminal 6 — ssh F (Python)
+ssh yash@192.168.50.1
+cd ~/mini_2 && source .venv/bin/activate
+export MINI2_OVERLAY=~/mini_2/config/overlay.yaml
+export MINI2_DATA_DIR=~/mini_2/data/partitions
+python -m py.server.node --name F \
+  --overlay $MINI2_OVERLAY --data-dir $MINI2_DATA_DIR
+
+# Terminal 7 — ssh G (C++)
+ssh yash@192.168.50.1
+~/mini_2/build/cpp/mini2_node --name G \
+  --overlay ~/mini_2/config/overlay.yaml \
+  --data-dir ~/mini_2/data/partitions
+
+# Terminal 8 — ssh H (Python)
+ssh yash@192.168.50.1
+cd ~/mini_2 && source .venv/bin/activate
+python -m py.server.node --name H \
+  --overlay ~/mini_2/config/overlay.yaml \
+  --data-dir ~/mini_2/data/partitions
+
+# Terminal 9 — ssh I (C++)
+ssh yash@192.168.50.1
+~/mini_2/build/cpp/mini2_node --name I \
+  --overlay ~/mini_2/config/overlay.yaml \
+  --data-dir ~/mini_2/data/partitions
+```
+
+### Client — terminal 10 (on the Mac)
+
+```bash
+# Single predicate
+/Users/spartan/mini_2/build/cpp/mini2_client \
+  --overlay /Users/spartan/mini_2/config/overlay.yaml \
+  --column trip_distance --low 5 --high 6 --print 10
+
+# Joint (multi-predicate AND)
+/Users/spartan/mini_2/build/cpp/mini2_client \
+  --overlay /Users/spartan/mini_2/config/overlay.yaml \
+  --column trip_distance --low 5 --high 6 \
+  --column passenger_count --low 5 --high 10 --print 10
+
+# Concurrent clients
+/Users/spartan/mini_2/build/cpp/mini2_client \
+  --overlay /Users/spartan/mini_2/config/overlay.yaml \
+  --concurrency 8 --column passenger_count --low 5 --high 10
+```
+
+### Tear-down
+
+Just `Ctrl-C` each node terminal. (No PID files, no reaper scripts.)
+
+### Tuning knobs
+
+Set these in any node's terminal before launch:
+
+| Env var | Effect | Default |
+|---|---|---|
+| `MINI2_WORKERS` | gRPC threadpool size | 16 |
+| `MINI2_INITIAL_ROWS` | first chunk size | 64 |
+| `MINI2_MAX_ROWS` | chunk row cap (server clamp) | 4096 |
+| `MINI2_TARGET_CHUNK_MS` | dynamic sizer target | 25 |
 
 Per-node host/port can be overridden with `MINI2_HOST_<N>` /
 `MINI2_PORT_<N>` env vars, so the same `overlay.yaml` works on both
@@ -351,9 +434,9 @@ runtime); per-cell JSON in `bench/results/`.
 - **Per-node telemetry.** Each node writes JSONL events (`ready`,
   `pull_done`, …) to `logs/<run>/telemetry-<N>.jsonl`. The harness merges
   them by `t_ns` for per-impl pull latency and startup attribution.
-- **Centralised logs.** `scripts/stop_multihost.sh` rsyncs Fedora's
-  `logs/<run>/` directory back to the Mac at teardown, so every artefact
-  for a run lives in one place.
+- **Centralised logs.** Each node writes to its own `logs/<run>/<N>.log`;
+  to collect them from Fedora after a run, `rsync -aH
+  yash@192.168.50.1:~/mini_2/logs/<run>/ ~/mini_2/logs/<run>/`.
 
 ### What the metrics mean
 
@@ -539,8 +622,8 @@ After we added `tele.emit("ready", …)` to the Python node, F and H (the
 Fedora-side Python nodes) silently kept writing zero-byte telemetry
 files for two days. D (same code, on the Mac) had telemetry, which threw
 us off. Cause: the Fedora copy hadn't been re-deployed.
-**Fix:** `scripts/deploy.sh` now rsyncs the full source tree, not just
-the C++ side. (`stop_multihost.sh` already syncs logs at teardown.)
+**Fix:** the deploy `rsync` (now manual — see "Build" above) syncs the
+full source tree, not just the C++ side.
 
 ### `pickup_datetime` clustering doesn't work on 70 M rows
 
@@ -556,7 +639,7 @@ predicate dimension.
 We initially defaulted to 8 threads everywhere. Under c=4, this nearly
 doubled latency vs t1. **Diagnosis:** `range_search` on the producer is
 serial under the deque-cap mutex; adding gRPC threads just adds
-context-switch contention. **Fix:** README and `run_full_bench.sh` now
+context-switch contention. **Fix:** the README and overlay defaults now
 recommend t16 for single-client and t2–t8 under concurrency.
 
 ---
@@ -591,36 +674,47 @@ Full multihost end-to-end:
 sudo dnf install -y gcc gcc-c++ cmake grpc-devel protobuf-devel \
                     abseil-cpp-devel openssl-devel python3 python3-pip rsync
 
-# From the Mac
-bash scripts/deploy.sh                   # rsync source + build remote
-ssh yash@192.168.50.1 "cd ~/mini_2 && \
-  python3 scripts/split_taxi_csv.py \
-    --input data/2017_Yellow_Taxi_Trip_Data_20260228.csv \
-    --rows 70000000 \
-    --schemes round_robin,trip_distance,pu_location_id,pickup_datetime,consistent_hash"
-# Then rsync A–E shards back to Mac; F G H I stay on Fedora.
+# From the Mac — push source and build remotely
+rsync -aH --exclude='.venv' --exclude='build' --exclude='logs' \
+      --exclude='data' /Users/spartan/mini_2/ \
+      yash@192.168.50.1:~/mini_2/
+ssh yash@192.168.50.1 \
+  "cd ~/mini_2 && cmake -S cpp -B build/cpp -DCMAKE_BUILD_TYPE=Release && \
+   cmake --build build/cpp -j"
 
-# Run the four sweeps
-bash bench/run_full_bench.sh multihost
+# Generate partitions from the 70M-row source CSV (one-time, on Mac)
+python3 -c "from py.topology.split_taxi_csv import *" # see py/ for splitter
+# (or use the original mini_1 splitter; per-scheme dirs live under data/)
 ```
 
-Single-cell run (the one whose numbers anchor the headline):
+Once partitions exist and binaries are built on both hosts, launch the
+9 nodes manually in separate terminals (see **Run** above). Then run
+the client from a tenth terminal.
+
+For end-to-end benchmarks driven from the client:
 
 ```bash
-.venv/bin/python -m bench.topo_bench \
-    --mode multihost --topos tree --schemes consistent_hash \
-    --threads 16 --chunks 0 \
-    --workloads narrow,small,medium,broad --repeats 1
+# Single-predicate sweep, JSON output
+for col in trip_distance passenger_count fare_amount total_amount; do
+  ./build/cpp/mini2_client --overlay config/overlay.yaml --quiet --json \
+    --column $col --low 0 --high 100
+done
+
+# Concurrency sweep
+for c in 1 4 8 15; do
+  ./build/cpp/mini2_client --overlay config/overlay.yaml --quiet --json \
+    --concurrency $c --column passenger_count --low 5 --high 10
+done
 ```
 
-Per-cell JSON results land in
-`bench/results/<topo>__<scheme>__t<threads>__c<chunk>.json`; the bench
-prints a summary line per workload. Side-by-side comparison across all
-cells:
+The latest run's JSON is in `benchmark_results/`; the prose report is
+[BENCHMARKS.md](BENCHMARKS.md).
 
-```bash
-python bench/topo_compare.py    # writes bench/REPORT.md + bench/plots/*.png
-```
+> ⚠️ `bench/topo_bench.py` is **legacy** — it called `scripts/start_multihost.sh`
+> to spawn the cluster, but the scripts folder has been removed. The
+> harness's analysis helpers (`topo_compare.py`, telemetry parsing) still
+> work against any JSON files you produce with the manual client above.
+> `bench/edge_cases.py` is client-only and still works.
 
 ---
 

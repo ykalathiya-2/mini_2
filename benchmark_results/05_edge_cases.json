@@ -1,0 +1,10 @@
+=== cancel_after=5 (large query) ===
+{"rid":"req-1192456584893625-1","ok":true,"rows":858,"chunks":5,"bytes":76962,"bytes_avg_per_chunk":15392,"bytes_min_per_chunk":5763,"bytes_max_per_chunk":29521,"ms_total":571.653,"ms_first_chunk":557.791,"owners_hit":0,"owners_eligible":0,"err":""}
+=== limit_chunks=5 (abandon) ===
+{"rid":"req-1192457350955125-1","ok":true,"rows":858,"chunks":5,"bytes":76962,"bytes_avg_per_chunk":15392,"bytes_min_per_chunk":5763,"bytes_max_per_chunk":29521,"ms_total":558.278,"ms_first_chunk":555.967,"owners_hit":0,"owners_eligible":0,"err":""}
+=== cancel_after=1 (early cancel) ===
+{"rid":"req-1192458136929000-1","ok":true,"rows":64,"chunks":1,"bytes":5763,"bytes_avg_per_chunk":5763,"bytes_min_per_chunk":5763,"bytes_max_per_chunk":5763,"ms_total":827.164,"ms_first_chunk":790.731,"owners_hit":0,"owners_eligible":0,"err":""}
+=== empty_result ===
+{"rid":"req-1192459179702291-1","ok":true,"rows":0,"chunks":1,"bytes":42,"bytes_avg_per_chunk":42,"bytes_min_per_chunk":0,"bytes_max_per_chunk":0,"ms_total":12.637,"ms_first_chunk":12.6258,"owners_hit":7,"owners_eligible":9,"err":""}
+=== tiny_result ===
+{"rid":"req-1192459407400291-1","ok":true,"rows":0,"chunks":1,"bytes":42,"bytes_avg_per_chunk":42,"bytes_min_per_chunk":0,"bytes_max_per_chunk":0,"ms_total":461.567,"ms_first_chunk":461.555,"owners_hit":7,"owners_eligible":9,"err":""}

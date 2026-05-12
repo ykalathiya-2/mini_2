@@ -67,12 +67,16 @@ int64_t parse_iso_dt(const std::string& s) {
     return static_cast<int64_t>(timegm(&tm));
 }
 
+struct Predicate {
+    std::string column;
+    double low = 0.0, high = 1e9;
+    bool inclusive = true;
+};
+
 struct CliArgs {
     std::string overlay_path;
     std::string gateway_name = "A";
-    std::string column = "trip_distance";
-    double low = 0.0, high = 1e9;
-    bool  inclusive = true;
+    std::vector<Predicate> predicates;
     int   concurrency = 1;
     int   max_rows_hint = 0; // 0 = dynamic
     bool  cancel_after = false;
@@ -90,13 +94,29 @@ CliArgs parse(int argc, char** argv) {
         auto need = [&](const std::string& k){ if (i + 1 >= argc) throw std::runtime_error("need value for " + k); return std::string(argv[++i]); };
         if      (s == "--overlay")      a.overlay_path = need(s);
         else if (s == "--gateway")      a.gateway_name = need(s);
-        else if (s == "--column")       a.column = need(s);
-        else if (s == "--low")          a.low  = std::stod(need(s));
-        else if (s == "--high")         a.high = std::stod(need(s));
-        else if (s == "--low-dt")       a.low  = static_cast<double>(parse_iso_dt(need(s)));
-        else if (s == "--high-dt")      a.high = static_cast<double>(parse_iso_dt(need(s)));
+        else if (s == "--column") {
+            a.predicates.push_back({need(s)});
+        }
+        else if (s == "--low") {
+            if (a.predicates.empty()) a.predicates.push_back({"trip_distance"});
+            a.predicates.back().low = std::stod(need(s));
+        }
+        else if (s == "--high") {
+            if (a.predicates.empty()) a.predicates.push_back({"trip_distance"});
+            a.predicates.back().high = std::stod(need(s));
+        }
+        else if (s == "--low-dt") {
+            if (a.predicates.empty()) a.predicates.push_back({"pickup_datetime"});
+            a.predicates.back().low = static_cast<double>(parse_iso_dt(need(s)));
+        }
+        else if (s == "--high-dt") {
+            if (a.predicates.empty()) a.predicates.push_back({"pickup_datetime"});
+            a.predicates.back().high = static_cast<double>(parse_iso_dt(need(s)));
+        }
         else if (s == "--print")        a.print_rows = std::stoi(need(s));
-        else if (s == "--exclusive")    a.inclusive = false;
+        else if (s == "--exclusive") {
+            if (!a.predicates.empty()) a.predicates.back().inclusive = false;
+        }
         else if (s == "--concurrency")  a.concurrency = std::stoi(need(s));
         else if (s == "--max-rows")     a.max_rows_hint = std::stoi(need(s));
         else if (s == "--cancel-after") { a.cancel_after = true; a.cancel_after_chunks = std::stoi(need(s)); }
@@ -104,15 +124,17 @@ CliArgs parse(int argc, char** argv) {
         else if (s == "--quiet" || s == "-q") a.quiet = true;
         else if (s == "--json")         a.json = true;
         else if (s == "--help" || s == "-h") {
-            std::cout << "mini2_client [--overlay PATH] [--gateway A] [--column C] "
-                         "[--low N] [--high N] [--low-dt 'YYYY-MM-DD HH:MM:SS'] "
-                         "[--high-dt 'YYYY-MM-DD HH:MM:SS'] [--exclusive] "
-                         "[--concurrency N] [--max-rows N] [--cancel-after K] "
-                         "[--limit-chunks K] [--print N] [--quiet] [--json]\n";
+            std::cout << "mini2_client [--overlay PATH] [--gateway A]\n"
+                         "  [--column C --low N --high N [--exclusive]]  (repeatable)\n"
+                         "  [--low-dt 'YYYY-MM-DD HH:MM:SS'] [--high-dt '...']\n"
+                         "  [--concurrency N] [--max-rows N] [--cancel-after K]\n"
+                         "  [--limit-chunks K] [--print N] [--quiet] [--json]\n";
             std::exit(0);
         }
         else { std::cerr << "unknown arg: " << s << "\n"; std::exit(2); }
     }
+    if (a.predicates.empty())
+        a.predicates.push_back({"trip_distance", 0.0, 1e9, true});
     return a;
 }
 
@@ -141,11 +163,13 @@ ReqResult run_one(const CliArgs& a, const mini2::Overlay& ov,
     mini2::Query q;
     q.set_request_id(r.rid);
     q.set_origin("client");
-    auto* p = q.add_predicates();
-    p->set_column(a.column);
-    p->set_low(a.low);
-    p->set_high(a.high);
-    p->set_inclusive(a.inclusive);
+    for (auto& pred : a.predicates) {
+        auto* p = q.add_predicates();
+        p->set_column(pred.column);
+        p->set_low(pred.low);
+        p->set_high(pred.high);
+        p->set_inclusive(pred.inclusive);
+    }
 
     r.start_ns = now_ns();
     mini2::QueryAck ack;
@@ -158,10 +182,12 @@ ReqResult run_one(const CliArgs& a, const mini2::Overlay& ov,
             return r;
         }
     }
-    if (!a.quiet)
-        std::cerr << "[client#" << idx << "] submitted " << r.rid
-                  << "; predicate " << a.column
-                  << " in [" << a.low << "," << a.high << "]\n";
+    if (!a.quiet) {
+        std::cerr << "[client#" << idx << "] submitted " << r.rid << "; predicates:";
+        for (auto& pred : a.predicates)
+            std::cerr << " " << pred.column << " in [" << pred.low << "," << pred.high << "]";
+        std::cerr << "\n";
+    }
 
     // Pull loop.
     while (true) {
@@ -172,7 +198,7 @@ ReqResult run_one(const CliArgs& a, const mini2::Overlay& ov,
 
         mini2::Chunk ch_msg;
         ClientContext ctx;
-        ctx.set_deadline(std::chrono::system_clock::now() + std::chrono::seconds(5));
+        ctx.set_deadline(std::chrono::system_clock::now() + std::chrono::seconds(60));
         Status s = stub.FetchChunk(&ctx, pr, &ch_msg);
         if (!s.ok()) {
             r.err = "FetchChunk: " + s.error_message();
