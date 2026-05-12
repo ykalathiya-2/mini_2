@@ -1,0 +1,9 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+15:52:28 [A] smart routing enabled: scheme=trip_distance
+[A] worker_threads=2
+15:52:28 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+15:52:28 [A] SubmitQuery rid=req-941218339146625-1 preds=1
+15:52:28 [A] smart-route rid=req-941218339146625-1 hit 1/6 owners; skipped: C D F G H 
+15:52:28 [A] forward→I via I failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50059: Failed to connect to remote host: Connection refused
+15:52:28 [A] rid=req-941218339146625-1 done; total=0
+15:52:28 [A] shutdown requested

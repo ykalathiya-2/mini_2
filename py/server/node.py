@@ -18,7 +18,9 @@ Design choices (on purpose, documented so reviewers see the tradeoffs):
 from __future__ import annotations
 
 import argparse
+import array
 import collections
+import csv
 import logging
 import os
 import signal
@@ -31,7 +33,6 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
 import grpc
-import numpy as np
 
 # Allow running directly: py/server/node.py
 _THIS = Path(__file__).resolve()
@@ -48,80 +49,155 @@ log = logging.getLogger("mini2.node")
 
 
 # ---------------------------------------------------------------------------
-# Data access: NumPy columnar partition.
+# Data access: stdlib-only columnar partition (no NumPy / Pandas / etc.).
 #
-# Mirrors the C++ phase-3 PartitionStore: one typed array per column, no
-# per-row allocation. range_search() runs as a single vectorised mask over
-# the columns — the heavy lifting happens in NumPy's C kernels, not the
-# Python interpreter, so 3.3M rows scan in tens of milliseconds.
+# Each column is held in a typed `array.array` from the standard library.
+# This gives us C-backed contiguous storage (~8 bytes per element for the
+# numeric columns) without pulling in third-party packages — the spec asks
+# us to focus on transport + structure, not vectorised math.
+#
+# range_search() is a plain Python interpreter loop, so it's much slower
+# than the NumPy version on the same hardware (~10-30x slower for
+# multi-million-row partitions). That is a known trade-off and is documented
+# in the report.
 # ---------------------------------------------------------------------------
 
-# (column, dtype) in the order they appear on disk. Must match split_taxi_csv.py.
+# (column, array.array typecode) in CSV column order. Typecodes:
+#   'i' = signed int (>=2 bytes; we store as 32-bit IDs)
+#   'q' = signed long long (8 bytes; epoch seconds)
+#   'd' = double (8 bytes)
+#   'B' = unsigned char (1 byte; bool flag stored as 0/1)
 _COL_SPEC = [
-    ("vendor_id",             np.int32),
-    ("pickup_datetime",       np.int64),
-    ("dropoff_datetime",      np.int64),
-    ("passenger_count",       np.int32),
-    ("trip_distance",         np.float64),
-    ("ratecode_id",           np.int32),
-    ("store_and_fwd_flag",    np.uint8),
-    ("pu_location_id",        np.int32),
-    ("do_location_id",        np.int32),
-    ("payment_type",          np.int32),
-    ("fare_amount",           np.float64),
-    ("extra",                 np.float64),
-    ("mta_tax",               np.float64),
-    ("tip_amount",            np.float64),
-    ("tolls_amount",          np.float64),
-    ("improvement_surcharge", np.float64),
-    ("total_amount",          np.float64),
+    ("vendor_id",             "i"),
+    ("pickup_datetime",       "q"),
+    ("dropoff_datetime",      "q"),
+    ("passenger_count",       "i"),
+    ("trip_distance",         "d"),
+    ("ratecode_id",           "i"),
+    ("store_and_fwd_flag",    "B"),
+    ("pu_location_id",        "i"),
+    ("do_location_id",        "i"),
+    ("payment_type",          "i"),
+    ("fare_amount",           "d"),
+    ("extra",                 "d"),
+    ("mta_tax",               "d"),
+    ("tip_amount",            "d"),
+    ("tolls_amount",          "d"),
+    ("improvement_surcharge", "d"),
+    ("total_amount",          "d"),
 ]
-_FLAG_COL_INDEX = next(i for i, (n, _) in enumerate(_COL_SPEC) if n == "store_and_fwd_flag")
-
-
-def _yn_to_int(s) -> int:
-    # np.loadtxt may pass bytes (older numpy) or str (newer); accept both.
-    if isinstance(s, bytes):
-        s = s.decode()
-    return 1 if s and s[0] in ("Y", "y", "1") else 0
 
 
 @dataclass
 class Partition:
-    cols: dict = field(default_factory=dict)   # name -> 1-D np.ndarray
+    cols: dict = field(default_factory=dict)   # name -> array.array
     n: int = 0
+    # Per-column (min,max) summary built once after load. Used as a vnode
+    # pre-filter: predicates whose window falls outside the column's
+    # [min,max] cause range_search to be skipped for this partition.
+    column_ranges: dict = field(default_factory=dict)  # name -> (lo, hi)
 
     @staticmethod
     def load(csv_path: Path) -> "Partition":
-        dtype = np.dtype([(name, dt) for name, dt in _COL_SPEC])
-        # Single C-level pass — much faster than csv.DictReader at 3M+ rows.
-        arr = np.loadtxt(
-            csv_path,
-            delimiter=",",
-            skiprows=1,
-            dtype=dtype,
-            converters={_FLAG_COL_INDEX: _yn_to_int},
-            encoding="utf-8",
-        )
-        # Materialise contiguous per-column arrays so range_search is
-        # cache-friendly (structured-array access strides over all 17 fields).
-        cols = {name: np.ascontiguousarray(arr[name]) for name, _ in _COL_SPEC}
-        return Partition(cols=cols, n=int(arr.shape[0]) if arr.ndim else 1)
+        cols = {name: array.array(tc) for name, tc in _COL_SPEC}
+        col_list = [cols[name] for name, _ in _COL_SPEC]
+        # Bind the appenders once so the hot loop doesn't do attribute
+        # lookups per cell.
+        appenders = [c.append for c in col_list]
+        with open(csv_path, "r", newline="") as f:
+            reader = csv.reader(f)
+            next(reader)  # skip header
+            n = 0
+            for row in reader:
+                # Order matches _COL_SPEC.
+                appenders[0](int(row[0]))           # vendor_id
+                appenders[1](int(row[1]))           # pickup_datetime
+                appenders[2](int(row[2]))           # dropoff_datetime
+                appenders[3](int(row[3]))           # passenger_count
+                appenders[4](float(row[4]))         # trip_distance
+                appenders[5](int(row[5]))           # ratecode_id
+                # store_and_fwd_flag stored as 1 for Y/y/1, else 0.
+                f6 = row[6]
+                appenders[6](1 if f6 and f6[0] in ("Y", "y", "1") else 0)
+                appenders[7](int(row[7]))           # pu_location_id
+                appenders[8](int(row[8]))           # do_location_id
+                appenders[9](int(row[9]))           # payment_type
+                appenders[10](float(row[10]))       # fare_amount
+                appenders[11](float(row[11]))       # extra
+                appenders[12](float(row[12]))       # mta_tax
+                appenders[13](float(row[13]))       # tip_amount
+                appenders[14](float(row[14]))       # tolls_amount
+                appenders[15](float(row[15]))       # improvement_surcharge
+                appenders[16](float(row[16]))       # total_amount
+                n += 1
+        return Partition(cols=cols, n=n)
 
-    def range_search(self, predicates) -> np.ndarray:
-        """Return matched indices (np.int64) for the AND of all predicates."""
+    def compute_column_ranges(self) -> None:
+        """Build the per-column (min,max) table.
+
+        min/max over an array.array uses C-level iteration so the cost is
+        roughly one column-scan per feature — small relative to CSV load.
+        """
+        self.column_ranges = {}
         if self.n == 0:
-            return np.empty(0, dtype=np.int64)
-        mask = np.ones(self.n, dtype=bool)
+            return
+        for name, col in self.cols.items():
+            # min/max on array.array degrades to interpreter loop, but a 9M
+            # int loop in CPython still runs in ~0.5–1.0 s per column.  We
+            # intentionally accept that cost: it's a one-time startup tax.
+            self.column_ranges[name] = (float(min(col)), float(max(col)))
+
+    def predicate_can_match(self, predicates) -> bool:
+        """Vnode pre-filter — see C++ counterpart for semantics."""
+        if not self.column_ranges:
+            return True
+        for p in predicates:
+            rng = self.column_ranges.get(p.column)
+            if rng is None:
+                continue
+            lo, hi = rng
+            if p.high < lo or p.low > hi:
+                return False
+        return True
+
+    def range_search(self, predicates) -> list:
+        """Return list of matched row indices for the AND of all predicates."""
+        if self.n == 0:
+            return []
+        # Resolve predicate columns once.
+        bound = []
         for p in predicates:
             col = self.cols.get(p.column)
             if col is None:
-                return np.empty(0, dtype=np.int64)
-            if p.inclusive:
-                mask &= (col >= p.low) & (col <= p.high)
-            else:
-                mask &= (col > p.low) & (col < p.high)
-        return np.flatnonzero(mask)
+                return []
+            bound.append((col, p.low, p.high, p.inclusive))
+        if not bound:
+            return list(range(self.n))
+
+        # Specialised single-predicate fast path (the common case for our
+        # benchmarks). Avoids re-checking len(bound) per row.
+        if len(bound) == 1:
+            col, low, high, inc = bound[0]
+            if inc:
+                return [i for i, v in enumerate(col) if low <= v <= high]
+            return [i for i, v in enumerate(col) if low < v < high]
+
+        # Multi-predicate AND.
+        out = []
+        n = self.n
+        for i in range(n):
+            ok = True
+            for col, low, high, inc in bound:
+                v = col[i]
+                if inc:
+                    if not (low <= v <= high):
+                        ok = False; break
+                else:
+                    if not (low < v < high):
+                        ok = False; break
+            if ok:
+                out.append(i)
+        return out
 
     def row_to_proto(self, idx: int) -> pb.TaxiRow:
         c = self.cols
@@ -157,8 +233,8 @@ class RequestState:
     matched: collections.deque  # deque of TaxiRow protos already filled
     # Precomputed match indices into the local partition (data-owners only).
     # Set once when the request is registered; the producer iterates this
-    # vector instead of rescanning the partition each tick.
-    matched_indices: Optional[np.ndarray] = None
+    # list instead of rescanning the partition each tick.
+    matched_indices: Optional[list] = None
     matched_cursor: int = 0
     total_matched: int = 0
     last_delivered_seq: int = -1
@@ -210,6 +286,18 @@ class Mini2Node(rpc.ClientGatewayServicer, rpc.PeerLinkServicer):
                 self.partition = Partition.load(csv_path)
                 log.info("[%s] loaded %d partition rows from %s",
                          name, self.partition.n, csv_path)
+                # Build the vnode range table on a background thread so the
+                # gRPC server can start serving immediately. _register
+                # falls through to the full scan until this table is ready
+                # (predicate_can_match returns True on an empty dict).
+                def _build_ranges(part=self.partition, who=name):
+                    t0 = time.perf_counter_ns()
+                    part.compute_column_ranges()
+                    t1 = time.perf_counter_ns()
+                    log.info("[%s] vnode range table: %d cols in %.0f ms",
+                             who, len(part.column_ranges), (t1 - t0) / 1e6)
+                threading.Thread(target=_build_ranges, daemon=True,
+                                 name=f"ranges-{name}").start()
             else:
                 log.warning("[%s] no partition CSV at %s — running with empty data",
                             name, csv_path)
@@ -270,18 +358,27 @@ class Mini2Node(rpc.ClientGatewayServicer, rpc.PeerLinkServicer):
                     created_ns=time.perf_counter_ns(),
                 )
                 # Data owners precompute the match set once via the vectorised
-                # NumPy mask. Gateway nodes have self.partition is None and skip.
+                # Plain-Python predicate scan. Gateway nodes have
+                # self.partition is None and skip.
                 if self.partition is not None and self.partition.n > 0:
-                    t0 = time.perf_counter_ns()
-                    st.matched_indices = self.partition.range_search(query.predicates)
-                    t1 = time.perf_counter_ns()
-                    log.info("[%s] rid=%s range_search matched=%d of %d in %.2f ms",
-                             self.name, req_id,
-                             int(st.matched_indices.size),
-                             self.partition.n,
-                             (t1 - t0) / 1e6)
-                    if st.matched_indices.size == 0:
+                    if not self.partition.predicate_can_match(query.predicates):
+                        # Vnode pre-filter: predicate window doesn't intersect
+                        # this partition's column ranges → guaranteed empty.
+                        st.matched_indices = []
                         st.done_producing = True
+                        log.info("[%s] rid=%s vnode range filter: skipped (out-of-range)",
+                                 self.name, req_id)
+                    else:
+                        t0 = time.perf_counter_ns()
+                        st.matched_indices = self.partition.range_search(query.predicates)
+                        t1 = time.perf_counter_ns()
+                        log.info("[%s] rid=%s range_search matched=%d of %d in %.2f ms",
+                                 self.name, req_id,
+                                 len(st.matched_indices),
+                                 self.partition.n,
+                                 (t1 - t0) / 1e6)
+                        if len(st.matched_indices) == 0:
+                            st.done_producing = True
                 self.requests[req_id] = st
                 with self._rr_lock:
                     self._rr_order.append(req_id)
@@ -552,6 +649,10 @@ class Mini2Node(rpc.ClientGatewayServicer, rpc.PeerLinkServicer):
     # ----- background producer: matches rows into st.matched -------------
 
     def _produce_loop(self):
+        # Cap the matched buffer per request — without this a slow consumer
+        # lets the producer stuff the entire match-set into RAM. We OOM'd
+        # Fedora (15GB) doing this with 11M-row partitions.
+        MAX_BUFFERED = 8192
         while not self._producer_stop.is_set():
             did_work = False
             with self._rr_lock:
@@ -565,23 +666,30 @@ class Mini2Node(rpc.ClientGatewayServicer, rpc.PeerLinkServicer):
                     continue
                 if st.matched_indices is None:
                     continue
+                with st.lock:
+                    if len(st.matched) >= MAX_BUFFERED:
+                        continue  # consumer is behind; skip this tick
                 # Iterate the precomputed match list. Each tick produces up
                 # to weight * 256 rows so concurrent requests share fairly.
                 remaining = min(self.chunk_max, 256 * max(1, st.weight))
                 idxs = st.matched_indices
                 i = st.matched_cursor
-                end = min(idxs.size, i + remaining)
+                end = min(len(idxs), i + remaining)
                 produced_this_tick = 0
                 while i < end:
                     if st.cancelled:
                         break
-                    r = self.partition.row_to_proto(int(idxs[i]))
+                    r = self.partition.row_to_proto(idxs[i])
                     with st.lock:
                         st.matched.append(r)
+                        if len(st.matched) >= MAX_BUFFERED:
+                            i += 1
+                            produced_this_tick += 1
+                            break
                     i += 1
                     produced_this_tick += 1
                 st.matched_cursor = i
-                if i >= idxs.size:
+                if i >= len(idxs):
                     st.done_producing = True
                 did_work |= (produced_this_tick > 0)
             if not did_work:

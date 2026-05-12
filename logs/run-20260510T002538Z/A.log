@@ -1,0 +1,72 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+17:25:45 [A] loaded 8372257 rows from /Users/spartan/mini_2/data/partitions_trip_distance/A.csv
+17:25:45 [A] smart routing enabled: scheme=trip_distance
+[A] worker_threads=4
+17:25:45 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+17:25:49 [A] SubmitQuery rid=req-946819323451458-1 preds=1
+17:25:49 [A] rid=req-946819323451458-1 range_search matched=0 of 8372257 in 1ms
+17:25:49 [A] smart-route rid=req-946819323451458-1 hit 1/9 owners; skipped: A B C D E F G I 
+17:25:50 [A] rid=req-946819323451458-1 done; total=176243
+17:25:50 [A] SubmitQuery rid=req-946820179064375-1 preds=1
+17:25:50 [A] rid=req-946820179064375-1 range_search matched=0 of 8372257 in 1ms
+17:25:50 [A] smart-route rid=req-946820179064375-1 hit 1/9 owners; skipped: A B C D E F G I 
+17:25:57 [A] rid=req-946820179064375-1 done; total=1942731
+17:25:57 [A] SubmitQuery rid=req-946827191638583-1 preds=1
+17:25:57 [A] rid=req-946827191638583-1 range_search matched=0 of 8372257 in 1ms
+17:25:57 [A] smart-route rid=req-946827191638583-1 hit 1/9 owners; skipped: A B C D E F G I 
+17:26:04 [A] rid=req-946827191638583-1 done; total=1942731
+17:26:04 [A] SubmitQuery rid=req-946834188782583-1 preds=1
+17:26:04 [A] SubmitQuery rid=req-946834188793125-2 preds=1
+17:26:04 [A] SubmitQuery rid=req-946834188796958-3 preds=1
+17:26:04 [A] rid=req-946834188782583-1 range_search matched=0 of 8372257 in 1ms
+17:26:04 [A] smart-route rid=req-946834188782583-1 hit 1/9 owners; skipped: A B C D E F G I 
+17:26:04 [A] rid=req-946834188793125-2 range_search matched=0 of 8372257 in 2ms
+17:26:04 [A] smart-route rid=req-946834188793125-2 hit 1/9 owners; skipped: A B C D E F G I 
+17:26:04 [A] rid=req-946834188796958-3 range_search matched=0 of 8372257 in 1ms
+17:26:04 [A] smart-route rid=req-946834188796958-3 hit 1/9 owners; skipped: A B C D E F G I 
+17:26:20 [A] rid=req-946834188782583-1 done; total=1942731
+17:26:21 [A] rid=req-946834188796958-3 done; total=1942731
+17:26:23 [A] rid=req-946834188793125-2 done; total=1942731
+17:26:23 [A] SubmitQuery rid=req-946853513069791-1 preds=1
+17:26:23 [A] SubmitQuery rid=req-946853513081166-3 preds=1
+17:26:23 [A] SubmitQuery rid=req-946853513088000-4 preds=1
+17:26:23 [A] rid=req-946853513069791-1 range_search matched=0 of 8372257 in 2ms
+17:26:23 [A] smart-route rid=req-946853513069791-1 hit 1/9 owners; skipped: A B C D E F G I 
+17:26:23 [A] rid=req-946853513081166-3 range_search matched=0 of 8372257 in 2ms
+17:26:23 [A] smart-route rid=req-946853513081166-3 hit 1/9 owners; skipped: A B C D E F G I 
+17:26:23 [A] rid=req-946853513088000-4 range_search matched=0 of 8372257 in 1ms
+17:26:23 [A] smart-route rid=req-946853513088000-4 hit 1/9 owners; skipped: A B C D E F G I 
+17:26:43 [A] rid=req-946853513069791-1 done; total=1942731
+17:26:43 [A] rid=req-946853513081166-3 done; total=1942731
+17:26:43 [A] rid=req-946853513088000-4 done; total=1942731
+17:26:43 [A] SubmitQuery rid=req-946873347241208-1 preds=1
+17:26:43 [A] rid=req-946873347241208-1 range_search matched=0 of 8372257 in 2ms
+17:26:43 [A] smart-route rid=req-946873347241208-1 hit 5/9 owners; skipped: A B H I 
+17:27:46 [A] rid=req-946873347241208-1 done; total=34764991
+17:27:47 [A] SubmitQuery rid=req-946936961628250-1 preds=1
+17:27:47 [A] rid=req-946936961628250-1 range_search matched=0 of 8372257 in 1ms
+17:27:47 [A] smart-route rid=req-946936961628250-1 hit 5/9 owners; skipped: A B H I 
+17:28:48 [A] rid=req-946936961628250-1 done; total=34764991
+17:28:48 [A] SubmitQuery rid=req-946998532058166-1 preds=1
+17:28:48 [A] SubmitQuery rid=req-946998532074541-2 preds=1
+17:28:48 [A] SubmitQuery rid=req-946998532085833-4 preds=1
+17:28:48 [A] rid=req-946998532058166-1 range_search matched=0 of 8372257 in 2ms
+17:28:48 [A] smart-route rid=req-946998532058166-1 hit 5/9 owners; skipped: A B H I 
+17:28:48 [A] rid=req-946998532074541-2 range_search matched=0 of 8372257 in 11ms
+17:28:48 [A] smart-route rid=req-946998532074541-2 hit 5/9 owners; skipped: A B H I 
+17:28:48 [A] rid=req-946998532085833-4 range_search matched=0 of 8372257 in 3ms
+17:28:48 [A] smart-route rid=req-946998532085833-4 hit 5/9 owners; skipped: A B H I 
+17:30:23 [A] rid=req-946998532058166-1 done; total=34764991
+17:30:24 [A] rid=req-946998532074541-2 done; total=34764991
+17:30:24 [A] SubmitQuery rid=req-947094476265083-2 preds=1
+17:30:24 [A] SubmitQuery rid=req-947094476256083-1 preds=1
+17:30:24 [A] SubmitQuery rid=req-947094476278000-3 preds=1
+17:30:24 [A] rid=req-947094476265083-2 range_search matched=0 of 8372257 in 16ms
+17:30:24 [A] smart-route rid=req-947094476265083-2 hit 5/9 owners; skipped: A B H I 
+17:30:24 [A] rid=req-947094476256083-1 range_search matched=0 of 8372257 in 7ms
+17:30:24 [A] smart-route rid=req-947094476256083-1 hit 5/9 owners; skipped: A B H I 
+17:30:24 [A] rid=req-947094476278000-3 range_search matched=0 of 8372257 in 5ms
+17:30:24 [A] smart-route rid=req-947094476278000-3 hit 5/9 owners; skipped: A B H I 
+17:32:03 [A] rid=req-947094476265083-2 done; total=34764991
+17:32:04 [A] rid=req-947094476256083-1 done; total=34764991
+17:32:04 [A] shutdown requested

@@ -1,0 +1,8 @@
+[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+2026-05-09 16:43:19,699 INFO mini2.node: [D] loaded 7614067 partition rows from /Users/spartan/mini_2/data/partitions_trip_distance/D.csv
+2026-05-09 16:43:19,710 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
+2026-05-09 16:43:38,353 INFO mini2.node: [D] rid=req-944288163355000-1 range_search matched=7614067 of 7614067 in 16.66 ms
+2026-05-09 16:43:38,353 INFO mini2.node: [D] accepted forwarded query req-944288163355000-1 (target=D)
+2026-05-09 16:44:42,614 INFO mini2.node: [D] rid=req-944352427036125-1 range_search matched=7614067 of 7614067 in 15.15 ms
+2026-05-09 16:44:42,616 INFO mini2.node: [D] accepted forwarded query req-944352427036125-1 (target=D)
+2026-05-09 16:45:44,756 INFO mini2.node: [D] shutting down

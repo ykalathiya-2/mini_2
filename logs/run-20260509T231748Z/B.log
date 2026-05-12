@@ -1,0 +1,7 @@
+[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_pickup_datetime
+16:17:58 [B] loaded 18453609 rows from /Users/spartan/mini_2/data/partitions_pickup_datetime/B.csv
+[B] worker_threads=8
+16:17:58 [B] listening on 0.0.0.0:50052 role=peer team=blue
+16:17:59 [B] rid=req-942749396404125-1 range_search matched=0 of 18453609 in 37ms
+16:17:59 [B] accepted forwarded query req-942749396404125-1 (target=B)
+16:18:00 [B] shutdown requested

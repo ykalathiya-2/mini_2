@@ -1,0 +1,5 @@
+[launcher] node=G impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions
+17:18:21 [G] loaded 3333333 rows from /Users/spartan/mini_2/data/partitions/G.csv
+[G] worker_threads=16
+17:18:22 [G] listening on 0.0.0.0:50057 role=peer team=yellow
+17:19:34 [G] shutdown requested

@@ -12,15 +12,15 @@
 # Host mapping — edit per deployment. For localhost dev, everything is 127.0.0.1.
 # Ports are unique per node so 9 processes can coexist on one box.
 nodes:
-  A: { host: 127.0.0.1, port: 50051, team: blue,   role: gateway, impl: cpp    }
-  B: { host: 127.0.0.1, port: 50052, team: blue,   role: peer,    impl: cpp    }
-  C: { host: 127.0.0.1, port: 50053, team: yellow, role: peer,    impl: cpp    }
-  D: { host: 127.0.0.1, port: 50054, team: blue,   role: peer,    impl: python }
-  E: { host: 127.0.0.1, port: 50055, team: yellow, role: peer,    impl: cpp    }
-  F: { host: 127.0.0.1, port: 50056, team: yellow, role: peer,    impl: python }
-  G: { host: 127.0.0.1, port: 50057, team: yellow, role: peer,    impl: cpp    }
-  H: { host: 127.0.0.1, port: 50058, team: blue,   role: peer,    impl: python }
-  I: { host: 127.0.0.1, port: 50059, team: yellow, role: peer,    impl: cpp    }
+  A: { host: 192.168.50.2, port: 50051, team: blue,   role: gateway, impl: cpp    }
+  B: { host: 192.168.50.2, port: 50052, team: blue,   role: peer,    impl: cpp    }
+  C: { host: 192.168.50.2, port: 50053, team: yellow, role: peer,    impl: cpp    }
+  D: { host: 192.168.50.2, port: 50054, team: blue,   role: peer,    impl: python }
+  E: { host: 192.168.50.2, port: 50055, team: yellow, role: peer,    impl: cpp    }
+  F: { host: 192.168.50.1, port: 50056, team: yellow, role: peer,    impl: python }
+  G: { host: 192.168.50.1, port: 50057, team: yellow, role: peer,    impl: cpp    }
+  H: { host: 192.168.50.1, port: 50058, team: blue,   role: peer,    impl: python }
+  I: { host: 192.168.50.1, port: 50059, team: yellow, role: peer,    impl: cpp    }
 
 # Undirected edges — used to seed neighbor tables.
 edges:
@@ -85,10 +85,12 @@ routing:
   H: { A: A, B: A, C: A, D: A, E: A, F: A, G: A, H: H, I: A }
   I: { A: A, B: A, C: A, D: A, E: A, F: A, G: A, H: A, I: I }
 
-# Which nodes own data partitions. Gateway + intermediate do not own data.
-# Team Blue leaves: D, H.  Team Yellow leaves: C, F, G, I.  B, E route only.
-# A owns no data.  For chunked scatter-gather we fan out to owners below.
-data_owners: [C, D, F, G, H, I]
+# Every node owns a partition (9-owner upgrade). Gateway A also produces from
+# its own shard and drains it locally before falling back to peers; intermediate
+# nodes B and E do double duty as router + data producer. The previous 6-owner
+# layout (A,B,E without data) is preserved in older partition_<scheme>/ dirs
+# for reference only.
+data_owners: [A, B, C, D, E, F, G, H, I]
 
 # Chunking defaults — can be overridden via CLI.
 chunking:

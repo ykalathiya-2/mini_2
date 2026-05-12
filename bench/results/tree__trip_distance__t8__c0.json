@@ -1,0 +1,150 @@
+{
+  "topology": "tree",
+  "mode": "multihost",
+  "scheme": "trip_distance",
+  "threads": 8,
+  "chunk_initial": 0,
+  "overlay": "config/topo/tree.yaml",
+  "run_dir": "/Users/spartan/mini_2/logs/run-20260510T030232Z",
+  "started": "2026-05-10T03:02:59Z",
+  "workloads": [
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 176243,
+      "chunks_mean": 54,
+      "bytes_mean": 15115634,
+      "bytes_per_chunk_avg": 279919,
+      "bytes_per_chunk_min": 5310,
+      "bytes_per_chunk_max": 356410,
+      "throughput_rps": 205475,
+      "throughput_mbps": 17.6,
+      "ms": {
+        "min": 856.23,
+        "p50": 856.23,
+        "p95": 859.23,
+        "p99": 859.23,
+        "max": 859.23,
+        "mean": 857.73,
+        "std": 1.5
+      },
+      "first_chunk_ms": {
+        "min": 310.8,
+        "p50": 310.8,
+        "p95": 312.23,
+        "p99": 312.23,
+        "max": 312.23,
+        "mean": 311.52,
+        "std": 0.71
+      },
+      "jains_index": 1.0,
+      "workload": "narrow",
+      "range": [
+        5.0,
+        5.05
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 1942731,
+      "chunks_mean": 485,
+      "bytes_mean": 166664001,
+      "bytes_per_chunk_avg": 343637,
+      "bytes_per_chunk_min": 5745,
+      "bytes_per_chunk_max": 371137,
+      "throughput_rps": 322883,
+      "throughput_mbps": 27.7,
+      "ms": {
+        "min": 5972.5,
+        "p50": 5972.5,
+        "p95": 6061.12,
+        "p99": 6061.12,
+        "max": 6061.12,
+        "mean": 6016.81,
+        "std": 44.31
+      },
+      "first_chunk_ms": {
+        "min": 339.51,
+        "p50": 339.51,
+        "p95": 349.02,
+        "p99": 349.02,
+        "max": 349.02,
+        "mean": 344.27,
+        "std": 4.75
+      },
+      "jains_index": 0.9999,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 34764991,
+      "chunks_mean": 8499.5,
+      "bytes_mean": 2944256010,
+      "bytes_per_chunk_avg": 346403,
+      "bytes_per_chunk_min": 5678,
+      "bytes_per_chunk_max": 371143,
+      "throughput_rps": 629588,
+      "throughput_mbps": 53.3,
+      "ms": {
+        "min": 52726.7,
+        "p50": 52726.7,
+        "p95": 57710.5,
+        "p99": 57710.5,
+        "max": 57710.5,
+        "mean": 55218.6,
+        "std": 2491.9
+      },
+      "first_chunk_ms": {
+        "min": 767.89,
+        "p50": 767.89,
+        "p95": 790.3,
+        "p99": 790.3,
+        "max": 790.3,
+        "mean": 779.09,
+        "std": 11.2
+      },
+      "jains_index": 0.998,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    }
+  ],
+  "node_ram": {
+    "E": {
+      "max_kb": 850672,
+      "mean_kb": 558195,
+      "samples": 235
+    },
+    "D": {
+      "max_kb": 1108640,
+      "mean_kb": 843675,
+      "samples": 235
+    },
+    "C": {
+      "max_kb": 896368,
+      "mean_kb": 558774,
+      "samples": 235
+    },
+    "B": {
+      "max_kb": 799456,
+      "mean_kb": 171678,
+      "samples": 235
+    },
+    "A": {
+      "max_kb": 858416,
+      "mean_kb": 388155,
+      "samples": 235
+    }
+  }
+}

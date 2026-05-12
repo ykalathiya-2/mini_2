@@ -84,6 +84,15 @@ message Chunk {
   int64             backlog    = 6;
   // Wall-clock timestamps (ns) for measurement.
   int64             produced_at_ns = 7;
+  // Vnode-fanout accounting (gateway only, set on is_last=true):
+  //  - vnodes_eligible: owners surviving the manifest-level smart-routing
+  //    filter (i.e. asked to scan).
+  //  - vnodes_hit:      owners that actually returned ≥1 row. Owners
+  //    skipped by the per-partition (min,max) range table count as
+  //    eligible-but-not-hit. The bench uses (hit / eligible) as a
+  //    routing-quality metric.
+  int32             vnodes_eligible = 8;
+  int32             vnodes_hit      = 9;
 }
 
 // Cancel cleanup for a request at every node that knows about it.

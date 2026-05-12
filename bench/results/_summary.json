@@ -1,18 +1,35 @@
 {
-  "mode": "local",
-  "topos": [
+  "mode": "multihost",
+  "started": "2026-05-10T03:41:47Z",
+  "matrix": {
+    "topos": [
+      "tree"
+    ],
+    "schemes": [
+      "trip_distance",
+      "consistent_hash"
+    ],
+    "threads": [
+      16
+    ],
+    "chunks": [
+      0
+    ]
+  },
+  "results": [
     {
-      "name": "star",
-      "path": "/Users/spartan/mini_2/bench/results/star.json"
+      "file": "tree__trip_distance__t16__c0.json",
+      "topology": "tree",
+      "scheme": "trip_distance",
+      "threads": 16,
+      "chunk_initial": 0
     },
     {
-      "name": "tree",
-      "path": "/Users/spartan/mini_2/bench/results/tree.json"
-    },
-    {
-      "name": "chain",
-      "path": "/Users/spartan/mini_2/bench/results/chain.json"
+      "file": "tree__consistent_hash__t16__c0.json",
+      "topology": "tree",
+      "scheme": "consistent_hash",
+      "threads": 16,
+      "chunk_initial": 0
     }
-  ],
-  "started": "2026-05-01T03:32:52Z"
+  ]
 }

@@ -1,0 +1,4 @@
+[launcher] node=E impl=cpp overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+[E] worker_threads=16
+20:15:23 [E] listening on 0.0.0.0:50055 role=peer team=yellow
+20:30:36 [E] shutdown requested

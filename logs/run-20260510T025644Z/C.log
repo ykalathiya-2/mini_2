@@ -1,0 +1,7 @@
+[launcher] node=C impl=cpp overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+19:56:50 [C] loaded 6763252 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/C.csv
+[C] worker_threads=8
+19:56:50 [C] listening on 0.0.0.0:50053 role=peer team=yellow
+19:57:15 [C] rid=req-955904766921375-1 range_search matched=6760555 of 6763252 in 43ms
+19:57:15 [C] accepted forwarded query req-955904766921375-1 (target=C)
+20:00:03 [C] shutdown requested

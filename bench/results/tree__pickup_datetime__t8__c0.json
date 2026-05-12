@@ -1,0 +1,7 @@
+{
+  "topology": "tree",
+  "scheme": "pickup_datetime",
+  "threads": 8,
+  "chunk_initial": 0,
+  "error": "cluster not ready"
+}

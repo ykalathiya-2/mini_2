@@ -1,0 +1,18 @@
+[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+20:41:56 [B] loaded 8034628 rows from /Users/spartan/mini_2/data/partitions_trip_distance/B.csv
+20:41:56 [B] vnode range table: 17 columns in 50ms
+[B] worker_threads=16
+20:41:56 [B] listening on 0.0.0.0:50052 role=peer team=blue
+20:48:56 [B] rid=req-959005411170833-1 range_search matched=8034628 of 8034628 in 250ms
+20:48:56 [B] accepted forwarded query req-959005411170833-1 (target=B)
+20:49:51 [B] rid=req-959061443893791-1 range_search matched=8034628 of 8034628 in 46ms
+20:49:51 [B] accepted forwarded query req-959061443893791-1 (target=B)
+20:50:49 [B] rid=req-959119699326208-1 range_search matched=8034628 of 8034628 in 75ms
+20:50:49 [B] accepted forwarded query req-959119699326208-1 (target=B)
+20:50:49 [B] rid=req-959119699337333-2 range_search matched=8034628 of 8034628 in 21ms
+20:50:49 [B] accepted forwarded query req-959119699337333-2 (target=B)
+20:50:50 [B] rid=req-959119699349666-4 range_search matched=8034628 of 8034628 in 27ms
+20:50:50 [B] accepted forwarded query req-959119699349666-4 (target=B)
+20:50:50 [B] rid=req-959119699338458-3 range_search matched=8034628 of 8034628 in 21ms
+20:50:50 [B] accepted forwarded query req-959119699338458-3 (target=B)
+20:54:08 [B] shutdown requested

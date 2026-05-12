@@ -1,0 +1,19 @@
+[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_round_robin
+20:00:16 [B] loaded 7777778 rows from /Users/spartan/mini_2/data/partitions_round_robin/B.csv
+[B] worker_threads=8
+20:00:16 [B] listening on 0.0.0.0:50052 role=peer team=blue
+20:00:20 [B] rid=req-956090479420916-1 range_search matched=19569 of 7777778 in 4ms
+20:00:20 [B] accepted forwarded query req-956090479420916-1 (target=B)
+20:00:30 [B] rid=req-956100588745083-1 range_search matched=19569 of 7777778 in 11ms
+20:00:30 [B] accepted forwarded query req-956100588745083-1 (target=B)
+20:00:38 [B] rid=req-956107825302666-1 range_search matched=19569 of 7777778 in 4ms
+20:00:38 [B] accepted forwarded query req-956107825302666-1 (target=B)
+20:00:39 [B] rid=req-956109196544583-1 range_search matched=216296 of 7777778 in 5ms
+20:00:39 [B] accepted forwarded query req-956109196544583-1 (target=B)
+20:00:43 [B] rid=req-956112884731250-1 range_search matched=216296 of 7777778 in 4ms
+20:00:43 [B] accepted forwarded query req-956112884731250-1 (target=B)
+20:00:46 [B] rid=req-956116646013666-1 range_search matched=3862474 of 7777778 in 20ms
+20:00:46 [B] accepted forwarded query req-956116646013666-1 (target=B)
+20:01:37 [B] rid=req-956167008133166-1 range_search matched=3862474 of 7777778 in 29ms
+20:01:37 [B] accepted forwarded query req-956167008133166-1 (target=B)
+20:02:28 [B] shutdown requested

@@ -9,7 +9,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 
 REMOTE_HOST=${MINI2_REMOTE_HOST:-192.168.50.1}
-REMOTE_USER=${MINI2_REMOTE_USER:-ykalathiya}
+REMOTE_USER=${MINI2_REMOTE_USER:-yash}
 REMOTE_DIR=${MINI2_REMOTE_DIR:-mini_2}
 SSH_OPTS=${MINI2_SSH_OPTS:-"-o BatchMode=yes -o ConnectTimeout=10"}
 

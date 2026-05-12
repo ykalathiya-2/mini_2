@@ -123,6 +123,11 @@ struct ReqResult {
     int64_t     end_ns = 0;
     int64_t     rows  = 0;
     int         chunks = 0;
+    int64_t     bytes = 0;          // total wire bytes received in chunks
+    int64_t     bytes_min = 0;      // smallest non-empty chunk
+    int64_t     bytes_max = 0;      // largest chunk
+    int         vnodes_hit = 0;     // owners that returned ≥1 row (last chunk)
+    int         vnodes_eligible = 0; // owners post smart-routing (last chunk)
     bool        ok = false;
     std::string err;
 };
@@ -176,6 +181,12 @@ ReqResult run_one(const CliArgs& a, const mini2::Overlay& ov,
         if (r.chunks == 0) r.first_chunk_ns = now_ns();
         r.chunks += 1;
         r.rows   += ch_msg.rows_size();
+        int64_t this_bytes = static_cast<int64_t>(ch_msg.ByteSizeLong());
+        r.bytes  += this_bytes;
+        if (ch_msg.rows_size() > 0) {
+            if (r.bytes_min == 0 || this_bytes < r.bytes_min) r.bytes_min = this_bytes;
+            if (this_bytes > r.bytes_max) r.bytes_max = this_bytes;
+        }
         if (!a.quiet) {
             std::cerr << "[client#" << idx << "] chunk seq=" << ch_msg.seq()
                       << " rows=" << ch_msg.rows_size()
@@ -227,7 +238,11 @@ ReqResult run_one(const CliArgs& a, const mini2::Overlay& ov,
             return r;
         }
 
-        if (ch_msg.is_last()) break;
+        if (ch_msg.is_last()) {
+            r.vnodes_hit      = ch_msg.vnodes_hit();
+            r.vnodes_eligible = ch_msg.vnodes_eligible();
+            break;
+        }
     }
     r.ok = true;
     r.end_ns = now_ns();
@@ -286,12 +301,19 @@ int main(int argc, char** argv) {
         double ms_total = (r.end_ns - r.start_ns) / 1e6;
         double ms_first = (r.first_chunk_ns - r.start_ns) / 1e6;
         if (a.json) {
+            int64_t bytes_avg = r.chunks > 0 ? r.bytes / r.chunks : 0;
             std::cout << "{\"rid\":\"" << r.rid << "\","
                       << "\"ok\":" << (r.ok ? "true" : "false") << ","
                       << "\"rows\":" << r.rows << ","
                       << "\"chunks\":" << r.chunks << ","
+                      << "\"bytes\":" << r.bytes << ","
+                      << "\"bytes_avg_per_chunk\":" << bytes_avg << ","
+                      << "\"bytes_min_per_chunk\":" << r.bytes_min << ","
+                      << "\"bytes_max_per_chunk\":" << r.bytes_max << ","
                       << "\"ms_total\":" << ms_total << ","
                       << "\"ms_first_chunk\":" << ms_first << ","
+                      << "\"vnodes_hit\":" << r.vnodes_hit << ","
+                      << "\"vnodes_eligible\":" << r.vnodes_eligible << ","
                       << "\"err\":\"" << r.err << "\"}\n";
         } else {
             std::cerr << "  " << r.rid

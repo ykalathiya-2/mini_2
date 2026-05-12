@@ -15,10 +15,12 @@
 #include <csignal>
 #include <deque>
 #include <filesystem>
+#include <future>
 #include <iostream>
 #include <memory>
 #include <mutex>
 #include <random>
+#include <set>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -30,6 +32,8 @@
 #include "csv_store.hpp"
 #include "overlay.hpp"
 #include "scheduler.hpp"
+#include "routing.hpp"
+#include "telemetry.hpp"
 
 using grpc::ServerContext;
 using grpc::Status;
@@ -52,14 +56,12 @@ int64_t now_ns() {
         std::chrono::steady_clock::now().time_since_epoch()).count();
 }
 
-// Per-request state.  Data-owners produce into `matched`; gateways aggregate
-// into `client_buffer`.  Locks guard only the deques — production and pulling
-// contend on them but nothing else.
+// Per-request state.  Data-owners produce into `matched`; the gateway streams
+// one owner at a time directly to the client — no aggregate buffer at A.
 struct RequestState {
     std::string request_id;
     ::mini2::Query query;
-    std::deque<::mini2::TaxiRow> matched;     // producer-side buffer
-    std::deque<::mini2::TaxiRow> client_buffer; // gateway aggregate buffer
+    std::deque<::mini2::TaxiRow> matched;     // producer-side buffer (owners only)
     // Indices of rows in the local partition that match the query — computed
     // once via PartitionStore::range_search when the request is registered,
     // so the producer iterates a precomputed dense list instead of rescanning.
@@ -75,6 +77,13 @@ struct RequestState {
     int64_t     created_ns = 0;
     // Gateway: which peers are finished producing?
     std::unordered_map<std::string, bool> client_producers_done;
+    // Gateway: per-owner row counts (populated as PullChunk responses
+    // arrive, including the local self-as-owner drain). Used to emit
+    // vnodes_hit on the last chunk.
+    std::unordered_map<std::string, int64_t> client_per_owner_rows;
+    // Eligible owner count after smart routing — captured at SubmitQuery
+    // time, used for the vnodes_hit/vnodes_eligible ratio.
+    int         eligible_owners = 0;
     std::mutex  mu;
 };
 
@@ -97,6 +106,7 @@ public:
                  overlay_.chunking.target_chunk_ms),
           sched_(overlay_.scheduler.mode),
           stop_producer_(false) {
+        Telemetry::instance().init(name_);
         // Load partition if this node owns data.
         for (auto& o : overlay_.data_owners) {
             if (o == name_) {
@@ -109,6 +119,28 @@ public:
                     log_line(name_, "no partition file at " + path);
                 }
             }
+        }
+        // Build the two startup tables concurrently:
+        //   1. vnode range table  (per-column min/max in our partition)
+        //   2. hash mapping table (consistent_hash routing metadata from
+        //      manifest.json — also reused for trip_distance / pu / month
+        //      smart-routing).
+        // They're independent — overlap them so the node is queryable as
+        // soon as the slower of the two finishes, instead of summing both.
+        auto range_future = std::async(std::launch::async, [this]() {
+            if (part_.empty()) return;
+            int64_t t0 = now_ns();
+            part_.compute_column_ranges();
+            int64_t t1 = now_ns();
+            log_line(name_, "vnode range table: "
+                     + std::to_string(part_.column_ranges.size())
+                     + " columns in "
+                     + std::to_string((t1 - t0) / 1'000'000) + "ms");
+        });
+        meta_ = load_owner_metadata(data_dir_);
+        range_future.wait();
+        if (!meta_.empty() && me_.role == "gateway") {
+            log_line(name_, "smart routing enabled: scheme=" + meta_.scheme);
         }
         producer_thread_ = std::thread([this]{ this->produce_loop(); });
     }
@@ -134,15 +166,47 @@ public:
         log_line(name_, "SubmitQuery rid=" + rid
                  + " preds=" + std::to_string(req->predicates_size()));
         auto st = register_request(rid, *req, /*weight=*/1);
-        for (auto& o : overlay_.data_owners) {
-            if (o == name_) continue;
-            std::lock_guard<std::mutex> lk(st->mu);
-            st->client_producers_done[o] = false;
+
+        // Smart routing: if the manifest carries clustering metadata, drop
+        // owners whose shard cannot match this query's predicates.
+        std::vector<std::string> elig =
+            eligible_owners(overlay_.data_owners, *req, meta_);
+        std::set<std::string> elig_set(elig.begin(), elig.end());
+        Telemetry::Event("submit_query")
+            .f("rid", rid)
+            .f("scheme", meta_.scheme.empty() ? std::string("none") : meta_.scheme)
+            .f("eligible", (int)elig.size())
+            .f("total_owners", (int)overlay_.data_owners.size())
+            .emit();
+        if (elig.size() < overlay_.data_owners.size()) {
+            std::string skipped;
+            for (auto& o : overlay_.data_owners)
+                if (!elig_set.count(o)) skipped += o + " ";
+            log_line(name_, "smart-route rid=" + rid + " hit "
+                     + std::to_string(elig.size()) + "/"
+                     + std::to_string(overlay_.data_owners.size())
+                     + " owners; skipped: " + skipped);
         }
 
-        // Fan out ForwardedQuery per owner, with explicit target_owner so
-        // intermediates relay along the correct path.
-        for (auto& owner : overlay_.data_owners) {
+        // Mark every owner (including self if it owns data); ineligible owners
+        // start as already-done so FetchChunk skips them. Eligible self is
+        // also tracked so FetchChunk knows to drain the local matched buffer.
+        {
+            std::lock_guard<std::mutex> lk(st->mu);
+            for (auto& o : overlay_.data_owners) {
+                st->client_producers_done[o] = !elig_set.count(o);
+            }
+            st->eligible_owners = static_cast<int>(elig.size());
+        }
+
+        // Fan out ForwardedQuery per eligible REMOTE owner. Self-as-owner
+        // doesn't need a forward — register_request already kicked off the
+        // producer thread for our local partition.
+        //
+        // Retry up to 3 attempts with 250 ms backoff for transient errors
+        // (UNAVAILABLE / DEADLINE_EXCEEDED) — common during cluster warmup
+        // when Fedora nodes are still loading their CSVs.
+        for (auto& owner : elig) {
             if (owner == name_) continue;
             auto hop = overlay_.next_hop(name_, owner);
             ForwardedQuery fq;
@@ -151,14 +215,30 @@ public:
             fq.set_reply_to(name_);
             fq.set_target_owner(owner);
             fq.set_ttl(8);
-            QueryAck ack;
-            grpc::ClientContext ctx;
-            ctx.set_deadline(std::chrono::system_clock::now()
-                             + std::chrono::seconds(5));
-            auto s = peer_stub(hop)->ForwardQuery(&ctx, fq, &ack);
-            if (!s.ok()) {
+            grpc::Status last_status;
+            bool delivered = false;
+            // Up to ~10s of warmup tolerance: Python data nodes loading
+            // multi-million-row CSVs in plain Python (no numpy) can take
+            // 10-15s after process start. Without these retries the gateway
+            // would dead-mark the owner and lose its rows.
+            for (int attempt = 0; attempt < 20 && !delivered; ++attempt) {
+                if (attempt > 0)
+                    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                QueryAck ack;
+                grpc::ClientContext ctx;
+                ctx.set_deadline(std::chrono::system_clock::now()
+                                 + std::chrono::seconds(5));
+                last_status = peer_stub(hop)->ForwardQuery(&ctx, fq, &ack);
+                if (last_status.ok()) { delivered = true; break; }
+                auto code = last_status.error_code();
+                if (code != grpc::StatusCode::UNAVAILABLE
+                    && code != grpc::StatusCode::DEADLINE_EXCEEDED) {
+                    break;  // non-transient — give up
+                }
+            }
+            if (!delivered) {
                 log_line(name_, "forward→" + owner + " via " + hop
-                         + " failed: " + s.error_message());
+                         + " failed after retries: " + last_status.error_message());
                 std::lock_guard<std::mutex> lk(st->mu);
                 st->client_producers_done[owner] = true;
             }
@@ -179,85 +259,112 @@ public:
         if (!st) return {StatusCode::NOT_FOUND,
                          "unknown request_id " + req->request_id()};
 
-        int max_rows = sizer_.decide(req->request_id(), req->max_rows());
+        const std::string rid = req->request_id();
+        int max_rows = sizer_.decide(rid, req->max_rows());
+        int64_t seq  = ++st->client_last_seq;
 
-        // Gather from owners (round-robin) until we have max_rows or time out.
-        auto deadline = std::chrono::steady_clock::now()
-                         + std::chrono::milliseconds(200);
-        auto owners = overlay_.data_owners;
-        std::shuffle(owners.begin(), owners.end(), rng_);
-        for (auto& owner : owners) {
-            if (st->cancelled.load()) break;
+        // Pick the first owner that still has data to stream.
+        // Remote producers have been running since SubmitQuery, so we pull
+        // from them one at a time and forward their rows directly — no
+        // buffering at A.
+        std::string target;
+        {
+            std::lock_guard<std::mutex> lk(st->mu);
+            for (auto& o : overlay_.data_owners)
+                if (!st->client_producers_done[o]) { target = o; break; }
+        }
+
+        // Helper: check if all owners are done (called after marking target).
+        auto all_done = [&]() {
+            std::lock_guard<std::mutex> lk(st->mu);
+            for (auto& o : overlay_.data_owners)
+                if (!st->client_producers_done[o]) return false;
+            return true;
+        };
+
+        resp->set_request_id(rid);
+        resp->set_seq(seq);
+        resp->set_produced_at_ns(now_ns());
+        resp->set_producer(name_);
+
+        if (target.empty()) {
+            // All owners already done — terminal empty chunk.
+            resp->set_is_last(true);
+        } else if (target == name_) {
+            // Self-as-owner: drain from local matched deque, no RPC.
+            int produced = 0;
+            bool self_done = false;
             {
                 std::lock_guard<std::mutex> lk(st->mu);
-                if ((int)st->client_buffer.size() >= max_rows) break;
+                while (!st->matched.empty() && produced < max_rows) {
+                    *resp->add_rows() = std::move(st->matched.front());
+                    st->matched.pop_front();
+                    ++produced;
+                }
+                self_done = st->done_producing.load() && st->matched.empty();
+                if (self_done) st->client_producers_done[name_] = true;
+                st->client_per_owner_rows[name_] += produced;
+                st->total_matched += produced;
             }
-            if (st->client_producers_done[owner]) continue;
-            if (std::chrono::steady_clock::now() > deadline) break;
-
-            auto hop = overlay_.next_hop(name_, owner);
+            resp->set_is_last(self_done && all_done());
+        } else {
+            // Peer: single PullChunk RPC — forward rows directly, no copy into
+            // a local buffer. A's memory footprint stays bounded to one chunk.
+            auto hop = overlay_.next_hop(name_, target);
             PullRequest sub;
-            sub.set_request_id(req->request_id());
+            sub.set_request_id(rid);
             sub.set_max_rows(max_rows);
             sub.set_last_seq(-1);
-            sub.set_target_owner(owner);
-            Chunk piece;
+            sub.set_target_owner(target);
             grpc::ClientContext ctx;
             ctx.set_deadline(std::chrono::system_clock::now()
-                             + std::chrono::seconds(2));
-            auto s = peer_stub(hop)->PullChunk(&ctx, sub, &piece);
+                             + std::chrono::seconds(15));
+            Chunk peer;
+            auto s = peer_stub(hop)->PullChunk(&ctx, sub, &peer);
             if (!s.ok()) {
-                log_line(name_, "PullChunk→" + owner + " failed: "
+                log_line(name_, "PullChunk→" + target + " failed: "
                          + s.error_message());
-                std::lock_guard<std::mutex> lk(st->mu);
-                st->client_producers_done[owner] = true;
-                continue;
+                if (s.error_code() != grpc::StatusCode::DEADLINE_EXCEEDED) {
+                    std::lock_guard<std::mutex> lk(st->mu);
+                    st->client_producers_done[target] = true;
+                }
+                resp->set_is_last(false);
+            } else {
+                {
+                    std::lock_guard<std::mutex> lk(st->mu);
+                    st->total_matched += peer.rows_size();
+                    st->client_per_owner_rows[target] += peer.rows_size();
+                    if (peer.is_last()) st->client_producers_done[target] = true;
+                }
+                // Move rows from peer chunk directly into response.
+                for (auto& r : *peer.mutable_rows())
+                    *resp->add_rows() = std::move(r);
+                resp->set_backlog(peer.backlog());
+                resp->set_is_last(peer.is_last() && all_done());
             }
+        }
+
+        if (resp->is_last()) {
+            int hit = 0, eligible = 0;
             {
                 std::lock_guard<std::mutex> lk(st->mu);
-                for (auto& r : piece.rows())
-                    st->client_buffer.push_back(r);
-                st->total_matched += piece.rows_size();
-                if (piece.is_last()) st->client_producers_done[owner] = true;
+                for (auto& kv : st->client_per_owner_rows)
+                    if (kv.second > 0) ++hit;
+                eligible = st->eligible_owners;
             }
-        }
-
-        // Emit up to max_rows from the aggregate buffer.
-        int64_t seq = ++st->client_last_seq;
-        std::vector<TaxiRow> out;
-        {
-            std::lock_guard<std::mutex> lk(st->mu);
-            while (!st->client_buffer.empty() && (int)out.size() < max_rows) {
-                out.push_back(std::move(st->client_buffer.front()));
-                st->client_buffer.pop_front();
-            }
-        }
-        bool all_done = true;
-        for (auto& o : overlay_.data_owners) {
-            if (o == name_) continue;
-            if (!st->client_producers_done[o]) { all_done = false; break; }
-        }
-        bool is_last;
-        {
-            std::lock_guard<std::mutex> lk(st->mu);
-            is_last = all_done && st->client_buffer.empty() && out.empty();
-        }
-
-        resp->set_request_id(req->request_id());
-        resp->set_seq(seq);
-        resp->set_is_last(is_last);
-        for (auto& r : out) *resp->add_rows() = std::move(r);
-        resp->set_producer(name_);
-        {
-            std::lock_guard<std::mutex> lk(st->mu);
-            resp->set_backlog(st->client_buffer.size());
-        }
-        resp->set_produced_at_ns(now_ns());
-
-        if (is_last) {
-            log_line(name_, "rid=" + req->request_id() + " done; total="
-                     + std::to_string(st->total_matched));
-            drop_request(req->request_id());
+            resp->set_vnodes_hit(hit);
+            resp->set_vnodes_eligible(eligible);
+            log_line(name_, "rid=" + rid + " done; total="
+                     + std::to_string(st->total_matched)
+                     + " vnodes_hit=" + std::to_string(hit)
+                     + "/" + std::to_string(eligible));
+            Telemetry::Event("request_done")
+                .f("rid", rid)
+                .f("rows", static_cast<int>(st->total_matched))
+                .f("vnodes_hit", hit)
+                .f("vnodes_eligible", eligible)
+                .emit();
+            drop_request(rid);
         }
         return Status::OK;
     }
@@ -274,8 +381,7 @@ public:
         int dropped = 0;
         {
             std::lock_guard<std::mutex> lk(st->mu);
-            dropped += st->client_buffer.size() + st->matched.size();
-            st->client_buffer.clear();
+            dropped += st->matched.size();
             st->matched.clear();
         }
         if (me_.role == "gateway") {
@@ -443,15 +549,26 @@ private:
         // vector, so per-row predicate evaluation never happens in steady
         // state.  Gateways have an empty partition and skip this.
         if (!part_.empty()) {
-            int64_t t0 = now_ns();
-            st->matched_indices = part_.range_search(q);
-            int64_t t1 = now_ns();
-            log_line(name_, "rid=" + rid
-                     + " range_search matched=" + std::to_string(st->matched_indices.size())
-                     + " of " + std::to_string(part_.size())
-                     + " in " + std::to_string((t1 - t0) / 1'000'000) + "ms");
-            if (st->matched_indices.empty()) {
+            // Vnode pre-filter: if the query's window doesn't intersect this
+            // partition's per-column (min,max) box, skip the full scan
+            // entirely. Discarded queries return is_last=true on the first
+            // PullChunk so the gateway sees the owner as "done, 0 rows".
+            if (!part_.predicate_can_match(q)) {
                 st->done_producing.store(true);
+                log_line(name_, "rid=" + rid
+                         + " vnode range filter: skipped (out-of-range)");
+                Telemetry::Event("vnode_range_skip").f("rid", rid).emit();
+            } else {
+                int64_t t0 = now_ns();
+                st->matched_indices = part_.range_search(q);
+                int64_t t1 = now_ns();
+                log_line(name_, "rid=" + rid
+                         + " range_search matched=" + std::to_string(st->matched_indices.size())
+                         + " of " + std::to_string(part_.size())
+                         + " in " + std::to_string((t1 - t0) / 1'000'000) + "ms");
+                if (st->matched_indices.empty()) {
+                    st->done_producing.store(true);
+                }
             }
         }
         requests_[rid] = st;
@@ -490,7 +607,15 @@ private:
     }
 
     // Background producer: runs matching work for each active request.
+    //
+    // Back-pressure: the matched deque is bounded at kMaxBuffered. When the
+    // buffer is full the producer yields so the deque can drain via
+    // PullChunk. Without this, on a slow consumer (LAN latency, busy peer)
+    // the producer freight-trains the entire matched index list into RAM
+    // and OOMs the host — we hit this with 11M-row partitions on a 15 GB
+    // Fedora box.
     void produce_loop() {
+        constexpr std::size_t kMaxBuffered = 8192;
         while (!stop_producer_.load()) {
             bool did_work = false;
             std::string rid = sched_.next();
@@ -502,6 +627,15 @@ private:
             if (!st) { continue; }
             if (st->cancelled.load() || st->done_producing.load()) continue;
             if (part_.empty()) continue;
+
+            // Yield if downstream consumer is behind — no point queuing more.
+            {
+                std::lock_guard<std::mutex> lk(st->mu);
+                if (st->matched.size() >= kMaxBuffered) {
+                    // Will get rescheduled; the next round will check again.
+                    continue;
+                }
+            }
 
             const auto& rows = part_;
             const auto& idxs = st->matched_indices;
@@ -516,6 +650,7 @@ private:
                 {
                     std::lock_guard<std::mutex> lk(st->mu);
                     st->matched.push_back(std::move(r));
+                    if (st->matched.size() >= kMaxBuffered) { ++i; break; }
                 }
                 ++produced;
             }
@@ -541,6 +676,8 @@ private:
 
     std::mutex req_mu_;
     std::unordered_map<std::string, std::shared_ptr<RequestState>> requests_;
+
+    OwnerMetadata meta_;
 
     std::mt19937 rng_{0xC0FFEE};
     std::atomic<bool> stop_producer_;
@@ -610,6 +747,17 @@ int main(int argc, char** argv) {
     builder.RegisterService(static_cast<mini2::PeerLink::Service*>(&service));
     builder.SetMaxReceiveMessageSize(64 * 1024 * 1024);
     builder.SetMaxSendMessageSize(64 * 1024 * 1024);
+
+    // Cap server thread pool. The sync gRPC server pulls threads from the
+    // ResourceQuota; we let --workers (or $MINI2_WORKERS) drive this so the
+    // bench can sweep thread counts.
+    if (const char* w = std::getenv("MINI2_WORKERS")) {
+        int v = std::atoi(w); if (v > 0) workers = v;
+    }
+    grpc::ResourceQuota rq("mini2_workers");
+    rq.SetMaxThreads(std::max(2, workers));
+    builder.SetResourceQuota(rq);
+    std::cerr << "[" << name << "] worker_threads=" << workers << "\n";
 
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
     if (!server) {

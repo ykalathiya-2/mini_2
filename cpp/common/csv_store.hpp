@@ -7,7 +7,9 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <map>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "mini2.pb.h"
@@ -35,6 +37,13 @@ struct PartitionStore {
     std::vector<double>  total_amount;
     std::vector<uint8_t> valid;                  // 1 if parse succeeded
 
+    // Per-column (min, max) summary. Built once at startup by
+    // compute_column_ranges(). Used as a vnode-level pre-filter: if a
+    // query's predicate window doesn't intersect the column's [min, max],
+    // this partition can't produce any matches and is skipped without
+    // running the full range_search.
+    std::map<std::string, std::pair<double, double>> column_ranges;
+
     std::size_t size() const { return valid.size(); }
     bool empty() const { return valid.empty(); }
     void resize(std::size_t n);
@@ -49,6 +58,18 @@ struct PartitionStore {
     // Pre-resolves column pointers once so the inner loop has no string
     // comparisons. Uses OpenMP across rows.
     std::vector<std::size_t> range_search(const ::mini2::Query& q) const;
+
+    // Computes (min, max) for every numeric column. OpenMP-parallel over
+    // rows with a per-column reduction. Cheap relative to CSV load
+    // (~1 column-scan vs. the full row parse) and runs once at startup.
+    void compute_column_ranges();
+
+    // Vnode-level pre-filter: returns false if any predicate's window
+    // [low, high] lies entirely outside this partition's column range,
+    // which means range_search would return zero rows. Returns true if
+    // no info is available (column_ranges empty / unknown column) so
+    // callers fall through to the full scan.
+    bool predicate_can_match(const ::mini2::Query& q) const;
 };
 
 // mmap + two-pass OpenMP parallel CSV loader.

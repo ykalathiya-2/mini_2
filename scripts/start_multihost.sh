@@ -23,7 +23,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 
 REMOTE_HOST=${MINI2_REMOTE_HOST:-192.168.50.1}
-REMOTE_USER=${MINI2_REMOTE_USER:-ykalathiya}
+REMOTE_USER=${MINI2_REMOTE_USER:-yash}
 REMOTE_DIR=${MINI2_REMOTE_DIR:-mini_2}
 SSH_OPTS=${MINI2_SSH_OPTS:-"-o BatchMode=yes -o ConnectTimeout=10"}
 
@@ -92,8 +92,23 @@ LOCAL_PIDS="$LOCAL_RUN_DIR/pids.txt"
 REMOTE_PIDS_FILE="${REMOTE_RUN_DIR}/pids.txt"
 ssh $SSH_OPTS "${REMOTE_USER}@${REMOTE_HOST}" "rm -f ~/${REMOTE_DIR}/${REMOTE_PIDS_FILE}; touch ~/${REMOTE_DIR}/${REMOTE_PIDS_FILE}"
 
+# Allow MINI2_DATA_DIR / MINI2_WORKERS / chunk env vars to flow through to
+# both local and remote nodes. If MINI2_DATA_DIR is an absolute path under
+# this repo (e.g. /Users/.../data/partitions_trip_distance), translate it
+# relative to the remote repo root for the remote nodes.
+DATA_DIR_LOCAL="${MINI2_DATA_DIR:-$ROOT/data/partitions}"
+DATA_DIR_REL="${DATA_DIR_LOCAL#$ROOT/}"
+DATA_DIR_REMOTE="\$PWD/${DATA_DIR_REL}"
+EXTRA_ENV=""
+for v in MINI2_WORKERS MINI2_INITIAL_ROWS MINI2_MAX_ROWS MINI2_TARGET_CHUNK_MS; do
+  if [[ -n "${!v:-}" ]]; then
+    EXTRA_ENV+=" export $v=\"${!v}\";"
+  fi
+done
+
 # --- Remote launches: leaves first --------------------------------------
 echo "[start_multihost] launching ${REMOTE_NODES[*]} on ${REMOTE_USER}@${REMOTE_HOST}"
+echo "[start_multihost] data_dir = $DATA_DIR_LOCAL  (remote: $DATA_DIR_REMOTE)"
 REMOTE_NODES_ORDER=(I H G F)
 for n in "${REMOTE_NODES_ORDER[@]}"; do
   ssh $SSH_OPTS "${REMOTE_USER}@${REMOTE_HOST}" "bash -c '
@@ -101,7 +116,8 @@ for n in "${REMOTE_NODES_ORDER[@]}"; do
     cd ~/${REMOTE_DIR}
     export MINI2_OVERLAY=\"\$PWD/${OVERLAY_PATH}\"
     export MINI2_RUN_DIR=\"\$PWD/${REMOTE_RUN_DIR}\"
-    export MINI2_DATA_DIR=\"\$PWD/data/partitions\"
+    export MINI2_DATA_DIR=\"${DATA_DIR_REMOTE}\"
+    ${EXTRA_ENV}
     nohup ./scripts/start_node.sh ${n} > \"\$MINI2_RUN_DIR/${n}.log\" 2>&1 &
     echo \"${n} \$!\" >> \"\$MINI2_RUN_DIR/pids.txt\"
     disown || true
@@ -112,7 +128,7 @@ done
 # --- Local launches -----------------------------------------------------
 export MINI2_OVERLAY="$ROOT/$OVERLAY_PATH"
 export MINI2_RUN_DIR="$LOCAL_RUN_DIR"
-export MINI2_DATA_DIR="$ROOT/data/partitions"
+export MINI2_DATA_DIR="$DATA_DIR_LOCAL"
 
 LOCAL_ORDER=(E D C B A)
 for n in "${LOCAL_ORDER[@]}"; do

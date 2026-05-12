@@ -1,0 +1,187 @@
+{
+  "topology": "tree",
+  "mode": "multihost",
+  "scheme": "trip_distance",
+  "threads": 4,
+  "chunk_initial": 0,
+  "overlay": "config/topo/tree.yaml",
+  "run_dir": "/Users/spartan/mini_2/logs/run-20260510T002538Z",
+  "started": "2026-05-10T00:25:50Z",
+  "workloads": [
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 1942731,
+      "chunks_mean": 492.5,
+      "bytes_mean": 166664286,
+      "bytes_per_chunk_avg": 338421,
+      "bytes_per_chunk_min": 8703,
+      "bytes_per_chunk_max": 371459,
+      "throughput_rps": 281992,
+      "throughput_mbps": 24.2,
+      "ms": {
+        "min": 6887.38,
+        "p50": 6887.38,
+        "p95": 6891.24,
+        "p99": 6891.24,
+        "max": 6891.24,
+        "mean": 6889.31,
+        "std": 1.93
+      },
+      "first_chunk_ms": {
+        "min": 23.87,
+        "p50": 23.87,
+        "p95": 24.18,
+        "p99": 24.18,
+        "max": 24.18,
+        "mean": 24.03,
+        "std": 0.15
+      },
+      "jains_index": 1.0,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 2,
+      "samples": 6,
+      "rows_mean": 1942731,
+      "chunks_mean": 705.2,
+      "bytes_mean": 166672367,
+      "bytes_per_chunk_avg": 238285,
+      "bytes_per_chunk_min": 2869,
+      "bytes_per_chunk_max": 371113,
+      "throughput_rps": 104653,
+      "throughput_mbps": 9.0,
+      "ms": {
+        "min": 15665.5,
+        "p50": 19198.7,
+        "p95": 19705.4,
+        "p99": 19705.4,
+        "max": 19705.4,
+        "mean": 18563.42,
+        "std": 1484.58
+      },
+      "first_chunk_ms": {
+        "min": 54.89,
+        "p50": 55.86,
+        "p95": 93.94,
+        "p99": 93.94,
+        "max": 93.94,
+        "mean": 66.74,
+        "std": 15.81
+      },
+      "jains_index": 0.9936,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 34764991,
+      "chunks_mean": 8497,
+      "bytes_mean": 2944251280,
+      "bytes_per_chunk_avg": 346504,
+      "bytes_per_chunk_min": 5748,
+      "bytes_per_chunk_max": 371231,
+      "throughput_rps": 556802,
+      "throughput_mbps": 47.2,
+      "ms": {
+        "min": 61408.8,
+        "p50": 61408.8,
+        "p95": 63465,
+        "p99": 63465,
+        "max": 63465,
+        "mean": 62436.9,
+        "std": 1028.1
+      },
+      "first_chunk_ms": {
+        "min": 139.59,
+        "p50": 139.59,
+        "p95": 154.12,
+        "p99": 154.12,
+        "max": 154.12,
+        "mean": 146.86,
+        "std": 7.27
+      },
+      "jains_index": 0.9997,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 2,
+      "samples": 4,
+      "rows_mean": 34764991,
+      "chunks_mean": 8579.5,
+      "bytes_mean": 2944267263,
+      "bytes_per_chunk_avg": 343177,
+      "bytes_per_chunk_min": 5722,
+      "bytes_per_chunk_max": 371312,
+      "throughput_rps": 356875,
+      "throughput_mbps": 30.2,
+      "ms": {
+        "min": 95082.2,
+        "p50": 99332.8,
+        "p95": 99497.1,
+        "p99": 99497.1,
+        "max": 99497.1,
+        "mean": 97414.8,
+        "std": 2014.75
+      },
+      "first_chunk_ms": {
+        "min": 141.03,
+        "p50": 265.87,
+        "p95": 320.08,
+        "p99": 320.08,
+        "max": 320.08,
+        "mean": 230.51,
+        "std": 68.07
+      },
+      "jains_index": 0.9996,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    }
+  ],
+  "node_ram": {
+    "E": {
+      "max_kb": 1018288,
+      "mean_kb": 692526,
+      "samples": 696
+    },
+    "D": {
+      "max_kb": 1617760,
+      "mean_kb": 787524,
+      "samples": 696
+    },
+    "C": {
+      "max_kb": 951136,
+      "mean_kb": 668289,
+      "samples": 696
+    },
+    "B": {
+      "max_kb": 849696,
+      "mean_kb": 138090,
+      "samples": 696
+    },
+    "A": {
+      "max_kb": 710128,
+      "mean_kb": 231237,
+      "samples": 696
+    }
+  }
+}

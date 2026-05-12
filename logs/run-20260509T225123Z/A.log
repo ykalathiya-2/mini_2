@@ -1,0 +1,8 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+15:51:28 [A] smart routing enabled: scheme=trip_distance
+[A] worker_threads=8
+15:51:28 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+15:51:28 [A] SubmitQuery rid=req-941158169419958-1 preds=1
+15:51:28 [A] smart-route rid=req-941158169419958-1 hit 1/6 owners; skipped: C D F G H 
+15:51:28 [A] rid=req-941158169419958-1 done; total=0
+15:51:28 [A] shutdown requested

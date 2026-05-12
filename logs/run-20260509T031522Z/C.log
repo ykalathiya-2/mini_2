@@ -1,0 +1,39 @@
+[launcher] node=C impl=cpp overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+20:15:25 [C] loaded 13218805 rows from /Users/spartan/mini_2/data/partitions_trip_distance/C.csv
+[C] worker_threads=16
+20:15:25 [C] listening on 0.0.0.0:50053 role=peer team=yellow
+20:20:57 [C] rid=req-870927136050000-1 range_search matched=13218805 of 13218805 in 83ms
+20:20:57 [C] accepted forwarded query req-870927136050000-1 (target=C)
+20:21:42 [C] rid=req-870972231306125-1 range_search matched=13218805 of 13218805 in 77ms
+20:21:42 [C] accepted forwarded query req-870972231306125-1 (target=C)
+20:22:26 [C] rid=req-871015732116666-1 range_search matched=13218805 of 13218805 in 80ms
+20:22:26 [C] accepted forwarded query req-871015732116666-1 (target=C)
+20:23:10 [C] rid=req-871060369068625-1 range_search matched=13218805 of 13218805 in 66ms
+20:23:10 [C] accepted forwarded query req-871060369068625-1 (target=C)
+20:23:10 [C] rid=req-871060369074875-2 range_search matched=13218805 of 13218805 in 31ms
+20:23:10 [C] accepted forwarded query req-871060369074875-2 (target=C)
+20:24:30 [C] rid=req-871140633490125-2 range_search matched=13218805 of 13218805 in 85ms
+20:24:30 [C] accepted forwarded query req-871140633490125-2 (target=C)
+20:24:31 [C] rid=req-871140633484291-1 range_search matched=13218805 of 13218805 in 71ms
+20:24:31 [C] accepted forwarded query req-871140633484291-1 (target=C)
+20:25:52 [C] rid=req-871222508462541-2 range_search matched=13218805 of 13218805 in 86ms
+20:25:52 [C] accepted forwarded query req-871222508462541-2 (target=C)
+20:25:52 [C] rid=req-871222508456125-1 range_search matched=13218805 of 13218805 in 69ms
+20:25:52 [C] accepted forwarded query req-871222508456125-1 (target=C)
+20:27:14 [C] rid=req-871303888624500-1 range_search matched=13218805 of 13218805 in 97ms
+20:27:14 [C] accepted forwarded query req-871303888624500-1 (target=C)
+20:27:14 [C] rid=req-871303888651208-4 range_search matched=13218805 of 13218805 in 62ms
+20:27:14 [C] accepted forwarded query req-871303888651208-4 (target=C)
+20:27:14 [C] rid=req-871303888643000-3 range_search matched=13218805 of 13218805 in 32ms
+20:27:14 [C] accepted forwarded query req-871303888643000-3 (target=C)
+20:27:14 [C] rid=req-871303888638375-2 range_search matched=13218805 of 13218805 in 39ms
+20:27:14 [C] accepted forwarded query req-871303888638375-2 (target=C)
+20:30:27 [C] rid=req-871496575291375-4 range_search matched=13218805 of 13218805 in 723ms
+20:30:27 [C] accepted forwarded query req-871496575291375-4 (target=C)
+20:30:28 [C] rid=req-871496575267291-1 range_search matched=13218805 of 13218805 in 922ms
+20:30:28 [C] accepted forwarded query req-871496575267291-1 (target=C)
+20:30:28 [C] rid=req-871496575282083-2 range_search matched=13218805 of 13218805 in 291ms
+20:30:28 [C] accepted forwarded query req-871496575282083-2 (target=C)
+20:30:29 [C] rid=req-871496575289333-3 range_search matched=13218805 of 13218805 in 242ms
+20:30:29 [C] accepted forwarded query req-871496575289333-3 (target=C)
+20:30:36 [C] shutdown requested

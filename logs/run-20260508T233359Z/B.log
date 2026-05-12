@@ -1,0 +1,3 @@
+[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions
+16:34:03 [B] listening on 0.0.0.0:50052 role=peer team=blue
+16:40:00 [B] shutdown requested

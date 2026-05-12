@@ -1,0 +1,323 @@
+{
+  "topology": "tree",
+  "mode": "multihost",
+  "scheme": "consistent_hash",
+  "threads": 16,
+  "chunk_initial": 0,
+  "overlay": "config/topo/tree.yaml",
+  "run_dir": "/Users/spartan/mini_2/logs/run-20260510T035412Z",
+  "started": "2026-05-10T03:54:33Z",
+  "workloads": [
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 176243,
+      "chunks_mean": 54,
+      "bytes_mean": 15115720,
+      "bytes_per_chunk_avg": 279920,
+      "bytes_per_chunk_min": 5332,
+      "bytes_per_chunk_max": 354686,
+      "throughput_rps": 40822,
+      "throughput_mbps": 3.5,
+      "ms": {
+        "min": 546.52,
+        "p50": 546.52,
+        "p95": 8088.03,
+        "p99": 8088.03,
+        "max": 8088.03,
+        "mean": 4317.27,
+        "std": 3770.76
+      },
+      "first_chunk_ms": {
+        "min": 442.7,
+        "p50": 442.7,
+        "p95": 7983.25,
+        "p99": 7983.25,
+        "max": 7983.25,
+        "mean": 4212.98,
+        "std": 3770.27
+      },
+      "jains_index": 0.5673,
+      "vnodes_hit_mean": 5,
+      "vnodes_eligible_mean": 6,
+      "workload": "narrow",
+      "range": [
+        5.0,
+        5.05
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 2,
+      "samples": 8,
+      "rows_mean": 176243,
+      "chunks_mean": 191.9,
+      "bytes_mean": 15120904,
+      "bytes_per_chunk_avg": 81764,
+      "bytes_per_chunk_min": 1301,
+      "bytes_per_chunk_max": 353273,
+      "throughput_rps": 96211,
+      "throughput_mbps": 8.3,
+      "ms": {
+        "min": 1787.22,
+        "p50": 1840.9,
+        "p95": 1849.52,
+        "p99": 1849.52,
+        "max": 1849.52,
+        "mean": 1831.83,
+        "std": 19.1
+      },
+      "first_chunk_ms": {
+        "min": 1520.46,
+        "p50": 1536.55,
+        "p95": 1582.88,
+        "p99": 1582.88,
+        "max": 1582.88,
+        "mean": 1536.4,
+        "std": 19.09
+      },
+      "jains_index": 0.9999,
+      "vnodes_hit_mean": 5,
+      "vnodes_eligible_mean": 6,
+      "workload": "narrow",
+      "range": [
+        5.0,
+        5.05
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 1639811,
+      "chunks_mean": 417.5,
+      "bytes_mean": 140671685,
+      "bytes_per_chunk_avg": 336938,
+      "bytes_per_chunk_min": 4218,
+      "bytes_per_chunk_max": 360320,
+      "throughput_rps": 767768,
+      "throughput_mbps": 65.9,
+      "ms": {
+        "min": 2110.48,
+        "p50": 2110.48,
+        "p95": 2161.15,
+        "p99": 2161.15,
+        "max": 2161.15,
+        "mean": 2135.82,
+        "std": 25.34
+      },
+      "first_chunk_ms": {
+        "min": 621.58,
+        "p50": 621.58,
+        "p95": 658.24,
+        "p99": 658.24,
+        "max": 658.24,
+        "mean": 639.91,
+        "std": 18.33
+      },
+      "jains_index": 0.9999,
+      "vnodes_hit_mean": 8,
+      "vnodes_eligible_mean": 9,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 2,
+      "samples": 8,
+      "rows_mean": 1639811,
+      "chunks_mean": 502.8,
+      "bytes_mean": 140675260,
+      "bytes_per_chunk_avg": 280148,
+      "bytes_per_chunk_min": 1434,
+      "bytes_per_chunk_max": 361117,
+      "throughput_rps": 260820,
+      "throughput_mbps": 22.4,
+      "ms": {
+        "min": 5861.37,
+        "p50": 6313.7,
+        "p95": 6538.09,
+        "p99": 6538.09,
+        "max": 6538.09,
+        "mean": 6287.11,
+        "std": 208.0
+      },
+      "first_chunk_ms": {
+        "min": 1072.61,
+        "p50": 1895.26,
+        "p95": 1994.57,
+        "p99": 1994.57,
+        "max": 1994.57,
+        "mean": 1703.62,
+        "std": 357.24
+      },
+      "jains_index": 0.9989,
+      "vnodes_hit_mean": 8,
+      "vnodes_eligible_mean": 9,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 34764991,
+      "chunks_mean": 8645.5,
+      "bytes_mean": 2944287690,
+      "bytes_per_chunk_avg": 340561,
+      "bytes_per_chunk_min": 2886,
+      "bytes_per_chunk_max": 370007,
+      "throughput_rps": 1104804,
+      "throughput_mbps": 93.6,
+      "ms": {
+        "min": 30993.9,
+        "p50": 30993.9,
+        "p95": 31940.3,
+        "p99": 31940.3,
+        "max": 31940.3,
+        "mean": 31467.1,
+        "std": 473.2
+      },
+      "first_chunk_ms": {
+        "min": 1420.2,
+        "p50": 1420.2,
+        "p95": 1463.52,
+        "p99": 1463.52,
+        "max": 1463.52,
+        "mean": 1441.86,
+        "std": 21.66
+      },
+      "jains_index": 0.9998,
+      "vnodes_hit_mean": 9,
+      "vnodes_eligible_mean": 9,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 2,
+      "samples": 8,
+      "rows_mean": 34154171,
+      "chunks_mean": 10961.6,
+      "bytes_mean": 2892620176,
+      "bytes_per_chunk_avg": 269473,
+      "bytes_per_chunk_min": 113,
+      "bytes_per_chunk_max": 369959,
+      "throughput_rps": 323004,
+      "throughput_mbps": 27.4,
+      "ms": {
+        "min": 80034.7,
+        "p50": 112948,
+        "p95": 115417,
+        "p99": 115417,
+        "max": 115417,
+        "mean": 105738.96,
+        "std": 11109.65
+      },
+      "first_chunk_ms": {
+        "min": 2638.38,
+        "p50": 3008.46,
+        "p95": 3680.79,
+        "p99": 3680.79,
+        "max": 3680.79,
+        "mean": 3070.44,
+        "std": 446.96
+      },
+      "jains_index": 0.9891,
+      "vnodes_hit_mean": 9,
+      "vnodes_eligible_mean": 9,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 69973589,
+      "chunks_mean": 17530.5,
+      "bytes_mean": 5939009923,
+      "bytes_per_chunk_avg": 338783,
+      "bytes_per_chunk_min": 2878,
+      "bytes_per_chunk_max": 370922,
+      "throughput_rps": 966324,
+      "throughput_mbps": 82.0,
+      "ms": {
+        "min": 71694.2,
+        "p50": 71694.2,
+        "p95": 73130,
+        "p99": 73130,
+        "max": 73130,
+        "mean": 72412.1,
+        "std": 717.9
+      },
+      "first_chunk_ms": {
+        "min": 1674.38,
+        "p50": 1674.38,
+        "p95": 1817.02,
+        "p99": 1817.02,
+        "max": 1817.02,
+        "mean": 1745.7,
+        "std": 71.32
+      },
+      "jains_index": 0.9999,
+      "vnodes_hit_mean": 9,
+      "vnodes_eligible_mean": 9,
+      "workload": "broad",
+      "range": [
+        0.0,
+        30.0
+      ]
+    },
+    {
+      "concurrency": 4,
+      "repeats": 2,
+      "samples": 0,
+      "error": "no successful runs",
+      "workload": "broad",
+      "range": [
+        0.0,
+        30.0
+      ]
+    }
+  ],
+  "node_ram": {
+    "E": {
+      "max_kb": 1041536,
+      "mean_kb": 426110,
+      "samples": 1173
+    },
+    "D": {
+      "max_kb": 2007808,
+      "mean_kb": 1145061,
+      "samples": 1173
+    },
+    "C": {
+      "max_kb": 791456,
+      "mean_kb": 331992,
+      "samples": 1173
+    },
+    "B": {
+      "max_kb": 1245424,
+      "mean_kb": 433533,
+      "samples": 1173
+    },
+    "A": {
+      "max_kb": 8379456,
+      "mean_kb": 3037524,
+      "samples": 1171
+    }
+  }
+}

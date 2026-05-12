@@ -4,6 +4,7 @@
 #include <charconv>
 #include <cmath>
 #include <cstring>
+#include <limits>
 #include <fcntl.h>
 #include <stdexcept>
 #include <string_view>
@@ -184,6 +185,74 @@ std::vector<std::size_t> PartitionStore::range_search(const ::mini2::Query& q) c
         result.insert(result.end(), v.begin(), v.end());
     }
     return result;
+}
+
+// ---------------------------------------------------------------------------
+// Vnode range-table construction + predicate pre-filter.
+// ---------------------------------------------------------------------------
+
+namespace {
+
+template <typename T>
+std::pair<double, double> minmax_col(const std::vector<T>& col,
+                                     const std::vector<uint8_t>& valid) {
+    const std::size_t n = col.size();
+    double lo =  std::numeric_limits<double>::infinity();
+    double hi = -std::numeric_limits<double>::infinity();
+    #pragma omp parallel for reduction(min:lo) reduction(max:hi) schedule(static)
+    for (std::size_t i = 0; i < n; ++i) {
+        if (!valid[i]) continue;
+        double v = static_cast<double>(col[i]);
+        if (v < lo) lo = v;
+        if (v > hi) hi = v;
+    }
+    return {lo, hi};
+}
+
+} // anonymous
+
+void PartitionStore::compute_column_ranges() {
+    if (valid.empty()) return;
+
+    const auto& V = valid;
+    column_ranges["vendor_id"]              = minmax_col(vendor_id, V);
+    column_ranges["pickup_datetime"]        = minmax_col(pickup_datetime, V);
+    column_ranges["dropoff_datetime"]       = minmax_col(dropoff_datetime, V);
+    column_ranges["passenger_count"]        = minmax_col(passenger_count, V);
+    column_ranges["trip_distance"]          = minmax_col(trip_distance, V);
+    column_ranges["ratecode_id"]            = minmax_col(ratecode_id, V);
+    column_ranges["pu_location_id"]         = minmax_col(pu_location_id, V);
+    column_ranges["do_location_id"]         = minmax_col(do_location_id, V);
+    column_ranges["store_and_fwd_flag"]     = minmax_col(store_and_fwd_flag, V);
+    column_ranges["payment_type"]           = minmax_col(payment_type, V);
+    column_ranges["fare_amount"]            = minmax_col(fare_amount, V);
+    column_ranges["extra"]                  = minmax_col(extra, V);
+    column_ranges["mta_tax"]                = minmax_col(mta_tax, V);
+    column_ranges["tip_amount"]             = minmax_col(tip_amount, V);
+    column_ranges["tolls_amount"]           = minmax_col(tolls_amount, V);
+    column_ranges["improvement_surcharge"]  = minmax_col(improvement_surcharge, V);
+    column_ranges["total_amount"]           = minmax_col(total_amount, V);
+
+    // Drop columns where every row was invalid (lo stayed +inf).
+    for (auto it = column_ranges.begin(); it != column_ranges.end(); ) {
+        if (it->second.first > it->second.second) it = column_ranges.erase(it);
+        else ++it;
+    }
+}
+
+bool PartitionStore::predicate_can_match(const ::mini2::Query& q) const {
+    if (column_ranges.empty()) return true;
+    for (const auto& p : q.predicates()) {
+        auto it = column_ranges.find(p.column());
+        if (it == column_ranges.end()) continue;
+        double lo = it->second.first;
+        double hi = it->second.second;
+        // [lo, hi] must intersect the predicate window. If the predicate is
+        // strictly below the partition's min or strictly above its max, no
+        // row in this partition can satisfy it.
+        if (p.high() < lo || p.low() > hi) return false;
+    }
+    return true;
 }
 
 // ---------------------------------------------------------------------------

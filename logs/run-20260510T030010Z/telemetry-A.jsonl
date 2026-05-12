@@ -1,0 +1,7 @@
+{"t_ns":956090484196000,"wall_ns":1778382020689001000,"node":"A","event":"submit_query","rid":"req-956090479420916-1","scheme":"round_robin","eligible":9,"total_owners":9}
+{"t_ns":956100592730583,"wall_ns":1778382030797583000,"node":"A","event":"submit_query","rid":"req-956100588745083-1","scheme":"round_robin","eligible":9,"total_owners":9}
+{"t_ns":956107831339541,"wall_ns":1778382038036225000,"node":"A","event":"submit_query","rid":"req-956107825302666-1","scheme":"round_robin","eligible":9,"total_owners":9}
+{"t_ns":956109200303958,"wall_ns":1778382039405196000,"node":"A","event":"submit_query","rid":"req-956109196544583-1","scheme":"round_robin","eligible":9,"total_owners":9}
+{"t_ns":956112888617416,"wall_ns":1778382043093527000,"node":"A","event":"submit_query","rid":"req-956112884731250-1","scheme":"round_robin","eligible":9,"total_owners":9}
+{"t_ns":956116677265458,"wall_ns":1778382046882192000,"node":"A","event":"submit_query","rid":"req-956116646013666-1","scheme":"round_robin","eligible":9,"total_owners":9}
+{"t_ns":956167036755750,"wall_ns":1778382097241917000,"node":"A","event":"submit_query","rid":"req-956167008133166-1","scheme":"round_robin","eligible":9,"total_owners":9}

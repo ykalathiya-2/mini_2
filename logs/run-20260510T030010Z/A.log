@@ -1,0 +1,31 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_round_robin
+20:00:16 [A] loaded 7777778 rows from /Users/spartan/mini_2/data/partitions_round_robin/A.csv
+[A] worker_threads=8
+20:00:16 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+20:00:20 [A] SubmitQuery rid=req-956090479420916-1 preds=1
+20:00:20 [A] rid=req-956090479420916-1 range_search matched=19512 of 7777778 in 4ms
+20:00:30 [A] forward→H via H failed after retries: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+20:00:30 [A] PullChunk→F failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50056: Failed to connect to remote host: Connection refused
+20:00:30 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+20:00:30 [A] rid=req-956090479420916-1 done; total=117174
+20:00:30 [A] SubmitQuery rid=req-956100588745083-1 preds=1
+20:00:30 [A] rid=req-956100588745083-1 range_search matched=19512 of 7777778 in 3ms
+20:00:37 [A] PullChunk→F failed: no local data for req-956100588745083-1
+20:00:37 [A] PullChunk→D failed: no local data for req-956100588745083-1
+20:00:37 [A] rid=req-956100588745083-1 done; total=136867
+20:00:38 [A] SubmitQuery rid=req-956107825302666-1 preds=1
+20:00:38 [A] rid=req-956107825302666-1 range_search matched=19512 of 7777778 in 5ms
+20:00:39 [A] rid=req-956107825302666-1 done; total=176243
+20:00:39 [A] SubmitQuery rid=req-956109196544583-1 preds=1
+20:00:39 [A] rid=req-956109196544583-1 range_search matched=215498 of 7777778 in 3ms
+20:00:42 [A] rid=req-956109196544583-1 done; total=1942731
+20:00:43 [A] SubmitQuery rid=req-956112884731250-1 preds=1
+20:00:43 [A] rid=req-956112884731250-1 range_search matched=215498 of 7777778 in 3ms
+20:00:46 [A] rid=req-956112884731250-1 done; total=1942731
+20:00:46 [A] SubmitQuery rid=req-956116646013666-1 preds=1
+20:00:46 [A] rid=req-956116646013666-1 range_search matched=3863766 of 7777778 in 31ms
+20:01:37 [A] rid=req-956116646013666-1 done; total=34764991
+20:01:37 [A] SubmitQuery rid=req-956167008133166-1 preds=1
+20:01:37 [A] rid=req-956167008133166-1 range_search matched=3863766 of 7777778 in 28ms
+20:02:27 [A] rid=req-956167008133166-1 done; total=34764991
+20:02:28 [A] shutdown requested

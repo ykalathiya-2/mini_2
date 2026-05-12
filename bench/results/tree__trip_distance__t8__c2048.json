@@ -1,0 +1,113 @@
+{
+  "topology": "tree",
+  "mode": "multihost",
+  "scheme": "trip_distance",
+  "threads": 8,
+  "chunk_initial": 2048,
+  "overlay": "config/topo/tree.yaml",
+  "run_dir": "/Users/spartan/mini_2/logs/run-20260510T000748Z",
+  "started": "2026-05-10T00:07:59Z",
+  "workloads": [
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 1942731,
+      "chunks_mean": 950,
+      "bytes_mean": 166681671,
+      "bytes_per_chunk_avg": 175454,
+      "bytes_per_chunk_min": 106296,
+      "bytes_per_chunk_max": 185977,
+      "throughput_rps": 229509,
+      "throughput_mbps": 19.7,
+      "ms": {
+        "min": 8424.09,
+        "p50": 8424.09,
+        "p95": 8505.29,
+        "p99": 8505.29,
+        "max": 8505.29,
+        "mean": 8464.69,
+        "std": 40.6
+      },
+      "first_chunk_ms": {
+        "min": 44.7,
+        "p50": 44.7,
+        "p95": 47.1,
+        "p99": 47.1,
+        "max": 47.1,
+        "mean": 45.9,
+        "std": 1.2
+      },
+      "jains_index": 1.0,
+      "workload": "small",
+      "range": [
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "concurrency": 1,
+      "repeats": 2,
+      "samples": 2,
+      "rows_mean": 34764991,
+      "chunks_mean": 16977,
+      "bytes_mean": 2944574814,
+      "bytes_per_chunk_avg": 173444,
+      "bytes_per_chunk_min": 17152,
+      "bytes_per_chunk_max": 185839,
+      "throughput_rps": 464829,
+      "throughput_mbps": 39.4,
+      "ms": {
+        "min": 74780.9,
+        "p50": 74780.9,
+        "p95": 74800.7,
+        "p99": 74800.7,
+        "max": 74800.7,
+        "mean": 74790.8,
+        "std": 9.9
+      },
+      "first_chunk_ms": {
+        "min": 151.76,
+        "p50": 151.76,
+        "p95": 210.04,
+        "p99": 210.04,
+        "max": 210.04,
+        "mean": 180.9,
+        "std": 29.14
+      },
+      "jains_index": 1.0,
+      "workload": "medium",
+      "range": [
+        1.0,
+        3.0
+      ]
+    }
+  ],
+  "node_ram": {
+    "E": {
+      "max_kb": 956448,
+      "mean_kb": 610937,
+      "samples": 312
+    },
+    "D": {
+      "max_kb": 1549184,
+      "mean_kb": 917593,
+      "samples": 312
+    },
+    "C": {
+      "max_kb": 931696,
+      "mean_kb": 635921,
+      "samples": 312
+    },
+    "B": {
+      "max_kb": 853136,
+      "mean_kb": 190027,
+      "samples": 312
+    },
+    "A": {
+      "max_kb": 876736,
+      "mean_kb": 269149,
+      "samples": 312
+    }
+  }
+}

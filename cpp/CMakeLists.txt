@@ -19,7 +19,25 @@ list(APPEND CMAKE_PREFIX_PATH
   /opt/homebrew
 )
 
-find_package(Protobuf CONFIG REQUIRED)
+# Try CONFIG mode first (Homebrew on macOS ships these); fall back to MODULE
+# mode on systems whose protobuf-devel only installs FindProtobuf.cmake
+# (e.g. Fedora 39+).
+find_package(Protobuf CONFIG QUIET)
+if(NOT TARGET protobuf::libprotobuf)
+  find_package(Protobuf REQUIRED)
+  if(NOT TARGET protobuf::libprotobuf)
+    add_library(protobuf::libprotobuf INTERFACE IMPORTED)
+    set_property(TARGET protobuf::libprotobuf PROPERTY
+      INTERFACE_LINK_LIBRARIES ${Protobuf_LIBRARIES})
+    set_property(TARGET protobuf::libprotobuf PROPERTY
+      INTERFACE_INCLUDE_DIRECTORIES ${Protobuf_INCLUDE_DIRS})
+  endif()
+  if(NOT TARGET protobuf::protoc)
+    add_executable(protobuf::protoc IMPORTED)
+    set_property(TARGET protobuf::protoc PROPERTY
+      IMPORTED_LOCATION ${Protobuf_PROTOC_EXECUTABLE})
+  endif()
+endif()
 find_package(gRPC CONFIG REQUIRED)
 find_package(Threads REQUIRED)
 
@@ -77,6 +95,7 @@ add_library(mini2_common STATIC
   common/csv_store.cpp
   common/scheduler.cpp
   common/telemetry.cpp
+  common/routing.cpp
 )
 target_include_directories(mini2_common PUBLIC common)
 target_link_libraries(mini2_common PUBLIC mini2_proto Threads::Threads)

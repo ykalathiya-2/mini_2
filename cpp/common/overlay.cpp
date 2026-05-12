@@ -266,6 +266,19 @@ Overlay load_overlay(const std::string& path) {
     }
 
     apply_env_overrides(out);
+
+    // Bench-time tuning knobs: env vars override the YAML defaults so the
+    // harness can sweep without editing files.
+    if (const char* v = std::getenv("MINI2_INITIAL_ROWS")) {
+        int n = std::atoi(v); if (n > 0) out.chunking.initial_rows = n;
+    }
+    if (const char* v = std::getenv("MINI2_MAX_ROWS")) {
+        int n = std::atoi(v); if (n > 0) out.chunking.max_rows = n;
+    }
+    if (const char* v = std::getenv("MINI2_TARGET_CHUNK_MS")) {
+        int n = std::atoi(v); if (n > 0) out.chunking.target_chunk_ms = n;
+    }
+
     if (out.nodes.empty())
         throw std::runtime_error("overlay parsed but nodes map is empty: " + p);
     return out;

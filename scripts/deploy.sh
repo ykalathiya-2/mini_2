@@ -10,7 +10,7 @@
 #
 # Env:
 #   MINI2_REMOTE_HOST   ip/hostname of the remote (default 192.168.50.1)
-#   MINI2_REMOTE_USER   ssh user                  (default ykalathiya)
+#   MINI2_REMOTE_USER   ssh user                  (default yash)
 #   MINI2_REMOTE_DIR    remote install path       (default ~/mini_2)
 
 set -euo pipefail
@@ -19,7 +19,7 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
 
 REMOTE_HOST=${MINI2_REMOTE_HOST:-192.168.50.1}
-REMOTE_USER=${MINI2_REMOTE_USER:-ykalathiya}
+REMOTE_USER=${MINI2_REMOTE_USER:-yash}
 REMOTE_DIR=${MINI2_REMOTE_DIR:-mini_2}     # relative to remote $HOME
 SSH_OPTS=${MINI2_SSH_OPTS:-"-o BatchMode=yes -o ConnectTimeout=10"}
 
@@ -54,7 +54,9 @@ RSYNC_EXCLUDES=(
   --exclude '__pycache__/'
   --exclude 'build/'
   --exclude 'logs/'
-  --exclude 'data/2017_Yellow_Taxi_Trip_Data_*.csv'   # the 14GB master, rebuild via scripts/split_taxi_csv.py if needed
+  --exclude 'data/2017_Yellow_Taxi_Trip_Data_*.csv'   # the 14GB master CSV
+  --exclude 'data/partitions/'                       # legacy 20M baseline partitions
+  --exclude 'data/partitions_*/'                     # per-scheme 70M partitions (kept by sharder)
 )
 echo "[deploy] rsync source -> ~/${REMOTE_DIR}"
 rsync -aH --delete "${RSYNC_EXCLUDES[@]}" \
@@ -98,7 +100,7 @@ if [[ $SKIP_BUILD -eq 0 ]]; then
       python3 -m venv .venv
     fi
     .venv/bin/pip install --quiet --upgrade pip
-    .venv/bin/pip install --quiet grpcio grpcio-tools protobuf pyyaml numpy
+    .venv/bin/pip install --quiet grpcio grpcio-tools protobuf pyyaml
     .venv/bin/python -m grpc_tools.protoc -I proto \
       --python_out=proto_gen/python --grpc_python_out=proto_gen/python \
       proto/mini2.proto

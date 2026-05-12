@@ -34,7 +34,7 @@ routing:
   H: { A: D, B: D, C: D, D: D, E: D, F: D, G: D, H: H, I: D }
   I: { A: D, B: D, C: D, D: D, E: D, F: D, G: D, H: D, I: I }
 
-data_owners: [C, D, F, G, H, I]
+data_owners: [A, B, C, D, E, F, G, H, I]
 
 network:
   simulate: true

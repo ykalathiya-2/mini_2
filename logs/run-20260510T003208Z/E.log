@@ -1,0 +1,25 @@
+[launcher] node=E impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
+17:32:13 [E] loaded 7737758 rows from /Users/spartan/mini_2/data/partitions_trip_distance/E.csv
+[E] worker_threads=8
+17:32:13 [E] listening on 0.0.0.0:50055 role=peer team=yellow
+17:33:26 [E] rid=req-947276086118750-1 range_search matched=7737758 of 7737758 in 23ms
+17:33:26 [E] accepted forwarded query req-947276086118750-1 (target=E)
+17:34:30 [E] rid=req-947340398149750-1 range_search matched=7737758 of 7737758 in 33ms
+17:34:30 [E] accepted forwarded query req-947340398149750-1 (target=E)
+17:35:33 [E] rid=req-947403419327791-1 range_search matched=7737758 of 7737758 in 63ms
+17:35:33 [E] accepted forwarded query req-947403419327791-1 (target=E)
+17:35:33 [E] rid=req-947403419331291-2 range_search matched=7737758 of 7737758 in 28ms
+17:35:33 [E] accepted forwarded query req-947403419331291-2 (target=E)
+17:35:33 [E] rid=req-947403419337916-3 range_search matched=7737758 of 7737758 in 24ms
+17:35:33 [E] accepted forwarded query req-947403419337916-3 (target=E)
+17:35:33 [E] rid=req-947403419347458-4 range_search matched=7737758 of 7737758 in 23ms
+17:35:33 [E] accepted forwarded query req-947403419347458-4 (target=E)
+17:38:06 [E] rid=req-947556513293375-1 range_search matched=7737758 of 7737758 in 34ms
+17:38:06 [E] accepted forwarded query req-947556513293375-1 (target=E)
+17:38:06 [E] rid=req-947556513319041-4 range_search matched=7737758 of 7737758 in 30ms
+17:38:06 [E] accepted forwarded query req-947556513319041-4 (target=E)
+17:38:06 [E] rid=req-947556513306125-2 range_search matched=7737758 of 7737758 in 19ms
+17:38:06 [E] accepted forwarded query req-947556513306125-2 (target=E)
+17:38:06 [E] rid=req-947556513315750-3 range_search matched=7737758 of 7737758 in 22ms
+17:38:06 [E] accepted forwarded query req-947556513315750-3 (target=E)
+17:40:43 [E] shutdown requested

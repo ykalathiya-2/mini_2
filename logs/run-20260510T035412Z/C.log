@@ -1,0 +1,58 @@
+[launcher] node=C impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+20:54:21 [C] loaded 6763252 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/C.csv
+20:54:21 [C] vnode range table: 17 columns in 73ms
+[C] worker_threads=16
+20:54:21 [C] listening on 0.0.0.0:50053 role=peer team=yellow
+20:54:46 [C] rid=req-959356292071000-1 range_search matched=115510 of 6763252 in 5ms
+20:54:46 [C] accepted forwarded query req-959356292071000-1 (target=C)
+20:54:48 [C] rid=req-959358567349583-1 range_search matched=115510 of 6763252 in 5ms
+20:54:48 [C] accepted forwarded query req-959358567349583-1 (target=C)
+20:54:51 [C] rid=req-959360887173666-2 range_search matched=115510 of 6763252 in 7ms
+20:54:51 [C] accepted forwarded query req-959360887173666-2 (target=C)
+20:54:51 [C] rid=req-959360887168041-1 range_search matched=115510 of 6763252 in 7ms
+20:54:51 [C] accepted forwarded query req-959360887168041-1 (target=C)
+20:54:51 [C] rid=req-959360887192125-4 range_search matched=115510 of 6763252 in 8ms
+20:54:51 [C] accepted forwarded query req-959360887192125-4 (target=C)
+20:54:51 [C] rid=req-959360887184666-3 range_search matched=115510 of 6763252 in 8ms
+20:54:51 [C] accepted forwarded query req-959360887184666-3 (target=C)
+20:54:57 [C] rid=req-959367349517291-3 range_search matched=115510 of 6763252 in 10ms
+20:54:57 [C] accepted forwarded query req-959367349517291-3 (target=C)
+20:54:57 [C] rid=req-959367349492166-1 range_search matched=115510 of 6763252 in 9ms
+20:54:57 [C] accepted forwarded query req-959367349492166-1 (target=C)
+20:54:57 [C] rid=req-959367349499125-2 range_search matched=115510 of 6763252 in 11ms
+20:54:57 [C] accepted forwarded query req-959367349499125-2 (target=C)
+20:54:57 [C] rid=req-959367349519333-4 range_search matched=115510 of 6763252 in 12ms
+20:54:57 [C] accepted forwarded query req-959367349519333-4 (target=C)
+20:55:04 [C] rid=req-959374053662458-1 range_search matched=2603066 of 6763252 in 14ms
+20:55:04 [C] accepted forwarded query req-959374053662458-1 (target=C)
+20:55:36 [C] rid=req-959406127637291-1 range_search matched=2603066 of 6763252 in 13ms
+20:55:36 [C] accepted forwarded query req-959406127637291-1 (target=C)
+20:56:07 [C] rid=req-959437253412291-1 range_search matched=2603066 of 6763252 in 32ms
+20:56:07 [C] accepted forwarded query req-959437253412291-1 (target=C)
+20:56:07 [C] rid=req-959437253421708-2 range_search matched=2603066 of 6763252 in 21ms
+20:56:07 [C] accepted forwarded query req-959437253421708-2 (target=C)
+20:56:07 [C] rid=req-959437253434375-4 range_search matched=2603066 of 6763252 in 16ms
+20:56:07 [C] accepted forwarded query req-959437253434375-4 (target=C)
+20:56:07 [C] rid=req-959437253433500-3 range_search matched=2603066 of 6763252 in 18ms
+20:56:07 [C] accepted forwarded query req-959437253433500-3 (target=C)
+20:57:52 [C] rid=req-959541988606666-2 range_search matched=2603066 of 6763252 in 37ms
+20:57:52 [C] accepted forwarded query req-959541988606666-2 (target=C)
+20:57:52 [C] rid=req-959541988600958-1 range_search matched=2603066 of 6763252 in 26ms
+20:57:52 [C] accepted forwarded query req-959541988600958-1 (target=C)
+20:57:52 [C] rid=req-959541988613416-3 range_search matched=2603066 of 6763252 in 20ms
+20:57:52 [C] accepted forwarded query req-959541988613416-3 (target=C)
+20:57:52 [C] rid=req-959541988632000-4 range_search matched=2603066 of 6763252 in 19ms
+20:57:52 [C] accepted forwarded query req-959541988632000-4 (target=C)
+20:59:47 [C] rid=req-959657609006708-1 range_search matched=6760555 of 6763252 in 68ms
+20:59:47 [C] accepted forwarded query req-959657609006708-1 (target=C)
+21:01:01 [C] rid=req-959730920855000-1 range_search matched=6760555 of 6763252 in 40ms
+21:01:01 [C] accepted forwarded query req-959730920855000-1 (target=C)
+21:02:13 [C] rid=req-959802795834625-1 range_search matched=6760555 of 6763252 in 81ms
+21:02:13 [C] accepted forwarded query req-959802795834625-1 (target=C)
+21:02:13 [C] rid=req-959802795845416-3 range_search matched=6760555 of 6763252 in 21ms
+21:02:13 [C] accepted forwarded query req-959802795845416-3 (target=C)
+21:02:13 [C] rid=req-959802795854208-4 range_search matched=6760555 of 6763252 in 22ms
+21:02:13 [C] accepted forwarded query req-959802795854208-4 (target=C)
+21:02:13 [C] rid=req-959802795835875-2 range_search matched=6760555 of 6763252 in 21ms
+21:02:13 [C] accepted forwarded query req-959802795835875-2 (target=C)
+21:05:09 [C] shutdown requested
