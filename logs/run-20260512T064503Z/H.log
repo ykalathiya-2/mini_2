@@ -1,0 +1,11 @@
+[launcher] node=H impl=python overlay=/home/yash/mini_2/config/overlay.yaml data=/home/yash/mini_2/data/partitions_consistent_hash
+2026-05-11 23:45:50,127 INFO mini2.node: [H] loaded 9808431 partition rows from /home/yash/mini_2/data/partitions_consistent_hash/H.csv (load=22384ms sort=22092ms sort_col=trip_distance)
+2026-05-11 23:45:52,158 INFO mini2.node: [H] Python node listening on 0.0.0.0:50058 (advertised 192.168.50.1:50058), role=peer team=blue
+2026-05-11 23:45:53,894 INFO mini2.node: [H] column range table: 17 cols in 3767 ms
+2026-05-11 23:46:03,222 INFO mini2.node: [H] rid=req-1142423597386041-1 range_search matched=12178 of 9808431 in 0.29 ms
+2026-05-11 23:46:03,222 INFO mini2.node: [H] accepted forwarded query req-1142423597386041-1 (target=H)
+2026-05-11 23:46:05,461 INFO mini2.node: [H] rid=req-1142435411894166-1 range_search matched=12178 of 9808431 in 0.14 ms
+2026-05-11 23:46:05,461 INFO mini2.node: [H] accepted forwarded query req-1142435411894166-1 (target=H)
+2026-05-11 23:46:05,622 INFO mini2.node: [H] rid=req-1142435573354125-1 range_search matched=12178 of 9808431 in 0.22 ms
+2026-05-11 23:46:05,622 INFO mini2.node: [H] accepted forwarded query req-1142435573354125-1 (target=H)
+2026-05-11 23:46:06,308 INFO mini2.node: [H] shutting down

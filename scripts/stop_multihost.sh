@@ -72,4 +72,14 @@ for port in 50051 50052 50053 50054 50055; do
   fi
 done
 
+# Pull Fedora logs into the local run dir so everything is in one place.
+LOCAL_RUN="$ROOT/logs/$RUN_NAME"
+if [[ -d "$LOCAL_RUN" ]]; then
+  echo "[stop_multihost] syncing remote logs -> $LOCAL_RUN/"
+  rsync -aH --ignore-existing \
+    "${REMOTE_USER}@${REMOTE_HOST}:~/${REMOTE_DIR}/logs/${RUN_NAME}/" \
+    "$LOCAL_RUN/" 2>/dev/null \
+    || echo "[stop_multihost] warn: rsync failed (logs may be incomplete)"
+fi
+
 echo "done"

@@ -1,0 +1,31 @@
+[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+2026-05-11 23:12:51,138 INFO mini2.node: [D] loaded 9337246 partition rows from /Users/spartan/mini_2/data/partitions_consistent_hash/D.csv (load=18300ms sort=17443ms sort_col=trip_distance)
+2026-05-11 23:12:54,125 INFO mini2.node: [D] column range table: 17 cols in 2986 ms
+2026-05-11 23:12:54,161 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
+2026-05-11 23:13:12,052 INFO mini2.node: [D] rid=req-1140462014770166-1 range_search matched=0 of 9337246 in 0.02 ms
+2026-05-11 23:13:12,053 INFO mini2.node: [D] accepted forwarded query req-1140462014770166-1 (target=D)
+2026-05-11 23:13:14,712 INFO mini2.node: [D] rid=req-1140464677682791-1 range_search matched=0 of 9337246 in 0.02 ms
+2026-05-11 23:13:14,712 INFO mini2.node: [D] accepted forwarded query req-1140464677682791-1 (target=D)
+2026-05-11 23:13:17,362 INFO mini2.node: [D] rid=req-1140467327665666-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:17,362 INFO mini2.node: [D] accepted forwarded query req-1140467327665666-1 (target=D)
+2026-05-11 23:13:20,032 INFO mini2.node: [D] rid=req-1140469998469000-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:20,032 INFO mini2.node: [D] accepted forwarded query req-1140469998469000-1 (target=D)
+2026-05-11 23:13:22,747 INFO mini2.node: [D] rid=req-1140472711666416-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:22,747 INFO mini2.node: [D] accepted forwarded query req-1140472711666416-1 (target=D)
+2026-05-11 23:13:25,360 INFO mini2.node: [D] rid=req-1140475326026500-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:25,360 INFO mini2.node: [D] accepted forwarded query req-1140475326026500-1 (target=D)
+2026-05-11 23:13:28,034 INFO mini2.node: [D] rid=req-1140477999170625-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:28,034 INFO mini2.node: [D] accepted forwarded query req-1140477999170625-1 (target=D)
+2026-05-11 23:13:30,686 INFO mini2.node: [D] rid=req-1140480650888166-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:30,686 INFO mini2.node: [D] accepted forwarded query req-1140480650888166-1 (target=D)
+2026-05-11 23:13:33,318 INFO mini2.node: [D] rid=req-1140483284104375-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:33,318 INFO mini2.node: [D] accepted forwarded query req-1140483284104375-1 (target=D)
+2026-05-11 23:13:36,016 INFO mini2.node: [D] rid=req-1140485981823166-1 range_search matched=0 of 9337246 in 0.03 ms
+2026-05-11 23:13:36,016 INFO mini2.node: [D] accepted forwarded query req-1140485981823166-1 (target=D)
+2026-05-11 23:13:38,679 INFO mini2.node: [D] rid=req-1140488644817166-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:38,679 INFO mini2.node: [D] accepted forwarded query req-1140488644817166-1 (target=D)
+2026-05-11 23:13:41,430 INFO mini2.node: [D] rid=req-1140491395924708-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:41,430 INFO mini2.node: [D] accepted forwarded query req-1140491395924708-1 (target=D)
+2026-05-11 23:13:43,991 INFO mini2.node: [D] rid=req-1140493956090875-1 range_search matched=0 of 9337246 in 0.01 ms
+2026-05-11 23:13:43,991 INFO mini2.node: [D] accepted forwarded query req-1140493956090875-1 (target=D)
+2026-05-11 23:13:46,478 INFO mini2.node: [D] shutting down

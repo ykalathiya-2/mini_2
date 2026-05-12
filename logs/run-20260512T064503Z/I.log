@@ -1,0 +1,5 @@
+[launcher] node=I impl=cpp overlay=/home/yash/mini_2/config/overlay.yaml data=/home/yash/mini_2/data/partitions_consistent_hash
+23:45:05 [I] loaded 7183591 rows from /home/yash/mini_2/data/partitions_consistent_hash/I.csv
+[I] worker_threads=16
+23:45:05 [I] listening on 0.0.0.0:50059 role=peer team=yellow
+23:46:06 [I] shutdown requested

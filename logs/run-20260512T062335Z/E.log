@@ -1,0 +1,6 @@
+[launcher] node=E impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+23:23:42 [E] loaded 8937454 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/E.csv in 3033ms
+23:23:42 [E] column range table: 17 columns in 58ms
+[E] worker_threads=16
+23:23:42 [E] listening on 0.0.0.0:50055 role=peer team=yellow
+23:24:49 [E] shutdown requested

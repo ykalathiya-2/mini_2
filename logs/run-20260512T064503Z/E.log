@@ -1,0 +1,18 @@
+[launcher] node=E impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+23:45:09 [E] loaded 8937454 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/E.csv in 2723ms
+23:45:09 [E] column range table: 17 columns in 61ms
+[E] worker_threads=16
+23:45:09 [E] listening on 0.0.0.0:50055 role=peer team=yellow
+23:45:17 [E] rid=req-1142387783566083-1 range_search matched=12396 of 8937454 in 24ms
+23:45:17 [E] accepted forwarded query req-1142387783566083-1 (target=E)
+23:45:29 [E] rid=req-1142399871596666-1 range_search matched=12396 of 8937454 in 7ms
+23:45:29 [E] accepted forwarded query req-1142399871596666-1 (target=E)
+23:45:41 [E] rid=req-1142411748840041-1 range_search matched=12396 of 8937454 in 4ms
+23:45:41 [E] accepted forwarded query req-1142411748840041-1 (target=E)
+23:45:53 [E] rid=req-1142423597386041-1 range_search matched=12396 of 8937454 in 3ms
+23:45:53 [E] accepted forwarded query req-1142423597386041-1 (target=E)
+23:46:05 [E] rid=req-1142435411894166-1 range_search matched=12396 of 8937454 in 3ms
+23:46:05 [E] accepted forwarded query req-1142435411894166-1 (target=E)
+23:46:05 [E] rid=req-1142435573354125-1 range_search matched=12396 of 8937454 in 4ms
+23:46:05 [E] accepted forwarded query req-1142435573354125-1 (target=E)
+23:46:06 [E] shutdown requested

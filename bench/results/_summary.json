@@ -1,12 +1,11 @@
 {
   "mode": "multihost",
-  "started": "2026-05-10T03:41:47Z",
+  "started": "2026-05-12T06:45:00Z",
   "matrix": {
     "topos": [
       "tree"
     ],
     "schemes": [
-      "trip_distance",
       "consistent_hash"
     ],
     "threads": [
@@ -17,13 +16,6 @@
     ]
   },
   "results": [
-    {
-      "file": "tree__trip_distance__t16__c0.json",
-      "topology": "tree",
-      "scheme": "trip_distance",
-      "threads": 16,
-      "chunk_initial": 0
-    },
     {
       "file": "tree__consistent_hash__t16__c0.json",
       "topology": "tree",

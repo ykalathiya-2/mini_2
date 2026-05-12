@@ -99,3 +99,56 @@
 17:42:47 [A] rid=req-1120579831903833-1 done; total=34764991 vnodes_hit=9/9
 17:42:47 [A] SubmitQuery rid=req-1120637210511916-1 preds=1
 17:42:47 [A] rid=req-1120637210511916-1 range_search matched=3056213 of 7299081 in 20ms
+17:43:49 [A] rid=req-1120637210511916-1 done; total=34764991 vnodes_hit=9/9
+17:43:49 [A] SubmitQuery rid=req-1120699837853791-2 preds=1
+17:43:49 [A] SubmitQuery rid=req-1120699837855958-3 preds=1
+17:43:49 [A] SubmitQuery rid=req-1120699837878083-4 preds=1
+17:43:49 [A] SubmitQuery rid=req-1120699837824583-1 preds=1
+17:43:49 [A] rid=req-1120699837853791-2 range_search matched=3056213 of 7299081 in 28ms
+17:43:49 [A] rid=req-1120699837855958-3 range_search matched=3056213 of 7299081 in 20ms
+17:43:49 [A] rid=req-1120699837878083-4 range_search matched=3056213 of 7299081 in 20ms
+17:43:49 [A] rid=req-1120699837824583-1 range_search matched=3056213 of 7299081 in 18ms
+17:45:46 [A] rid=req-1120699837853791-2 done; total=34764991 vnodes_hit=9/9
+17:46:29 [A] rid=req-1120699837878083-4 done; total=34764991 vnodes_hit=9/9
+17:46:33 [A] rid=req-1120699837855958-3 done; total=34764991 vnodes_hit=9/9
+17:46:34 [A] rid=req-1120699837824583-1 done; total=34764991 vnodes_hit=9/9
+17:46:34 [A] SubmitQuery rid=req-1120864614233583-2 preds=1
+17:46:34 [A] SubmitQuery rid=req-1120864614227833-1 preds=1
+17:46:34 [A] SubmitQuery rid=req-1120864614253500-3 preds=1
+17:46:34 [A] SubmitQuery rid=req-1120864614266625-4 preds=1
+17:46:34 [A] rid=req-1120864614233583-2 range_search matched=3056213 of 7299081 in 32ms
+17:46:34 [A] rid=req-1120864614227833-1 range_search matched=3056213 of 7299081 in 37ms
+17:46:34 [A] rid=req-1120864614253500-3 range_search matched=3056213 of 7299081 in 38ms
+17:46:34 [A] rid=req-1120864614266625-4 range_search matched=3056213 of 7299081 in 20ms
+17:48:59 [A] rid=req-1120864614227833-1 done; total=34764991 vnodes_hit=9/9
+17:49:27 [A] rid=req-1120864614233583-2 done; total=34764991 vnodes_hit=9/9
+17:49:30 [A] rid=req-1120864614253500-3 done; total=34764991 vnodes_hit=9/9
+17:49:30 [A] rid=req-1120864614266625-4 done; total=34764991 vnodes_hit=9/9
+17:49:30 [A] SubmitQuery rid=req-1121040923709166-1 preds=1
+17:49:30 [A] rid=req-1121040923709166-1 range_search matched=7296147 of 7299081 in 28ms
+17:51:31 [A] rid=req-1121040923709166-1 done; total=69973589 vnodes_hit=9/9
+17:51:31 [A] SubmitQuery rid=req-1121161786132666-1 preds=1
+17:51:31 [A] rid=req-1121161786132666-1 range_search matched=7296147 of 7299081 in 69ms
+17:53:48 [A] rid=req-1121161786132666-1 done; total=69973589 vnodes_hit=9/9
+17:53:48 [A] SubmitQuery rid=req-1121298276282416-1 preds=1
+17:53:48 [A] SubmitQuery rid=req-1121298276291708-2 preds=1
+17:53:48 [A] SubmitQuery rid=req-1121298276302875-3 preds=1
+17:53:48 [A] SubmitQuery rid=req-1121298276313291-4 preds=1
+17:53:48 [A] rid=req-1121298276282416-1 range_search matched=7296147 of 7299081 in 29ms
+17:53:48 [A] rid=req-1121298276302875-3 range_search matched=7296147 of 7299081 in 23ms
+17:53:48 [A] rid=req-1121298276291708-2 range_search matched=7296147 of 7299081 in 19ms
+17:53:48 [A] rid=req-1121298276313291-4 range_search matched=7296147 of 7299081 in 28ms
+17:56:23 [A] rid=req-1121298276302875-3 done; total=69973589 vnodes_hit=9/9
+17:56:23 [A] SubmitQuery rid=req-1121453320063291-1 preds=1
+17:56:23 [A] SubmitQuery rid=req-1121453320072125-2 preds=1
+17:56:23 [A] SubmitQuery rid=req-1121453320080583-3 preds=1
+17:56:23 [A] SubmitQuery rid=req-1121453320095750-4 preds=1
+17:56:23 [A] rid=req-1121453320063291-1 range_search matched=7296147 of 7299081 in 53ms
+17:56:23 [A] rid=req-1121453320072125-2 range_search matched=7296147 of 7299081 in 57ms
+17:56:23 [A] rid=req-1121453320080583-3 range_search matched=7296147 of 7299081 in 24ms
+17:56:23 [A] rid=req-1121453320095750-4 range_search matched=7296147 of 7299081 in 22ms
+18:01:34 [A] rid=req-1121453320080583-3 done; total=69973589 vnodes_hit=9/9
+18:03:15 [A] rid=req-1121453320063291-1 done; total=69973589 vnodes_hit=9/9
+18:03:19 [A] rid=req-1121453320072125-2 done; total=69973589 vnodes_hit=9/9
+18:03:21 [A] rid=req-1121453320095750-4 done; total=69973589 vnodes_hit=9/9
+18:03:21 [A] shutdown requested

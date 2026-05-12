@@ -1,0 +1,60 @@
+[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+23:12:18 [B] loaded 8759742 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/B.csv in 2935ms
+23:12:18 [B] column range table: 17 columns in 39ms
+[B] worker_threads=16
+23:12:18 [B] listening on 0.0.0.0:50052 role=peer team=blue
+23:12:25 [B] rid=req-1140415735556833-1 range_search matched=24510 of 8759742 in 8ms
+23:12:25 [B] accepted forwarded query req-1140415735556833-1 (target=B)
+23:12:37 [B] rid=req-1140427919687750-1 range_search matched=24510 of 8759742 in 5ms
+23:12:37 [B] accepted forwarded query req-1140427919687750-1 (target=B)
+23:12:40 [B] rid=req-1140430461527541-1 range_search matched=24510 of 8759742 in 3ms
+23:12:40 [B] accepted forwarded query req-1140430461527541-1 (target=B)
+23:12:43 [B] rid=req-1140433028660291-1 range_search matched=24510 of 8759742 in 4ms
+23:12:43 [B] accepted forwarded query req-1140433028660291-1 (target=B)
+23:12:45 [B] rid=req-1140435594547250-1 range_search matched=24510 of 8759742 in 3ms
+23:12:45 [B] accepted forwarded query req-1140435594547250-1 (target=B)
+23:12:48 [B] rid=req-1140438183091791-1 range_search matched=24510 of 8759742 in 7ms
+23:12:48 [B] accepted forwarded query req-1140438183091791-1 (target=B)
+23:12:50 [B] rid=req-1140440874198416-1 range_search matched=24510 of 8759742 in 4ms
+23:12:50 [B] accepted forwarded query req-1140440874198416-1 (target=B)
+23:12:53 [B] rid=req-1140443400173833-1 range_search matched=24510 of 8759742 in 2ms
+23:12:53 [B] accepted forwarded query req-1140443400173833-1 (target=B)
+23:12:56 [B] rid=req-1140446080711083-1 range_search matched=24510 of 8759742 in 3ms
+23:12:56 [B] accepted forwarded query req-1140446080711083-1 (target=B)
+23:12:58 [B] rid=req-1140448740760291-1 range_search matched=24510 of 8759742 in 3ms
+23:12:58 [B] accepted forwarded query req-1140448740760291-1 (target=B)
+23:13:01 [B] rid=req-1140451421979375-1 range_search matched=24510 of 8759742 in 3ms
+23:13:01 [B] accepted forwarded query req-1140451421979375-1 (target=B)
+23:13:04 [B] rid=req-1140454051790458-1 range_search matched=24510 of 8759742 in 2ms
+23:13:04 [B] accepted forwarded query req-1140454051790458-1 (target=B)
+23:13:06 [B] rid=req-1140456721269416-1 range_search matched=24510 of 8759742 in 2ms
+23:13:06 [B] accepted forwarded query req-1140456721269416-1 (target=B)
+23:13:09 [B] rid=req-1140459367232666-1 range_search matched=24510 of 8759742 in 3ms
+23:13:09 [B] accepted forwarded query req-1140459367232666-1 (target=B)
+23:13:12 [B] rid=req-1140462014770166-1 range_search matched=24510 of 8759742 in 3ms
+23:13:12 [B] accepted forwarded query req-1140462014770166-1 (target=B)
+23:13:14 [B] rid=req-1140464677682791-1 range_search matched=24510 of 8759742 in 3ms
+23:13:14 [B] accepted forwarded query req-1140464677682791-1 (target=B)
+23:13:17 [B] rid=req-1140467327665666-1 range_search matched=24510 of 8759742 in 2ms
+23:13:17 [B] accepted forwarded query req-1140467327665666-1 (target=B)
+23:13:20 [B] rid=req-1140469998469000-1 range_search matched=24510 of 8759742 in 3ms
+23:13:20 [B] accepted forwarded query req-1140469998469000-1 (target=B)
+23:13:22 [B] rid=req-1140472711666416-1 range_search matched=24510 of 8759742 in 2ms
+23:13:22 [B] accepted forwarded query req-1140472711666416-1 (target=B)
+23:13:25 [B] rid=req-1140475326026500-1 range_search matched=24510 of 8759742 in 3ms
+23:13:25 [B] accepted forwarded query req-1140475326026500-1 (target=B)
+23:13:28 [B] rid=req-1140477999170625-1 range_search matched=24510 of 8759742 in 3ms
+23:13:28 [B] accepted forwarded query req-1140477999170625-1 (target=B)
+23:13:30 [B] rid=req-1140480650888166-1 range_search matched=24510 of 8759742 in 4ms
+23:13:30 [B] accepted forwarded query req-1140480650888166-1 (target=B)
+23:13:33 [B] rid=req-1140483284104375-1 range_search matched=24510 of 8759742 in 3ms
+23:13:33 [B] accepted forwarded query req-1140483284104375-1 (target=B)
+23:13:36 [B] rid=req-1140485981823166-1 range_search matched=24510 of 8759742 in 3ms
+23:13:36 [B] accepted forwarded query req-1140485981823166-1 (target=B)
+23:13:38 [B] rid=req-1140488644817166-1 range_search matched=24510 of 8759742 in 3ms
+23:13:38 [B] accepted forwarded query req-1140488644817166-1 (target=B)
+23:13:41 [B] rid=req-1140491395924708-1 range_search matched=24510 of 8759742 in 2ms
+23:13:41 [B] accepted forwarded query req-1140491395924708-1 (target=B)
+23:13:43 [B] rid=req-1140493956090875-1 range_search matched=24510 of 8759742 in 3ms
+23:13:43 [B] accepted forwarded query req-1140493956090875-1 (target=B)
+23:13:46 [B] shutdown requested

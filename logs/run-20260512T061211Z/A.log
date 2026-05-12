@@ -1,0 +1,130 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+23:12:18 [A] loaded 7299081 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/A.csv in 2725ms
+23:12:18 [A] column range table: 17 columns in 38ms
+23:12:18 [A] smart routing enabled: scheme=consistent_hash
+[A] worker_threads=16
+23:12:18 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+23:12:25 [A] SubmitQuery rid=req-1140415735556833-1 preds=1
+23:12:25 [A] rid=req-1140415735556833-1 range_search matched=114931 of 7299081 in 10ms
+23:12:25 [A] smart-route rid=req-1140415735556833-1 hit 6/9 owners; skipped: C F I 
+23:12:35 [A] forward→H via H failed after retries: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+23:12:35 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:35 [A] rid=req-1140415735556833-1 done; total=164065 owners_hit=4/6
+23:12:37 [A] SubmitQuery rid=req-1140427919687750-1 preds=1
+23:12:37 [A] rid=req-1140427919687750-1 range_search matched=114931 of 7299081 in 4ms
+23:12:37 [A] smart-route rid=req-1140427919687750-1 hit 6/9 owners; skipped: C F I 
+23:12:38 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:38 [A] rid=req-1140427919687750-1 done; total=176243 owners_hit=5/6
+23:12:40 [A] SubmitQuery rid=req-1140430461527541-1 preds=1
+23:12:40 [A] rid=req-1140430461527541-1 range_search matched=114931 of 7299081 in 3ms
+23:12:40 [A] smart-route rid=req-1140430461527541-1 hit 6/9 owners; skipped: C F I 
+23:12:40 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:40 [A] rid=req-1140430461527541-1 done; total=176243 owners_hit=5/6
+23:12:43 [A] SubmitQuery rid=req-1140433028660291-1 preds=1
+23:12:43 [A] rid=req-1140433028660291-1 range_search matched=114931 of 7299081 in 3ms
+23:12:43 [A] smart-route rid=req-1140433028660291-1 hit 6/9 owners; skipped: C F I 
+23:12:43 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:43 [A] rid=req-1140433028660291-1 done; total=176243 owners_hit=5/6
+23:12:45 [A] SubmitQuery rid=req-1140435594547250-1 preds=1
+23:12:45 [A] rid=req-1140435594547250-1 range_search matched=114931 of 7299081 in 3ms
+23:12:45 [A] smart-route rid=req-1140435594547250-1 hit 6/9 owners; skipped: C F I 
+23:12:45 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:46 [A] rid=req-1140435594547250-1 done; total=176243 owners_hit=5/6
+23:12:48 [A] SubmitQuery rid=req-1140438183091791-1 preds=1
+23:12:48 [A] rid=req-1140438183091791-1 range_search matched=114931 of 7299081 in 4ms
+23:12:48 [A] smart-route rid=req-1140438183091791-1 hit 6/9 owners; skipped: C F I 
+23:12:48 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:48 [A] rid=req-1140438183091791-1 done; total=176243 owners_hit=5/6
+23:12:50 [A] SubmitQuery rid=req-1140440874198416-1 preds=1
+23:12:50 [A] rid=req-1140440874198416-1 range_search matched=114931 of 7299081 in 3ms
+23:12:50 [A] smart-route rid=req-1140440874198416-1 hit 6/9 owners; skipped: C F I 
+23:12:51 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:51 [A] rid=req-1140440874198416-1 done; total=176243 owners_hit=5/6
+23:12:53 [A] SubmitQuery rid=req-1140443400173833-1 preds=1
+23:12:53 [A] rid=req-1140443400173833-1 range_search matched=114931 of 7299081 in 4ms
+23:12:53 [A] smart-route rid=req-1140443400173833-1 hit 6/9 owners; skipped: C F I 
+23:12:53 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:53 [A] rid=req-1140443400173833-1 done; total=176243 owners_hit=5/6
+23:12:56 [A] SubmitQuery rid=req-1140446080711083-1 preds=1
+23:12:56 [A] rid=req-1140446080711083-1 range_search matched=114931 of 7299081 in 4ms
+23:12:56 [A] smart-route rid=req-1140446080711083-1 hit 6/9 owners; skipped: C F I 
+23:12:56 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:56 [A] rid=req-1140446080711083-1 done; total=176243 owners_hit=5/6
+23:12:58 [A] SubmitQuery rid=req-1140448740760291-1 preds=1
+23:12:58 [A] rid=req-1140448740760291-1 range_search matched=114931 of 7299081 in 3ms
+23:12:58 [A] smart-route rid=req-1140448740760291-1 hit 6/9 owners; skipped: C F I 
+23:12:59 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:12:59 [A] rid=req-1140448740760291-1 done; total=176243 owners_hit=5/6
+23:13:01 [A] SubmitQuery rid=req-1140451421979375-1 preds=1
+23:13:01 [A] rid=req-1140451421979375-1 range_search matched=114931 of 7299081 in 5ms
+23:13:01 [A] smart-route rid=req-1140451421979375-1 hit 6/9 owners; skipped: C F I 
+23:13:01 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:13:01 [A] rid=req-1140451421979375-1 done; total=176243 owners_hit=5/6
+23:13:04 [A] SubmitQuery rid=req-1140454051790458-1 preds=1
+23:13:04 [A] rid=req-1140454051790458-1 range_search matched=114931 of 7299081 in 3ms
+23:13:04 [A] smart-route rid=req-1140454051790458-1 hit 6/9 owners; skipped: C F I 
+23:13:04 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:13:04 [A] rid=req-1140454051790458-1 done; total=176243 owners_hit=5/6
+23:13:06 [A] SubmitQuery rid=req-1140456721269416-1 preds=1
+23:13:06 [A] rid=req-1140456721269416-1 range_search matched=114931 of 7299081 in 4ms
+23:13:06 [A] smart-route rid=req-1140456721269416-1 hit 6/9 owners; skipped: C F I 
+23:13:07 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:13:07 [A] rid=req-1140456721269416-1 done; total=176243 owners_hit=5/6
+23:13:09 [A] SubmitQuery rid=req-1140459367232666-1 preds=1
+23:13:09 [A] rid=req-1140459367232666-1 range_search matched=114931 of 7299081 in 3ms
+23:13:09 [A] smart-route rid=req-1140459367232666-1 hit 6/9 owners; skipped: C F I 
+23:13:09 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:13:09 [A] rid=req-1140459367232666-1 done; total=176243 owners_hit=5/6
+23:13:12 [A] SubmitQuery rid=req-1140462014770166-1 preds=1
+23:13:12 [A] rid=req-1140462014770166-1 range_search matched=114931 of 7299081 in 4ms
+23:13:12 [A] smart-route rid=req-1140462014770166-1 hit 6/9 owners; skipped: C F I 
+23:13:12 [A] rid=req-1140462014770166-1 done; total=176243 owners_hit=5/6
+23:13:14 [A] SubmitQuery rid=req-1140464677682791-1 preds=1
+23:13:14 [A] rid=req-1140464677682791-1 range_search matched=114931 of 7299081 in 4ms
+23:13:14 [A] smart-route rid=req-1140464677682791-1 hit 6/9 owners; skipped: C F I 
+23:13:15 [A] rid=req-1140464677682791-1 done; total=176243 owners_hit=5/6
+23:13:17 [A] SubmitQuery rid=req-1140467327665666-1 preds=1
+23:13:17 [A] rid=req-1140467327665666-1 range_search matched=114931 of 7299081 in 4ms
+23:13:17 [A] smart-route rid=req-1140467327665666-1 hit 6/9 owners; skipped: C F I 
+23:13:17 [A] rid=req-1140467327665666-1 done; total=176243 owners_hit=5/6
+23:13:20 [A] SubmitQuery rid=req-1140469998469000-1 preds=1
+23:13:20 [A] rid=req-1140469998469000-1 range_search matched=114931 of 7299081 in 3ms
+23:13:20 [A] smart-route rid=req-1140469998469000-1 hit 6/9 owners; skipped: C F I 
+23:13:20 [A] rid=req-1140469998469000-1 done; total=176243 owners_hit=5/6
+23:13:22 [A] SubmitQuery rid=req-1140472711666416-1 preds=1
+23:13:22 [A] rid=req-1140472711666416-1 range_search matched=114931 of 7299081 in 5ms
+23:13:22 [A] smart-route rid=req-1140472711666416-1 hit 6/9 owners; skipped: C F I 
+23:13:23 [A] rid=req-1140472711666416-1 done; total=176243 owners_hit=5/6
+23:13:25 [A] SubmitQuery rid=req-1140475326026500-1 preds=1
+23:13:25 [A] rid=req-1140475326026500-1 range_search matched=114931 of 7299081 in 3ms
+23:13:25 [A] smart-route rid=req-1140475326026500-1 hit 6/9 owners; skipped: C F I 
+23:13:25 [A] rid=req-1140475326026500-1 done; total=176243 owners_hit=5/6
+23:13:28 [A] SubmitQuery rid=req-1140477999170625-1 preds=1
+23:13:28 [A] rid=req-1140477999170625-1 range_search matched=114931 of 7299081 in 3ms
+23:13:28 [A] smart-route rid=req-1140477999170625-1 hit 6/9 owners; skipped: C F I 
+23:13:28 [A] rid=req-1140477999170625-1 done; total=176243 owners_hit=5/6
+23:13:30 [A] SubmitQuery rid=req-1140480650888166-1 preds=1
+23:13:30 [A] rid=req-1140480650888166-1 range_search matched=114931 of 7299081 in 3ms
+23:13:30 [A] smart-route rid=req-1140480650888166-1 hit 6/9 owners; skipped: C F I 
+23:13:31 [A] rid=req-1140480650888166-1 done; total=176243 owners_hit=5/6
+23:13:33 [A] SubmitQuery rid=req-1140483284104375-1 preds=1
+23:13:33 [A] rid=req-1140483284104375-1 range_search matched=114931 of 7299081 in 3ms
+23:13:33 [A] smart-route rid=req-1140483284104375-1 hit 6/9 owners; skipped: C F I 
+23:13:33 [A] rid=req-1140483284104375-1 done; total=176243 owners_hit=5/6
+23:13:36 [A] SubmitQuery rid=req-1140485981823166-1 preds=1
+23:13:36 [A] rid=req-1140485981823166-1 range_search matched=114931 of 7299081 in 3ms
+23:13:36 [A] smart-route rid=req-1140485981823166-1 hit 6/9 owners; skipped: C F I 
+23:13:36 [A] rid=req-1140485981823166-1 done; total=176243 owners_hit=5/6
+23:13:38 [A] SubmitQuery rid=req-1140488644817166-1 preds=1
+23:13:38 [A] rid=req-1140488644817166-1 range_search matched=114931 of 7299081 in 3ms
+23:13:38 [A] smart-route rid=req-1140488644817166-1 hit 6/9 owners; skipped: C F I 
+23:13:39 [A] rid=req-1140488644817166-1 done; total=176243 owners_hit=5/6
+23:13:41 [A] SubmitQuery rid=req-1140491395924708-1 preds=1
+23:13:41 [A] rid=req-1140491395924708-1 range_search matched=114931 of 7299081 in 3ms
+23:13:41 [A] smart-route rid=req-1140491395924708-1 hit 6/9 owners; skipped: C F I 
+23:13:41 [A] rid=req-1140491395924708-1 done; total=176243 owners_hit=5/6
+23:13:43 [A] SubmitQuery rid=req-1140493956090875-1 preds=1
+23:13:43 [A] rid=req-1140493956090875-1 range_search matched=114931 of 7299081 in 3ms
+23:13:43 [A] smart-route rid=req-1140493956090875-1 hit 6/9 owners; skipped: C F I 
+23:13:44 [A] rid=req-1140493956090875-1 done; total=176243 owners_hit=5/6
+23:13:46 [A] shutdown requested

@@ -256,6 +256,9 @@ Overlay load_overlay(const std::string& path) {
                 if      (k == "simulate")              out.network.simulate              = (v == "true" || v == "True" || v == "1");
                 else if (k == "inter_host_latency_ms") out.network.inter_host_latency_ms = std::atof(v.c_str());
                 else if (k == "intra_host_latency_ms") out.network.intra_host_latency_ms = std::atof(v.c_str());
+                else if (k == "intra_host_max_rows")   out.network.intra_host_max_rows   = std::atoi(v.c_str());
+                else if (k == "inter_host_max_rows")   out.network.inter_host_max_rows   = std::atoi(v.c_str());
+                else if (k == "compress_inter_host")   out.network.compress_inter_host   = (v == "true" || v == "True" || v == "1");
                 ++i;
             }
         } else {

@@ -126,8 +126,8 @@ struct ReqResult {
     int64_t     bytes = 0;          // total wire bytes received in chunks
     int64_t     bytes_min = 0;      // smallest non-empty chunk
     int64_t     bytes_max = 0;      // largest chunk
-    int         vnodes_hit = 0;     // owners that returned ≥1 row (last chunk)
-    int         vnodes_eligible = 0; // owners post smart-routing (last chunk)
+    int         owners_hit = 0;     // owners that returned ≥1 row (last chunk)
+    int         owners_eligible = 0; // owners post smart-routing (last chunk)
     bool        ok = false;
     std::string err;
 };
@@ -239,8 +239,8 @@ ReqResult run_one(const CliArgs& a, const mini2::Overlay& ov,
         }
 
         if (ch_msg.is_last()) {
-            r.vnodes_hit      = ch_msg.vnodes_hit();
-            r.vnodes_eligible = ch_msg.vnodes_eligible();
+            r.owners_hit      = ch_msg.owners_hit();
+            r.owners_eligible = ch_msg.owners_eligible();
             break;
         }
     }
@@ -312,8 +312,8 @@ int main(int argc, char** argv) {
                       << "\"bytes_max_per_chunk\":" << r.bytes_max << ","
                       << "\"ms_total\":" << ms_total << ","
                       << "\"ms_first_chunk\":" << ms_first << ","
-                      << "\"vnodes_hit\":" << r.vnodes_hit << ","
-                      << "\"vnodes_eligible\":" << r.vnodes_eligible << ","
+                      << "\"owners_hit\":" << r.owners_hit << ","
+                      << "\"owners_eligible\":" << r.owners_eligible << ","
                       << "\"err\":\"" << r.err << "\"}\n";
         } else {
             std::cerr << "  " << r.rid

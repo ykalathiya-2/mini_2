@@ -1,0 +1,90 @@
+[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+22:42:52 [B] loaded 8759742 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/B.csv in 3761ms
+22:42:52 [B] column range table: 17 columns in 131ms
+[B] worker_threads=16
+22:42:52 [B] listening on 0.0.0.0:50052 role=peer team=blue
+22:42:55 [B] rid=req-1138645531305416-1 range_search matched=24510 of 8759742 in 7ms
+22:42:55 [B] accepted forwarded query req-1138645531305416-1 (target=B)
+22:43:06 [B] rid=req-1138656690064791-1 range_search matched=24510 of 8759742 in 13ms
+22:43:06 [B] accepted forwarded query req-1138656690064791-1 (target=B)
+22:43:11 [B] rid=req-1138661611025375-1 range_search matched=24510 of 8759742 in 11ms
+22:43:11 [B] accepted forwarded query req-1138661611025375-1 (target=B)
+22:43:12 [B] rid=req-1138662196142375-1 range_search matched=24510 of 8759742 in 4ms
+22:43:12 [B] accepted forwarded query req-1138662196142375-1 (target=B)
+22:43:12 [B] rid=req-1138662742272666-2 range_search matched=24510 of 8759742 in 6ms
+22:43:12 [B] accepted forwarded query req-1138662742272666-2 (target=B)
+22:43:12 [B] rid=req-1138662742284125-3 range_search matched=24510 of 8759742 in 6ms
+22:43:12 [B] accepted forwarded query req-1138662742284125-3 (target=B)
+22:43:12 [B] rid=req-1138662742270458-1 range_search matched=24510 of 8759742 in 5ms
+22:43:12 [B] accepted forwarded query req-1138662742270458-1 (target=B)
+22:43:12 [B] rid=req-1138662742295291-4 range_search matched=24510 of 8759742 in 6ms
+22:43:12 [B] accepted forwarded query req-1138662742295291-4 (target=B)
+22:43:14 [B] rid=req-1138664490781041-2 range_search matched=24510 of 8759742 in 7ms
+22:43:14 [B] accepted forwarded query req-1138664490781041-2 (target=B)
+22:43:14 [B] rid=req-1138664490771791-1 range_search matched=24510 of 8759742 in 6ms
+22:43:14 [B] accepted forwarded query req-1138664490771791-1 (target=B)
+22:43:14 [B] rid=req-1138664490791541-3 range_search matched=24510 of 8759742 in 9ms
+22:43:14 [B] accepted forwarded query req-1138664490791541-3 (target=B)
+22:43:14 [B] rid=req-1138664490817583-4 range_search matched=24510 of 8759742 in 8ms
+22:43:14 [B] accepted forwarded query req-1138664490817583-4 (target=B)
+22:43:16 [B] rid=req-1138666265156458-1 range_search matched=158462 of 8759742 in 7ms
+22:43:16 [B] accepted forwarded query req-1138666265156458-1 (target=B)
+22:43:17 [B] rid=req-1138667913396500-1 range_search matched=158462 of 8759742 in 5ms
+22:43:17 [B] accepted forwarded query req-1138667913396500-1 (target=B)
+22:43:19 [B] rid=req-1138669615034958-2 range_search matched=158462 of 8759742 in 10ms
+22:43:19 [B] accepted forwarded query req-1138669615034958-2 (target=B)
+22:43:19 [B] rid=req-1138669615012250-1 range_search matched=158462 of 8759742 in 8ms
+22:43:19 [B] accepted forwarded query req-1138669615012250-1 (target=B)
+22:43:19 [B] rid=req-1138669615037666-3 range_search matched=158462 of 8759742 in 7ms
+22:43:19 [B] accepted forwarded query req-1138669615037666-3 (target=B)
+22:43:19 [B] rid=req-1138669615058333-4 range_search matched=158462 of 8759742 in 5ms
+22:43:19 [B] accepted forwarded query req-1138669615058333-4 (target=B)
+22:43:24 [B] rid=req-1138674474554500-3 range_search matched=158462 of 8759742 in 10ms
+22:43:24 [B] accepted forwarded query req-1138674474554500-3 (target=B)
+22:43:24 [B] rid=req-1138674474544958-2 range_search matched=158462 of 8759742 in 7ms
+22:43:24 [B] accepted forwarded query req-1138674474544958-2 (target=B)
+22:43:24 [B] rid=req-1138674474537000-1 range_search matched=158462 of 8759742 in 12ms
+22:43:24 [B] accepted forwarded query req-1138674474537000-1 (target=B)
+22:43:24 [B] rid=req-1138674474573916-4 range_search matched=158462 of 8759742 in 9ms
+22:43:24 [B] accepted forwarded query req-1138674474573916-4 (target=B)
+22:43:29 [B] rid=req-1138679410590916-1 range_search matched=6259491 of 8759742 in 40ms
+22:43:29 [B] accepted forwarded query req-1138679410590916-1 (target=B)
+22:43:49 [B] rid=req-1138699879049583-1 range_search matched=6259491 of 8759742 in 35ms
+22:43:49 [B] accepted forwarded query req-1138699879049583-1 (target=B)
+22:44:10 [B] rid=req-1138720843993583-1 range_search matched=6259491 of 8759742 in 69ms
+22:44:10 [B] accepted forwarded query req-1138720843993583-1 (target=B)
+22:44:10 [B] rid=req-1138720844005041-3 range_search matched=6259491 of 8759742 in 22ms
+22:44:10 [B] accepted forwarded query req-1138720844005041-3 (target=B)
+22:44:11 [B] rid=req-1138720843999041-2 range_search matched=6259491 of 8759742 in 21ms
+22:44:11 [B] accepted forwarded query req-1138720843999041-2 (target=B)
+22:44:11 [B] rid=req-1138720844015708-4 range_search matched=6259491 of 8759742 in 18ms
+22:44:11 [B] accepted forwarded query req-1138720844015708-4 (target=B)
+22:45:25 [B] rid=req-1138795758071208-1 range_search matched=6259491 of 8759742 in 37ms
+22:45:25 [B] accepted forwarded query req-1138795758071208-1 (target=B)
+22:45:25 [B] rid=req-1138795758081333-2 range_search matched=6259491 of 8759742 in 36ms
+22:45:25 [B] accepted forwarded query req-1138795758081333-2 (target=B)
+22:45:25 [B] rid=req-1138795758091916-3 range_search matched=6259491 of 8759742 in 27ms
+22:45:25 [B] accepted forwarded query req-1138795758091916-3 (target=B)
+22:45:25 [B] rid=req-1138795758105750-4 range_search matched=6259491 of 8759742 in 28ms
+22:45:25 [B] accepted forwarded query req-1138795758105750-4 (target=B)
+22:46:46 [B] rid=req-1138876025856083-1 range_search matched=8756613 of 8759742 in 50ms
+22:46:46 [B] accepted forwarded query req-1138876025856083-1 (target=B)
+22:47:28 [B] rid=req-1138918030847000-1 range_search matched=8756613 of 8759742 in 67ms
+22:47:28 [B] accepted forwarded query req-1138918030847000-1 (target=B)
+22:48:08 [B] rid=req-1138958762444791-1 range_search matched=8756613 of 8759742 in 91ms
+22:48:08 [B] accepted forwarded query req-1138958762444791-1 (target=B)
+22:48:08 [B] rid=req-1138958762452250-2 range_search matched=8756613 of 8759742 in 29ms
+22:48:08 [B] accepted forwarded query req-1138958762452250-2 (target=B)
+22:48:09 [B] rid=req-1138958762461208-3 range_search matched=8756613 of 8759742 in 26ms
+22:48:09 [B] accepted forwarded query req-1138958762461208-3 (target=B)
+22:48:09 [B] rid=req-1138958762477125-4 range_search matched=8756613 of 8759742 in 20ms
+22:48:09 [B] accepted forwarded query req-1138958762477125-4 (target=B)
+22:51:04 [B] rid=req-1139134755296375-1 range_search matched=8756613 of 8759742 in 33ms
+22:51:04 [B] accepted forwarded query req-1139134755296375-1 (target=B)
+22:51:04 [B] rid=req-1139134755302916-2 range_search matched=8756613 of 8759742 in 30ms
+22:51:04 [B] accepted forwarded query req-1139134755302916-2 (target=B)
+22:51:04 [B] rid=req-1139134755334291-4 range_search matched=8756613 of 8759742 in 25ms
+22:51:04 [B] accepted forwarded query req-1139134755334291-4 (target=B)
+22:51:04 [B] rid=req-1139134755321916-3 range_search matched=8756613 of 8759742 in 39ms
+22:51:04 [B] accepted forwarded query req-1139134755321916-3 (target=B)
+22:54:08 [B] shutdown requested

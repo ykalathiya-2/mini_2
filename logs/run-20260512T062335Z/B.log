@@ -1,0 +1,6 @@
+[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+23:23:43 [B] loaded 8759742 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/B.csv in 3194ms
+23:23:43 [B] column range table: 17 columns in 43ms
+[B] worker_threads=16
+23:23:43 [B] listening on 0.0.0.0:50052 role=peer team=blue
+23:24:49 [B] shutdown requested

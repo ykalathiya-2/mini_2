@@ -19,8 +19,10 @@ from __future__ import annotations
 
 import argparse
 import array
+import bisect
 import collections
 import csv
+import json
 import logging
 import os
 import signal
@@ -30,7 +32,7 @@ import time
 from concurrent import futures
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional
+from typing import Dict, Iterable, List, Optional, Tuple
 
 import grpc
 
@@ -43,6 +45,7 @@ import mini2_pb2 as pb        # noqa: E402
 import mini2_pb2_grpc as rpc  # noqa: E402
 
 from py.server.overlay import Overlay, load_overlay  # noqa: E402
+from py.server import telemetry as tele  # noqa: E402
 
 
 log = logging.getLogger("mini2.node")
@@ -88,17 +91,51 @@ _COL_SPEC = [
 ]
 
 
+def _read_manifest_scheme(data_dir: Path) -> Tuple[str, Optional[str]]:
+    """Read partitions_*/manifest.json and return (scheme, hash_column).
+    Missing manifest or unreadable file returns ("", None) — caller treats
+    that as "no clustering column known, skip sort."""
+    path = data_dir / "manifest.json"
+    if not path.exists():
+        return "", None
+    try:
+        with open(path, "r") as f:
+            m = json.load(f)
+    except Exception:
+        return "", None
+    return m.get("scheme", "") or "", m.get("hash_column") or None
+
+
+def _scheme_sort_column(scheme: str, hash_column: Optional[str]) -> Optional[str]:
+    """Map a partitioning scheme to the column we should sort by at load.
+    Sorting by the clustering column makes single-predicate range queries
+    O(log n) via bisect."""
+    if scheme == "trip_distance":   return "trip_distance"
+    if scheme == "pu_location_id":  return "pu_location_id"
+    if scheme == "pickup_datetime": return "pickup_datetime"
+    if scheme == "consistent_hash": return hash_column or "trip_distance"
+    return None
+
+
 @dataclass
 class Partition:
     cols: dict = field(default_factory=dict)   # name -> array.array
     n: int = 0
-    # Per-column (min,max) summary built once after load. Used as a vnode
+    # Per-column (min,max) summary built once after load. Used as a per-owner
     # pre-filter: predicates whose window falls outside the column's
     # [min,max] cause range_search to be skipped for this partition.
     column_ranges: dict = field(default_factory=dict)  # name -> (lo, hi)
+    # Sort-by-column support: if set at load time, rows have been permuted so
+    # that cols[sort_column] is monotonically non-decreasing. range_search on
+    # this column then collapses to two bisect.bisect calls.
+    sort_column: Optional[str] = None
+    # Startup-time accounting (ns) — surfaced via telemetry "ready" event.
+    load_ns: int = 0
+    sort_ns: int = 0
 
     @staticmethod
-    def load(csv_path: Path) -> "Partition":
+    def load(csv_path: Path, sort_column: Optional[str] = None) -> "Partition":
+        t0 = time.perf_counter_ns()
         cols = {name: array.array(tc) for name, tc in _COL_SPEC}
         col_list = [cols[name] for name, _ in _COL_SPEC]
         # Bind the appenders once so the hot loop doesn't do attribute
@@ -130,7 +167,31 @@ class Partition:
                 appenders[15](float(row[15]))       # improvement_surcharge
                 appenders[16](float(row[16]))       # total_amount
                 n += 1
-        return Partition(cols=cols, n=n)
+        t1 = time.perf_counter_ns()
+
+        sort_ns = 0
+        if sort_column and sort_column in cols and n > 1:
+            t2 = time.perf_counter_ns()
+            key_col = cols[sort_column]
+            # sorted(range(n), key=col.__getitem__) is the stdlib-canonical
+            # way to get an order permutation; CPython's sort is timsort in
+            # C, so the per-element comparison is the only Python cost.
+            order = sorted(range(n), key=key_col.__getitem__)
+            # Apply the permutation column-by-column. We pre-size the new
+            # array and assign rather than build a list comprehension —
+            # avoids a transient 9M-element list per column.
+            for name, src in list(cols.items()):
+                tc = src.typecode
+                new = array.array(tc, bytes(src.itemsize * n))
+                for i in range(n):
+                    new[i] = src[order[i]]
+                cols[name] = new
+            t3 = time.perf_counter_ns()
+            sort_ns = t3 - t2
+
+        p = Partition(cols=cols, n=n, sort_column=sort_column,
+                      load_ns=(t1 - t0), sort_ns=sort_ns)
+        return p
 
     def compute_column_ranges(self) -> None:
         """Build the per-column (min,max) table.
@@ -148,7 +209,7 @@ class Partition:
             self.column_ranges[name] = (float(min(col)), float(max(col)))
 
     def predicate_can_match(self, predicates) -> bool:
-        """Vnode pre-filter — see C++ counterpart for semantics."""
+        """Per-column pre-filter — see C++ counterpart for semantics."""
         if not self.column_ranges:
             return True
         for p in predicates:
@@ -160,34 +221,75 @@ class Partition:
                 return False
         return True
 
+    def _bisect_window(self, col, low, high, inclusive) -> Tuple[int, int]:
+        """Bisect on a sorted column. Returns half-open [lo, hi) indices."""
+        if inclusive:
+            return bisect.bisect_left(col, low), bisect.bisect_right(col, high)
+        return bisect.bisect_right(col, low), bisect.bisect_left(col, high)
+
     def range_search(self, predicates) -> list:
-        """Return list of matched row indices for the AND of all predicates."""
+        """Return list of matched row indices for the AND of all predicates.
+
+        Fast paths (in order):
+          1. Single predicate on the sort column -> two bisects, O(log n).
+          2. Multi-predicate that includes the sort column -> bisect window
+             on the sort column, then linear scan ONLY over that window for
+             the secondary predicates.
+          3. No predicate on the sort column -> existing linear scan.
+        """
         if self.n == 0:
             return []
         # Resolve predicate columns once.
         bound = []
-        for p in predicates:
+        sort_pred_idx = -1
+        for idx, p in enumerate(predicates):
             col = self.cols.get(p.column)
             if col is None:
                 return []
-            bound.append((col, p.low, p.high, p.inclusive))
+            bound.append((col, p.low, p.high, p.inclusive, p.column))
+            if self.sort_column and p.column == self.sort_column and sort_pred_idx < 0:
+                sort_pred_idx = idx
         if not bound:
             return list(range(self.n))
 
-        # Specialised single-predicate fast path (the common case for our
-        # benchmarks). Avoids re-checking len(bound) per row.
+        # Path 1: single predicate on the sort column.
+        if len(bound) == 1 and sort_pred_idx == 0:
+            col, low, high, inc, _ = bound[0]
+            lo, hi = self._bisect_window(col, low, high, inc)
+            return list(range(lo, hi))
+
+        # Path 2: multi-predicate, include bisect on the sort column.
+        if sort_pred_idx >= 0:
+            col, low, high, inc, _ = bound[sort_pred_idx]
+            lo, hi = self._bisect_window(col, low, high, inc)
+            # Linear filter on remaining predicates within [lo, hi).
+            others = [b for k, b in enumerate(bound) if k != sort_pred_idx]
+            out = []
+            for i in range(lo, hi):
+                ok = True
+                for ocol, olow, ohigh, oinc, _ in others:
+                    v = ocol[i]
+                    if oinc:
+                        if not (olow <= v <= ohigh):
+                            ok = False; break
+                    else:
+                        if not (olow < v < ohigh):
+                            ok = False; break
+                if ok:
+                    out.append(i)
+            return out
+
+        # Path 3: legacy linear scan (no sort col or no predicate on it).
         if len(bound) == 1:
-            col, low, high, inc = bound[0]
+            col, low, high, inc, _ = bound[0]
             if inc:
                 return [i for i, v in enumerate(col) if low <= v <= high]
             return [i for i, v in enumerate(col) if low < v < high]
-
-        # Multi-predicate AND.
         out = []
         n = self.n
         for i in range(n):
             ok = True
-            for col, low, high, inc in bound:
+            for col, low, high, inc, _ in bound:
                 v = col[i]
                 if inc:
                     if not (low <= v <= high):
@@ -280,27 +382,59 @@ class Mini2Node(rpc.ClientGatewayServicer, rpc.PeerLinkServicer):
 
         # Local partition (only for data owners).
         self.partition: Optional[Partition] = None
+        # Startup-time accounting (ns) — emitted once at ready time so the
+        # bench harness can attribute time-to-ready to its constituent
+        # phases (CSV load, sort, per-column range table, manifest read).
+        self.startup_ns = {"load": 0, "sort": 0, "range_table": 0, "manifest": 0}
+        startup_t0 = time.perf_counter_ns()
         if name in overlay.data_owners:
             csv_path = data_dir / f"{name}.csv"
             if csv_path.exists():
-                self.partition = Partition.load(csv_path)
-                log.info("[%s] loaded %d partition rows from %s",
-                         name, self.partition.n, csv_path)
-                # Build the vnode range table on a background thread so the
-                # gRPC server can start serving immediately. _register
+                # Read the partition manifest (if present) to determine the
+                # clustering column we should sort by. Manifest is optional;
+                # round-robin partitions skip the sort entirely.
+                t_mf0 = time.perf_counter_ns()
+                scheme, hash_column = _read_manifest_scheme(data_dir)
+                sort_col = _scheme_sort_column(scheme, hash_column)
+                t_mf1 = time.perf_counter_ns()
+                self.startup_ns["manifest"] = t_mf1 - t_mf0
+
+                self.partition = Partition.load(csv_path, sort_column=sort_col)
+                self.startup_ns["load"] = self.partition.load_ns
+                self.startup_ns["sort"] = self.partition.sort_ns
+                log.info("[%s] loaded %d partition rows from %s (load=%.0fms sort=%.0fms sort_col=%s)",
+                         name, self.partition.n, csv_path,
+                         self.partition.load_ns / 1e6,
+                         self.partition.sort_ns / 1e6,
+                         sort_col or "none")
+                # Build the per-column range table on a background thread so
+                # the gRPC server can start serving immediately. _register
                 # falls through to the full scan until this table is ready
                 # (predicate_can_match returns True on an empty dict).
-                def _build_ranges(part=self.partition, who=name):
+                def _build_ranges(part=self.partition, who=name, store=self.startup_ns,
+                                  startup_t0=startup_t0):
                     t0 = time.perf_counter_ns()
                     part.compute_column_ranges()
                     t1 = time.perf_counter_ns()
-                    log.info("[%s] vnode range table: %d cols in %.0f ms",
+                    store["range_table"] = t1 - t0
+                    log.info("[%s] column range table: %d cols in %.0f ms",
                              who, len(part.column_ranges), (t1 - t0) / 1e6)
+                    total = time.perf_counter_ns() - startup_t0
+                    t = tele.get()
+                    if t is not None:
+                        t.emit("ready",
+                               load_ms       = int(store["load"]        / 1e6),
+                               sort_ms       = int(store["sort"]        / 1e6),
+                               range_table_ms= int(store["range_table"] / 1e6),
+                               manifest_ms   = int(store["manifest"]    / 1e6),
+                               total_ms      = int(total                / 1e6),
+                               rows          = part.n)
                 threading.Thread(target=_build_ranges, daemon=True,
                                  name=f"ranges-{name}").start()
             else:
                 log.warning("[%s] no partition CSV at %s — running with empty data",
                             name, csv_path)
+        self.startup_total_ns = time.perf_counter_ns() - startup_t0
 
         # Chunking defaults.
         self.chunk_initial = int(overlay.chunking.get("initial_rows", 64))
@@ -366,7 +500,7 @@ class Mini2Node(rpc.ClientGatewayServicer, rpc.PeerLinkServicer):
                         # this partition's column ranges → guaranteed empty.
                         st.matched_indices = []
                         st.done_producing = True
-                        log.info("[%s] rid=%s vnode range filter: skipped (out-of-range)",
+                        log.info("[%s] rid=%s range filter: skipped (out-of-range)",
                                  self.name, req_id)
                     else:
                         t0 = time.perf_counter_ns()
@@ -718,6 +852,10 @@ def serve(name: str, overlay_path: Optional[str], data_dir: Optional[str],
 
     data_path = Path(data_dir) if data_dir else \
         Path(__file__).resolve().parents[2] / "data" / "partitions"
+
+    # Init telemetry before node construction so the ready event lands in
+    # the same per-node JSONL file the C++ side uses.
+    tele.init(name)
 
     node = Mini2Node(name, overlay, data_path)
 

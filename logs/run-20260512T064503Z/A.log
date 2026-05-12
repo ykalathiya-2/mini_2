@@ -1,0 +1,38 @@
+[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+23:45:10 [A] loaded 7299081 rows from /Users/spartan/mini_2/data/partitions_consistent_hash/A.csv in 2698ms
+23:45:10 [A] column range table: 17 columns in 37ms
+23:45:10 [A] smart routing enabled: scheme=consistent_hash
+[A] worker_threads=16
+23:45:10 [A] listening on 0.0.0.0:50051 role=gateway team=blue
+23:45:17 [A] SubmitQuery rid=req-1142387783566083-1 preds=1
+23:45:17 [A] rid=req-1142387783566083-1 range_search matched=114931 of 7299081 in 4ms
+23:45:17 [A] smart-route rid=req-1142387783566083-1 hit 6/9 owners; skipped: C F I 
+23:45:27 [A] forward→H via H failed after retries: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+23:45:27 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:45:27 [A] rid=req-1142387783566083-1 done; total=164065 owners_hit=4/6
+23:45:29 [A] SubmitQuery rid=req-1142399871596666-1 preds=1
+23:45:29 [A] rid=req-1142399871596666-1 range_search matched=114931 of 7299081 in 3ms
+23:45:29 [A] smart-route rid=req-1142399871596666-1 hit 6/9 owners; skipped: C F I 
+23:45:39 [A] forward→H via H failed after retries: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+23:45:39 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:45:39 [A] rid=req-1142399871596666-1 done; total=164065 owners_hit=4/6
+23:45:41 [A] SubmitQuery rid=req-1142411748840041-1 preds=1
+23:45:41 [A] rid=req-1142411748840041-1 range_search matched=114931 of 7299081 in 4ms
+23:45:41 [A] smart-route rid=req-1142411748840041-1 hit 6/9 owners; skipped: C F I 
+23:45:51 [A] forward→H via H failed after retries: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.1:50058: Failed to connect to remote host: Connection refused
+23:45:51 [A] PullChunk→D failed: failed to connect to all addresses; last error: UNKNOWN: ipv4:192.168.50.2:50054: Failed to connect to remote host: Connection refused
+23:45:51 [A] rid=req-1142411748840041-1 done; total=164065 owners_hit=4/6
+23:45:53 [A] SubmitQuery rid=req-1142423597386041-1 preds=1
+23:45:53 [A] rid=req-1142423597386041-1 range_search matched=114931 of 7299081 in 3ms
+23:45:53 [A] smart-route rid=req-1142423597386041-1 hit 6/9 owners; skipped: C F I 
+23:46:03 [A] PullChunk→D failed: no local data for req-1142423597386041-1
+23:46:03 [A] rid=req-1142423597386041-1 done; total=176243 owners_hit=5/6
+23:46:05 [A] SubmitQuery rid=req-1142435411894166-1 preds=1
+23:46:05 [A] rid=req-1142435411894166-1 range_search matched=114931 of 7299081 in 3ms
+23:46:05 [A] smart-route rid=req-1142435411894166-1 hit 6/9 owners; skipped: C F I 
+23:46:05 [A] rid=req-1142435411894166-1 done; total=176243 owners_hit=6/6
+23:46:05 [A] SubmitQuery rid=req-1142435573354125-1 preds=1
+23:46:05 [A] rid=req-1142435573354125-1 range_search matched=114931 of 7299081 in 3ms
+23:46:05 [A] smart-route rid=req-1142435573354125-1 hit 6/9 owners; skipped: C F I 
+23:46:05 [A] rid=req-1142435573354125-1 done; total=176243 owners_hit=6/6
+23:46:06 [A] shutdown requested

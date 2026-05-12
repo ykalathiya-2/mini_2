@@ -103,3 +103,15 @@ chunking:
 scheduler:
   mode: weighted_round_robin   # {fifo, round_robin, weighted_round_robin}
   max_concurrent_requests: 32
+
+# Network-aware tuning. Measured iperf3 on this LAN: ~940 Mbps both ways,
+# TCP cwnd grows to ~1.5 MB (BDP). Small chunks (~400 KB at 4096 rows)
+# leave the link underused on inter-host hops; larger chunks add latency
+# on loopback. Picks are based on `me.virtual_host != peer.virtual_host`.
+network:
+  simulate: false               # add synthetic delay before peer RPCs
+  inter_host_latency_ms: 0.5    # only honored when simulate=true
+  intra_host_latency_ms: 0.05   # only honored when simulate=true
+  intra_host_max_rows: 4096     # loopback: small chunks for low p50
+  inter_host_max_rows: 32768    # LAN: larger chunks to fill the gigabit BDP
+  compress_inter_host: true     # gzip across hosts (skip on loopback)

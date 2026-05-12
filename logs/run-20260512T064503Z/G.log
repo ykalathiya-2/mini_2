@@ -1,0 +1,16 @@
+[launcher] node=G impl=cpp overlay=/home/yash/mini_2/config/overlay.yaml data=/home/yash/mini_2/data/partitions_consistent_hash
+23:45:06 [G] loaded 6520538 rows from /home/yash/mini_2/data/partitions_consistent_hash/G.csv
+[G] worker_threads=16
+23:45:06 [G] listening on 0.0.0.0:50057 role=peer team=yellow
+23:45:17 [G] rid=req-1142387783566083-1 range_search matched=12228 of 6520538 in 4ms
+23:45:17 [G] accepted forwarded query req-1142387783566083-1 (target=G)
+23:45:29 [G] rid=req-1142399871596666-1 range_search matched=12228 of 6520538 in 5ms
+23:45:29 [G] accepted forwarded query req-1142399871596666-1 (target=G)
+23:45:41 [G] rid=req-1142411748840041-1 range_search matched=12228 of 6520538 in 3ms
+23:45:41 [G] accepted forwarded query req-1142411748840041-1 (target=G)
+23:45:53 [G] rid=req-1142423597386041-1 range_search matched=12228 of 6520538 in 4ms
+23:45:53 [G] accepted forwarded query req-1142423597386041-1 (target=G)
+23:46:05 [G] rid=req-1142435411894166-1 range_search matched=12228 of 6520538 in 3ms
+23:46:05 [G] accepted forwarded query req-1142435411894166-1 (target=G)
+23:46:05 [G] rid=req-1142435573354125-1 range_search matched=12228 of 6520538 in 2ms
+23:46:05 [G] accepted forwarded query req-1142435573354125-1 (target=G)

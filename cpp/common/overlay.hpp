@@ -29,9 +29,20 @@ struct NodeSpec {
 };
 
 struct NetworkSim {
+    // When `simulate` is set, the peer-stub factory injects a per-RPC
+    // delay (intra_host_latency_ms vs. inter_host_latency_ms) before the
+    // call returns — useful for stress-testing fairness on a single host.
     bool   simulate                 = false;
     double inter_host_latency_ms    = 0.0;
     double intra_host_latency_ms    = 0.0;
+    // Per-edge chunk sizing. iperf shows our LAN bottoms at ~117 MB/s with
+    // a ~1.5 MB BDP. Small chunks underfill the link on inter-host hops;
+    // large chunks add latency on intra-host hops where loopback is free.
+    // 0 → fall back to overlay.chunking.max_rows for that edge class.
+    int    intra_host_max_rows      = 0;
+    int    inter_host_max_rows      = 0;
+    // gzip on inter-host channels only. Loopback compression is wasted CPU.
+    bool   compress_inter_host      = false;
 };
 
 struct Chunking {

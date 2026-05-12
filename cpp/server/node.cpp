@@ -12,6 +12,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <condition_variable>
 #include <csignal>
 #include <deque>
 #include <filesystem>
@@ -25,6 +26,8 @@
 #include <string>
 #include <thread>
 #include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 #include <grpcpp/grpcpp.h>
 
@@ -78,13 +81,32 @@ struct RequestState {
     // Gateway: which peers are finished producing?
     std::unordered_map<std::string, bool> client_producers_done;
     // Gateway: per-owner row counts (populated as PullChunk responses
-    // arrive, including the local self-as-owner drain). Used to emit
-    // vnodes_hit on the last chunk.
+    // arrive, including the local self-as-owner drain).
     std::unordered_map<std::string, int64_t> client_per_owner_rows;
+    // Gateway: owners that returned at least one successful PullChunk
+    // (including empty replies). Used for owners_hit so a healthy owner
+    // with zero matching rows still counts as "reached".
+    std::unordered_set<std::string> owners_responded;
     // Eligible owner count after smart routing — captured at SubmitQuery
-    // time, used for the vnodes_hit/vnodes_eligible ratio.
+    // time, used for the owners_hit/owners_eligible ratio.
     int         eligible_owners = 0;
     std::mutex  mu;
+
+    // --- Parallel prefetch (gateway-side only) ---------------------------
+    // One slot per *remote* data-owner: at most one chunk's worth of rows
+    // is buffered at A. A per-(request, owner) prefetcher thread keeps the
+    // slot refilled by issuing PullChunks while the previous chunk drains.
+    // The self partition (owner == name_) is drained directly from
+    // `matched` in FetchChunk — no need to round-trip through gRPC.
+    //
+    // Memory bound: 9 owners × ~chunk_max rows ≈ ~36-72 KB worth of TaxiRow
+    // protos at A at any time, regardless of how many rows the query
+    // ultimately matches.
+    std::unordered_map<std::string, std::deque<::mini2::TaxiRow>> prefetch_buf;
+    std::unordered_map<std::string, bool>  prefetch_done_map;
+    std::condition_variable                prefetch_cv;
+    std::vector<std::thread>               prefetch_threads;
+    std::atomic<bool>                      prefetch_stop{false};
 };
 
 } // anonymous
@@ -107,21 +129,28 @@ public:
           sched_(overlay_.scheduler.mode),
           stop_producer_(false) {
         Telemetry::instance().init(name_);
+        int64_t startup_t0 = now_ns();
         // Load partition if this node owns data.
         for (auto& o : overlay_.data_owners) {
             if (o == name_) {
                 std::string path = data_dir_ + "/" + name_ + ".csv";
                 if (std::filesystem::exists(path)) {
+                    int64_t t0 = now_ns();
                     part_ = load_partition_csv(path);
+                    int64_t t1 = now_ns();
+                    startup_load_ns_ = t1 - t0;
                     log_line(name_, "loaded " + std::to_string(part_.size())
-                             + " rows from " + path);
+                             + " rows from " + path
+                             + " in " + std::to_string((t1 - t0) / 1'000'000) + "ms");
                 } else {
                     log_line(name_, "no partition file at " + path);
                 }
             }
         }
         // Build the two startup tables concurrently:
-        //   1. vnode range table  (per-column min/max in our partition)
+        //   1. per-column (min,max) range table  (used as a per-partition
+        //      pre-filter so predicates whose window misses our column
+        //      bounds skip the scan entirely)
         //   2. hash mapping table (consistent_hash routing metadata from
         //      manifest.json — also reused for trip_distance / pu / month
         //      smart-routing).
@@ -132,16 +161,31 @@ public:
             int64_t t0 = now_ns();
             part_.compute_column_ranges();
             int64_t t1 = now_ns();
-            log_line(name_, "vnode range table: "
+            startup_range_table_ns_ = t1 - t0;
+            log_line(name_, "column range table: "
                      + std::to_string(part_.column_ranges.size())
                      + " columns in "
                      + std::to_string((t1 - t0) / 1'000'000) + "ms");
         });
+        int64_t mt0 = now_ns();
         meta_ = load_owner_metadata(data_dir_);
+        int64_t mt1 = now_ns();
+        startup_manifest_ns_ = mt1 - mt0;
         range_future.wait();
         if (!meta_.empty() && me_.role == "gateway") {
             log_line(name_, "smart routing enabled: scheme=" + meta_.scheme);
         }
+        int64_t startup_total = now_ns() - startup_t0;
+        // Single structured "ready" event so the bench can attribute the
+        // time-to-ready of each node to its phases without parsing freeform
+        // log lines.
+        Telemetry::Event("ready")
+            .f("load_ms",        static_cast<int>(startup_load_ns_        / 1'000'000))
+            .f("range_table_ms", static_cast<int>(startup_range_table_ns_ / 1'000'000))
+            .f("manifest_ms",    static_cast<int>(startup_manifest_ns_    / 1'000'000))
+            .f("total_ms",       static_cast<int>(startup_total           / 1'000'000))
+            .f("rows",           static_cast<int>(part_.size()))
+            .emit();
         producer_thread_ = std::thread([this]{ this->produce_loop(); });
     }
 
@@ -197,6 +241,9 @@ public:
                 st->client_producers_done[o] = !elig_set.count(o);
             }
             st->eligible_owners = static_cast<int>(elig.size());
+            // Self drains locally — no RPC can fail, so count it as
+            // responded up-front if eligible.
+            if (elig_set.count(name_)) st->owners_responded.insert(name_);
         }
 
         // Fan out ForwardedQuery per eligible REMOTE owner. Self-as-owner
@@ -243,6 +290,22 @@ public:
                 st->client_producers_done[owner] = true;
             }
         }
+
+        // Kick off one prefetcher thread per eligible REMOTE owner. Each
+        // thread keeps at most one chunk buffered at A for its owner — the
+        // thread blocks on prefetch_cv until the slot drains, then issues
+        // the next PullChunk. This recovers parallel fan-out (multiple
+        // owners pulled concurrently) without unbounded buffering.
+        for (auto& owner : elig) {
+            if (owner == name_) continue;
+            {
+                std::lock_guard<std::mutex> lk(st->mu);
+                if (st->client_producers_done[owner]) continue;  // forward failed
+            }
+            st->prefetch_threads.emplace_back(
+                [this, st, owner, rid]() { prefetcher_loop(st, owner, rid); });
+        }
+
         resp->set_request_id(rid);
         resp->set_accepted(true);
         resp->set_estimated_rows(-1);
@@ -263,106 +326,111 @@ public:
         int max_rows = sizer_.decide(rid, req->max_rows());
         int64_t seq  = ++st->client_last_seq;
 
-        // Pick the first owner that still has data to stream.
-        // Remote producers have been running since SubmitQuery, so we pull
-        // from them one at a time and forward their rows directly — no
-        // buffering at A.
-        std::string target;
-        {
-            std::lock_guard<std::mutex> lk(st->mu);
-            for (auto& o : overlay_.data_owners)
-                if (!st->client_producers_done[o]) { target = o; break; }
-        }
-
-        // Helper: check if all owners are done (called after marking target).
-        auto all_done = [&]() {
-            std::lock_guard<std::mutex> lk(st->mu);
-            for (auto& o : overlay_.data_owners)
-                if (!st->client_producers_done[o]) return false;
-            return true;
-        };
-
         resp->set_request_id(rid);
         resp->set_seq(seq);
         resp->set_produced_at_ns(now_ns());
         resp->set_producer(name_);
 
-        if (target.empty()) {
-            // All owners already done — terminal empty chunk.
-            resp->set_is_last(true);
-        } else if (target == name_) {
-            // Self-as-owner: drain from local matched deque, no RPC.
-            int produced = 0;
-            bool self_done = false;
-            {
-                std::lock_guard<std::mutex> lk(st->mu);
-                while (!st->matched.empty() && produced < max_rows) {
+        // Parallel drain: wait until *any* source has rows (self.matched or
+        // any prefetch_buf[owner]) OR every owner is fully drained & done.
+        // Prefetchers are filling slots in parallel in the background.
+        int produced = 0;
+        bool all_done = false;
+        {
+            std::unique_lock<std::mutex> lk(st->mu);
+            auto have_data = [&]() {
+                if (!st->matched.empty()) return true;
+                for (auto& [_, buf] : st->prefetch_buf)
+                    if (!buf.empty()) return true;
+                return false;
+            };
+            auto all_drained = [&]() {
+                if (!st->done_producing.load() || !st->matched.empty())
+                    return false;
+                for (auto& o : overlay_.data_owners) {
+                    if (o == name_) continue;
+                    if (!st->client_producers_done[o]) {
+                        // Still in flight: not done unless prefetch finished
+                        // AND its buffer is empty.
+                        if (!(st->prefetch_done_map[o] && st->prefetch_buf[o].empty()))
+                            return false;
+                    }
+                }
+                return true;
+            };
+            st->prefetch_cv.wait(lk, [&]() {
+                return st->cancelled.load() || have_data() || all_drained();
+            });
+
+            // Round-robin drain across self + remote owners.
+            while (produced < max_rows) {
+                bool drained_this_round = false;
+                // Self drain (cheap, no RPC).
+                if (!st->matched.empty()) {
                     *resp->add_rows() = std::move(st->matched.front());
                     st->matched.pop_front();
                     ++produced;
+                    ++st->client_per_owner_rows[name_];
+                    ++st->total_matched;
+                    drained_this_round = true;
+                    if (produced >= max_rows) break;
                 }
-                self_done = st->done_producing.load() && st->matched.empty();
-                if (self_done) st->client_producers_done[name_] = true;
-                st->client_per_owner_rows[name_] += produced;
-                st->total_matched += produced;
+                // Remote owners.
+                for (auto& o : overlay_.data_owners) {
+                    if (o == name_) continue;
+                    auto& buf = st->prefetch_buf[o];
+                    if (buf.empty()) continue;
+                    *resp->add_rows() = std::move(buf.front());
+                    buf.pop_front();
+                    ++produced;
+                    ++st->client_per_owner_rows[o];
+                    ++st->total_matched;
+                    drained_this_round = true;
+                    if (produced >= max_rows) break;
+                }
+                if (!drained_this_round) break;
             }
-            resp->set_is_last(self_done && all_done());
-        } else {
-            // Peer: single PullChunk RPC — forward rows directly, no copy into
-            // a local buffer. A's memory footprint stays bounded to one chunk.
-            auto hop = overlay_.next_hop(name_, target);
-            PullRequest sub;
-            sub.set_request_id(rid);
-            sub.set_max_rows(max_rows);
-            sub.set_last_seq(-1);
-            sub.set_target_owner(target);
-            grpc::ClientContext ctx;
-            ctx.set_deadline(std::chrono::system_clock::now()
-                             + std::chrono::seconds(15));
-            Chunk peer;
-            auto s = peer_stub(hop)->PullChunk(&ctx, sub, &peer);
-            if (!s.ok()) {
-                log_line(name_, "PullChunk→" + target + " failed: "
-                         + s.error_message());
-                if (s.error_code() != grpc::StatusCode::DEADLINE_EXCEEDED) {
-                    std::lock_guard<std::mutex> lk(st->mu);
-                    st->client_producers_done[target] = true;
-                }
-                resp->set_is_last(false);
-            } else {
-                {
-                    std::lock_guard<std::mutex> lk(st->mu);
-                    st->total_matched += peer.rows_size();
-                    st->client_per_owner_rows[target] += peer.rows_size();
-                    if (peer.is_last()) st->client_producers_done[target] = true;
-                }
-                // Move rows from peer chunk directly into response.
-                for (auto& r : *peer.mutable_rows())
-                    *resp->add_rows() = std::move(r);
-                resp->set_backlog(peer.backlog());
-                resp->set_is_last(peer.is_last() && all_done());
+
+            // Promote per-owner done state once buffers fully drain.
+            if (st->done_producing.load() && st->matched.empty())
+                st->client_producers_done[name_] = true;
+            for (auto& o : overlay_.data_owners) {
+                if (o == name_) continue;
+                if (st->prefetch_done_map[o] && st->prefetch_buf[o].empty())
+                    st->client_producers_done[o] = true;
+            }
+
+            // Wake any prefetcher whose slot is now empty so it can issue
+            // the next PullChunk.
+            st->prefetch_cv.notify_all();
+
+            all_done = true;
+            for (auto& o : overlay_.data_owners) {
+                if (!st->client_producers_done[o]) { all_done = false; break; }
             }
         }
+
+        resp->set_is_last(all_done);
+        resp->set_backlog(static_cast<int64_t>(produced));
 
         if (resp->is_last()) {
             int hit = 0, eligible = 0;
             {
                 std::lock_guard<std::mutex> lk(st->mu);
-                for (auto& kv : st->client_per_owner_rows)
-                    if (kv.second > 0) ++hit;
+                hit = static_cast<int>(st->owners_responded.size());
                 eligible = st->eligible_owners;
             }
-            resp->set_vnodes_hit(hit);
-            resp->set_vnodes_eligible(eligible);
+            resp->set_owners_hit(hit);
+            resp->set_owners_eligible(eligible);
             log_line(name_, "rid=" + rid + " done; total="
                      + std::to_string(st->total_matched)
-                     + " vnodes_hit=" + std::to_string(hit)
+                     + " owners_hit=" + std::to_string(hit)
                      + "/" + std::to_string(eligible));
             Telemetry::Event("request_done")
                 .f("rid", rid)
                 .f("rows", static_cast<int>(st->total_matched))
-                .f("vnodes_hit", hit)
-                .f("vnodes_eligible", eligible)
+                .f("owners_hit", hit)
+                .f("owners_eligible", eligible)
                 .emit();
             drop_request(rid);
         }
@@ -378,11 +446,17 @@ public:
             return Status::OK;
         }
         st->cancelled.store(true);
+        st->prefetch_stop.store(true);
         int dropped = 0;
         {
             std::lock_guard<std::mutex> lk(st->mu);
             dropped += st->matched.size();
             st->matched.clear();
+            for (auto& [_, buf] : st->prefetch_buf) {
+                dropped += buf.size();
+                buf.clear();
+            }
+            st->prefetch_cv.notify_all();
         }
         if (me_.role == "gateway") {
             for (auto& owner : overlay_.data_owners) {
@@ -549,15 +623,15 @@ private:
         // vector, so per-row predicate evaluation never happens in steady
         // state.  Gateways have an empty partition and skip this.
         if (!part_.empty()) {
-            // Vnode pre-filter: if the query's window doesn't intersect this
-            // partition's per-column (min,max) box, skip the full scan
+            // Per-partition pre-filter: if the query's window doesn't intersect
+            // this partition's per-column (min,max) box, skip the full scan
             // entirely. Discarded queries return is_last=true on the first
             // PullChunk so the gateway sees the owner as "done, 0 rows".
             if (!part_.predicate_can_match(q)) {
                 st->done_producing.store(true);
                 log_line(name_, "rid=" + rid
-                         + " vnode range filter: skipped (out-of-range)");
-                Telemetry::Event("vnode_range_skip").f("rid", rid).emit();
+                         + " range filter: skipped (out-of-range)");
+                Telemetry::Event("range_skip").f("rid", rid).emit();
             } else {
                 int64_t t0 = now_ns();
                 st->matched_indices = part_.range_search(q);
@@ -583,10 +657,49 @@ private:
     }
 
     void drop_request(const std::string& rid) {
-        std::lock_guard<std::mutex> lk(req_mu_);
-        requests_.erase(rid);
-        sched_.remove(rid);
-        sizer_.forget(rid);
+        std::shared_ptr<RequestState> st;
+        {
+            std::lock_guard<std::mutex> lk(req_mu_);
+            auto it = requests_.find(rid);
+            if (it != requests_.end()) {
+                st = it->second;
+                requests_.erase(it);
+            }
+            sched_.remove(rid);
+            sizer_.forget(rid);
+        }
+        if (st) {
+            // Stop and join prefetchers (gateway-side). Must release req_mu_
+            // first because prefetchers may take st->mu while we wait.
+            st->prefetch_stop.store(true);
+            {
+                std::lock_guard<std::mutex> lk(st->mu);
+                st->prefetch_cv.notify_all();
+            }
+            for (auto& t : st->prefetch_threads)
+                if (t.joinable()) t.join();
+            st->prefetch_threads.clear();
+        }
+    }
+
+    // True iff `peer` advertises a different virtual_host than us. Used to
+    // pick per-edge tuning (chunk size, compression). Defaults to false on
+    // an unknown peer name so we never accidentally over-tune.
+    bool is_inter_host(const std::string& peer) const {
+        auto it = overlay_.nodes.find(peer);
+        if (it == overlay_.nodes.end()) return false;
+        return it->second.virtual_host != me_.virtual_host;
+    }
+
+    // Per-RPC max_rows: bigger chunks on inter-host hops to fill the LAN
+    // bandwidth-delay product; smaller chunks on loopback to keep p50 low.
+    int peer_max_rows(const std::string& peer) const {
+        if (is_inter_host(peer)) {
+            int v = overlay_.network.inter_host_max_rows;
+            return v > 0 ? v : overlay_.chunking.max_rows;
+        }
+        int v = overlay_.network.intra_host_max_rows;
+        return v > 0 ? v : overlay_.chunking.max_rows;
     }
 
     ::mini2::PeerLink::Stub* peer_stub(const std::string& peer) {
@@ -597,6 +710,10 @@ private:
         grpc::ChannelArguments args;
         args.SetMaxSendMessageSize(64 * 1024 * 1024);
         args.SetMaxReceiveMessageSize(64 * 1024 * 1024);
+        // gzip across hosts; on loopback gzip is wasted CPU.
+        if (overlay_.network.compress_inter_host && is_inter_host(peer)) {
+            args.SetCompressionAlgorithm(GRPC_COMPRESS_GZIP);
+        }
         auto ch = grpc::CreateCustomChannel(
             ep, grpc::InsecureChannelCredentials(), args);
         auto stub = ::mini2::PeerLink::NewStub(ch);
@@ -656,8 +773,99 @@ private:
             }
             st->matched_cursor = i;
             if (i >= idxs.size()) st->done_producing.store(true);
-            if (produced > 0) did_work = true;
+            if (produced > 0) {
+                did_work = true;
+                // Wake any FetchChunk consumer waiting on this request's
+                // gateway-side condition variable (we are the self-as-owner
+                // producer for gateway nodes).
+                st->prefetch_cv.notify_all();
+            }
             if (!did_work) std::this_thread::sleep_for(std::chrono::milliseconds(2));
+        }
+    }
+
+    // Gateway-side prefetcher: one instance per (request, remote-owner).
+    // Keeps at most one chunk's worth of rows buffered for `owner` at A,
+    // refilling the slot when the consumer (FetchChunk) drains it.
+    // Returns when the peer reports is_last, the request is cancelled, or
+    // a non-recoverable error.
+    void prefetcher_loop(std::shared_ptr<RequestState> st,
+                         std::string owner, std::string rid) {
+        std::string hop;
+        try { hop = overlay_.next_hop(name_, owner); }
+        catch (...) {
+            std::lock_guard<std::mutex> lk(st->mu);
+            st->prefetch_done_map[owner] = true;
+            st->client_producers_done[owner] = true;
+            st->prefetch_cv.notify_all();
+            return;
+        }
+        while (true) {
+            // Block until our slot is empty (consumer drained us) or stop.
+            {
+                std::unique_lock<std::mutex> lk(st->mu);
+                st->prefetch_cv.wait(lk, [&]() {
+                    return st->prefetch_stop.load() || st->cancelled.load()
+                        || st->prefetch_buf[owner].empty();
+                });
+                if (st->prefetch_stop.load() || st->cancelled.load()) return;
+                if (st->prefetch_done_map[owner]) return;
+            }
+            // Issue PullChunk to the remote owner. Hint the per-edge max
+            // (4K loopback / 32K inter-host) so the owner sizes the reply
+            // to fill the link without overshooting the BDP.
+            PullRequest sub;
+            sub.set_request_id(rid);
+            sub.set_max_rows(peer_max_rows(owner));
+            sub.set_last_seq(-1);
+            sub.set_target_owner(owner);
+            grpc::ClientContext ctx;
+            ctx.set_deadline(std::chrono::system_clock::now()
+                             + std::chrono::seconds(30));
+            Chunk peer;
+            int64_t pull_t0 = now_ns();
+            auto s = peer_stub(hop)->PullChunk(&ctx, sub, &peer);
+            int64_t pull_t1 = now_ns();
+            // Per-owner latency event so the bench can break out p50/p99
+            // by `impl` (cpp vs python). Always emitted, ok or not.
+            {
+                std::string impl = "unknown";
+                auto it = overlay_.nodes.find(owner);
+                if (it != overlay_.nodes.end()) impl = it->second.impl;
+                Telemetry::Event("peer_pull")
+                    .f("rid",    rid)
+                    .f("owner",  owner)
+                    .f("impl",   impl)
+                    .f("inter_host", is_inter_host(owner) ? 1 : 0)
+                    .f("ms",     static_cast<int>((pull_t1 - pull_t0) / 1'000'000))
+                    .f("rows",   peer.rows_size())
+                    .f("ok",     s.ok() ? 1 : 0)
+                    .emit();
+            }
+            {
+                std::lock_guard<std::mutex> lk(st->mu);
+                if (!s.ok()) {
+                    if (s.error_code() == grpc::StatusCode::DEADLINE_EXCEEDED) {
+                        // Transient: loop and re-issue.
+                        continue;
+                    }
+                    log_line(name_, "PullChunk→" + owner + " failed: "
+                             + s.error_message());
+                    st->prefetch_done_map[owner] = true;
+                    st->client_producers_done[owner] = true;
+                    st->prefetch_cv.notify_all();
+                    return;
+                }
+                // Successful reply — owner is reachable & answered, even
+                // if rows is empty.
+                st->owners_responded.insert(owner);
+                for (auto& r : *peer.mutable_rows())
+                    st->prefetch_buf[owner].push_back(std::move(r));
+                if (peer.is_last())
+                    st->prefetch_done_map[owner] = true;
+                st->prefetch_cv.notify_all();
+                if (peer.is_last()) return;
+            }
         }
     }
 
@@ -682,6 +890,11 @@ private:
     std::mt19937 rng_{0xC0FFEE};
     std::atomic<bool> stop_producer_;
     std::thread producer_thread_;
+    // Startup-time accounting (ns). Emitted once in the "ready" telemetry
+    // event so the bench can break time-to-ready into its phases.
+    int64_t startup_load_ns_        = 0;
+    int64_t startup_range_table_ns_ = 0;
+    int64_t startup_manifest_ns_    = 0;
 };
 
 } // namespace mini2

@@ -1,0 +1,9 @@
+[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
+2026-05-11 23:45:42,861 INFO mini2.node: [D] loaded 9337246 partition rows from /Users/spartan/mini_2/data/partitions_consistent_hash/D.csv (load=18121ms sort=17386ms sort_col=trip_distance)
+2026-05-11 23:45:46,480 INFO mini2.node: [D] column range table: 17 cols in 3617 ms
+2026-05-11 23:45:46,504 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
+2026-05-11 23:46:05,448 INFO mini2.node: [D] rid=req-1142435411894166-1 range_search matched=0 of 9337246 in 0.02 ms
+2026-05-11 23:46:05,448 INFO mini2.node: [D] accepted forwarded query req-1142435411894166-1 (target=D)
+2026-05-11 23:46:05,609 INFO mini2.node: [D] rid=req-1142435573354125-1 range_search matched=0 of 9337246 in 0.02 ms
+2026-05-11 23:46:05,609 INFO mini2.node: [D] accepted forwarded query req-1142435573354125-1 (target=D)
+2026-05-11 23:46:06,109 INFO mini2.node: [D] shutting down

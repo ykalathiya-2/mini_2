@@ -1,0 +1,42 @@
+[launcher] node=G impl=cpp overlay=/home/yash/mini_2/config/overlay.yaml data=/home/yash/mini_2/data/partitions_consistent_hash
+23:24:55 [G] loaded 6520538 rows from /home/yash/mini_2/data/partitions_consistent_hash/G.csv
+[G] worker_threads=16
+23:24:55 [G] listening on 0.0.0.0:50057 role=peer team=yellow
+23:25:06 [G] rid=req-1141176847403583-1 range_search matched=12228 of 6520538 in 4ms
+23:25:06 [G] accepted forwarded query req-1141176847403583-1 (target=G)
+23:25:18 [G] rid=req-1141188680016291-1 range_search matched=12228 of 6520538 in 2ms
+23:25:18 [G] accepted forwarded query req-1141188680016291-1 (target=G)
+23:25:24 [G] rid=req-1141194793803875-1 range_search matched=12228 of 6520538 in 2ms
+23:25:24 [G] accepted forwarded query req-1141194793803875-1 (target=G)
+23:25:27 [G] rid=req-1141197314403458-1 range_search matched=12228 of 6520538 in 2ms
+23:25:27 [G] accepted forwarded query req-1141197314403458-1 (target=G)
+23:25:29 [G] rid=req-1141199828480458-1 range_search matched=12228 of 6520538 in 2ms
+23:25:29 [G] accepted forwarded query req-1141199828480458-1 (target=G)
+23:25:32 [G] rid=req-1141202427589250-1 range_search matched=12228 of 6520538 in 2ms
+23:25:32 [G] accepted forwarded query req-1141202427589250-1 (target=G)
+23:25:35 [G] rid=req-1141205147017166-1 range_search matched=12228 of 6520538 in 2ms
+23:25:35 [G] accepted forwarded query req-1141205147017166-1 (target=G)
+23:25:37 [G] rid=req-1141207868904083-1 range_search matched=12228 of 6520538 in 2ms
+23:25:37 [G] accepted forwarded query req-1141207868904083-1 (target=G)
+23:25:40 [G] rid=req-1141210539092500-1 range_search matched=12228 of 6520538 in 4ms
+23:25:40 [G] accepted forwarded query req-1141210539092500-1 (target=G)
+23:25:43 [G] rid=req-1141213181536250-1 range_search matched=12228 of 6520538 in 2ms
+23:25:43 [G] accepted forwarded query req-1141213181536250-1 (target=G)
+23:25:45 [G] rid=req-1141215887578708-1 range_search matched=12228 of 6520538 in 2ms
+23:25:45 [G] accepted forwarded query req-1141215887578708-1 (target=G)
+23:25:46 [G] rid=req-1141216412180333-1 range_search matched=12228 of 6520538 in 2ms
+23:25:46 [G] accepted forwarded query req-1141216412180333-1 (target=G)
+23:25:46 [G] rid=req-1141216916706250-1 range_search matched=12228 of 6520538 in 3ms
+23:25:46 [G] accepted forwarded query req-1141216916706250-1 (target=G)
+23:25:47 [G] rid=req-1141217432388375-1 range_search matched=387951 of 6520538 in 4ms
+23:25:47 [G] accepted forwarded query req-1141217432388375-1 (target=G)
+23:25:49 [G] rid=req-1141218993403916-1 range_search matched=387951 of 6520538 in 5ms
+23:25:49 [G] accepted forwarded query req-1141218993403916-1 (target=G)
+23:25:51 [G] rid=req-1141220551709125-1 range_search matched=2238040 of 6520538 in 18ms
+23:25:51 [G] accepted forwarded query req-1141220551709125-1 (target=G)
+23:26:10 [G] rid=req-1141240152732416-1 range_search matched=2238040 of 6520538 in 20ms
+23:26:10 [G] accepted forwarded query req-1141240152732416-1 (target=G)
+23:26:30 [G] rid=req-1141259867055958-1 range_search matched=6517495 of 6520538 in 29ms
+23:26:30 [G] accepted forwarded query req-1141259867055958-1 (target=G)
+23:27:08 [G] rid=req-1141298025343541-1 range_search matched=6517495 of 6520538 in 34ms
+23:27:08 [G] accepted forwarded query req-1141298025343541-1 (target=G)

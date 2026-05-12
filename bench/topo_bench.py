@@ -257,27 +257,29 @@ def cluster_down(mode: str) -> None:
                    stderr=subprocess.DEVNULL, timeout=30)
 
 
-def wait_ready(overlay: Path, max_wait_s: float = 30.0) -> bool:
-    """Wait until A is responsive AND a small but non-empty query returns
-    rows from all-eligible owners. The empty-result probe was insufficient
-    on multihost: it would return ok=True from A even while remote nodes
-    were still loading their CSVs, leading to forward-during-warmup
-    failures that silently dead-marked owners.
+def wait_ready(overlay: Path, max_wait_s: float = 90.0) -> bool:
+    """Wait until all eligible owners have responded to a probe query.
 
-    We use a real query whose total row count tells us all owners replied:
-    trip_distance ∈ [5.0, 5.05] over 70M rows yields ~176k rows, single
-    digit % per owner — if the count is ≥ 100k we know all 9 producers
-    contributed."""
+    Uses owners_hit == owners_eligible from the client JSON; owners_hit now
+    counts any owner that successfully replied (even with zero rows), so
+    a narrow probe range that happens to miss some partitions no longer
+    false-fails."""
     deadline = time.time() + max_wait_s
-    # Initial fixed wait: gives Fedora time to load 4× ~500MB CSVs.
-    time.sleep(6.0)
+    # Python nodes take ~35 s to load+sort 9-11 M-row CSVs; give them a head
+    # start before the first probe so we don't burn retry budget immediately.
+    time.sleep(10.0)
     while time.time() < deadline:
         rs = run_client_json(overlay, "--column", "trip_distance",
                              "--low", "5.0", "--high", "5.05",
                              timeout=15.0)
-        if rs and rs[0].get("ok") and rs[0].get("rows", 0) >= 100_000:
-            return True
-        time.sleep(1.0)
+        if rs:
+            r = rs[0]
+            if r.get("ok"):
+                hit  = r.get("owners_hit", -1)
+                elig = r.get("owners_eligible", -1)
+                if hit > 0 and elig > 0 and hit == elig:
+                    return True
+        time.sleep(2.0)
     return False
 
 
@@ -333,10 +335,10 @@ def run_workload(overlay: Path, w: dict, concurrency: int, max_rows_hint: int = 
         return {"concurrency": concurrency, "repeats": repeats, "samples": 0,
                 "error": "no successful runs"}
 
-    # Vnode-fanout stats: per-query hit/eligible from the gateway. Older
+    # Owner-fanout stats: per-query hit/eligible from the gateway. Older
     # client builds don't emit these fields, default to 0.
-    hits     = [r.get("vnodes_hit", 0)      for r in flat]
-    eligible = [r.get("vnodes_eligible", 0) for r in flat]
+    hits     = [r.get("owners_hit", 0)      for r in flat]
+    eligible = [r.get("owners_eligible", 0) for r in flat]
     return {
         "concurrency":    concurrency,
         "repeats":        repeats,
@@ -354,8 +356,8 @@ def run_workload(overlay: Path, w: dict, concurrency: int, max_rows_hint: int = 
         "ms":             percentiles(samples),
         "first_chunk_ms": percentiles([r["ms_first_chunk"] for r in flat]),
         "jains_index":    round(jains_index(samples), 4),
-        "vnodes_hit_mean":      round(statistics.mean(hits), 2)     if hits else 0,
-        "vnodes_eligible_mean": round(statistics.mean(eligible), 2) if eligible else 0,
+        "owners_hit_mean":      round(statistics.mean(hits), 2)     if hits else 0,
+        "owners_eligible_mean": round(statistics.mean(eligible), 2) if eligible else 0,
     }
 
 
@@ -415,8 +417,8 @@ def bench_one(name: str, mode: str, scheme: str, threads: int,
                 print(f"rows={r['rows_mean']:>7}  chunks={r['chunks_mean']:>5.0f}  "
                       f"mean={ms['mean']:>7.1f}ms  p95={ms['p95']:>7.1f}ms  "
                       f"thr={r['throughput_rps']/1000:>5.0f}kr/s  "
-                      f"vnodes={r.get('vnodes_hit_mean', 0):.1f}/"
-                      f"{r.get('vnodes_eligible_mean', 0):.1f}  "
+                      f"owners={r.get('owners_hit_mean', 0):.1f}/"
+                      f"{r.get('owners_eligible_mean', 0):.1f}  "
                       f"jains={r['jains_index']}")
             else:
                 print(f"FAILED: {r.get('error', '?')}")
@@ -424,8 +426,94 @@ def bench_one(name: str, mode: str, scheme: str, threads: int,
     sampler.running = False
     sampler.join(timeout=2.0)
     out["node_ram"] = sampler.summary()
+
+    # Per-impl breakout (cpp vs python) from the gateway telemetry. The
+    # `peer_pull` event carries the impl tag of the *target* owner for each
+    # PullChunk, so we can answer "how much faster are cpp owners than
+    # python owners on this run?" without changing the protocol.
+    out["per_impl"] = _per_impl_pull_latency(run_dir)
+
+    # stop_multihost.sh rsyncs remote logs into run_dir — must happen before
+    # _startup_summary so Fedora telemetry (F/G/H/I) is present locally.
     cluster_down(mode)
+
+    out["startup"]  = _startup_summary(run_dir)
     return out
+
+
+def _percentiles(vals: List[float]) -> Dict[str, float]:
+    if not vals: return {"p50": 0.0, "p99": 0.0, "mean": 0.0, "n": 0}
+    s = sorted(vals)
+    def pct(p: float) -> float:
+        if not s: return 0.0
+        i = max(0, min(len(s) - 1, int(round(p * (len(s) - 1)))))
+        return s[i]
+    return {"p50":  round(pct(0.50), 1),
+            "p99":  round(pct(0.99), 1),
+            "mean": round(sum(s) / len(s), 1),
+            "n":    len(s)}
+
+
+def _per_impl_pull_latency(run_dir: Path) -> dict:
+    """Group `peer_pull` events from telemetry-A.jsonl by impl (cpp/python).
+    Reports p50/p99/mean latency per impl class — gives a direct answer to
+    'how much does Python's GIL cost us per owner?'"""
+    out: Dict[str, dict] = {}
+    tele_path = run_dir / "telemetry-A.jsonl"
+    if not tele_path.exists():
+        return out
+    by_impl: Dict[str, List[float]] = {}
+    by_impl_inter: Dict[str, List[float]] = {}
+    try:
+        with open(tele_path, "r") as f:
+            for line in f:
+                try: rec = json.loads(line)
+                except Exception: continue
+                if rec.get("event") != "peer_pull": continue
+                if not rec.get("ok"): continue
+                impl = rec.get("impl", "unknown")
+                ms = float(rec.get("ms", 0))
+                by_impl.setdefault(impl, []).append(ms)
+                key = f"{impl}_{'inter' if rec.get('inter_host') else 'intra'}"
+                by_impl_inter.setdefault(key, []).append(ms)
+    except Exception:
+        return out
+    for impl, vals in by_impl.items():
+        out[impl] = _percentiles(vals)
+    for k, vals in by_impl_inter.items():
+        out[k] = _percentiles(vals)
+    return out
+
+
+def _startup_summary(run_dir: Path) -> dict:
+    """Read each node's `ready` event from its telemetry-*.jsonl and report
+    the load/sort/range/manifest breakdown. The cluster-ready wall is
+    bounded by the slowest node, so we also surface that."""
+    nodes: Dict[str, dict] = {}
+    for tp in sorted(run_dir.glob("telemetry-*.jsonl")):
+        node = tp.stem.removeprefix("telemetry-")
+        try:
+            with open(tp, "r") as f:
+                for line in f:
+                    try: rec = json.loads(line)
+                    except Exception: continue
+                    if rec.get("event") != "ready": continue
+                    nodes[node] = {
+                        "load_ms":        int(rec.get("load_ms", 0)),
+                        "sort_ms":        int(rec.get("sort_ms", 0)),
+                        "range_table_ms": int(rec.get("range_table_ms", 0)),
+                        "manifest_ms":    int(rec.get("manifest_ms", 0)),
+                        "total_ms":       int(rec.get("total_ms", 0)),
+                        "rows":           int(rec.get("rows", 0)),
+                    }
+                    break
+        except Exception:
+            continue
+    summary = {"per_node": nodes}
+    if nodes:
+        summary["slowest_total_ms"] = max(n["total_ms"] for n in nodes.values())
+        summary["sum_total_ms"]     = sum(n["total_ms"] for n in nodes.values())
+    return summary
 
 
 def main() -> int:

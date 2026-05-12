@@ -40,7 +40,7 @@ data_owners: [A, B, C, D, E, F, G, H, I]
 
 network:
   simulate: true
-  inter_host_latency_ms: 5.0
+  inter_host_latency_ms: 1.5
   intra_host_latency_ms: 0.0
 
 chunking:
