@@ -5,40 +5,40 @@
   "threads": 16,
   "chunk_initial": 0,
   "overlay": "config/topo/tree.yaml",
-  "run_dir": "/Users/spartan/mini_2/logs/run-20260512T070246Z",
-  "started": "2026-05-12T07:03:48Z",
+  "run_dir": "/Users/spartan/mini_2/logs/run-20260512T071448Z",
+  "started": "2026-05-12T07:15:49Z",
   "workloads": [
     {
-      "concurrency": 1,
-      "repeats": 1,
-      "samples": 1,
+      "concurrency": 15,
+      "repeats": 2,
+      "samples": 27,
       "rows_mean": 176243,
-      "chunks_mean": 53,
-      "bytes_mean": 15115808,
-      "bytes_per_chunk_avg": 285203,
-      "bytes_per_chunk_min": 5614,
-      "bytes_per_chunk_max": 354081,
-      "throughput_rps": 2680481,
-      "throughput_mbps": 229.9,
+      "chunks_mean": 438.4,
+      "bytes_mean": 15132090,
+      "bytes_per_chunk_avg": 34948,
+      "bytes_per_chunk_min": 126,
+      "bytes_per_chunk_max": 353799,
+      "throughput_rps": 309739,
+      "throughput_mbps": 26.6,
       "ms": {
-        "min": 65.75,
-        "p50": 65.75,
-        "p95": 65.75,
-        "p99": 65.75,
-        "max": 65.75,
-        "mean": 65.75,
-        "std": 0.0
+        "min": 490.34,
+        "p50": 581.48,
+        "p95": 594.27,
+        "p99": 595.79,
+        "max": 595.79,
+        "mean": 569.0,
+        "std": 27.3
       },
       "first_chunk_ms": {
-        "min": 19.34,
-        "p50": 19.34,
-        "p95": 19.34,
-        "p99": 19.34,
-        "max": 19.34,
-        "mean": 19.34,
-        "std": 0.0
+        "min": 100.78,
+        "p50": 218.78,
+        "p95": 366.63,
+        "p99": 385.45,
+        "max": 385.45,
+        "mean": 210.38,
+        "std": 92.49
       },
-      "jains_index": 1.0,
+      "jains_index": 0.9977,
       "owners_hit_mean": 6,
       "owners_eligible_mean": 6,
       "workload": "narrow",
@@ -48,37 +48,37 @@
       ]
     },
     {
-      "concurrency": 1,
-      "repeats": 1,
-      "samples": 1,
-      "rows_mean": 1942731,
-      "chunks_mean": 488,
-      "bytes_mean": 166666064,
-      "bytes_per_chunk_avg": 341528,
-      "bytes_per_chunk_min": 2998,
-      "bytes_per_chunk_max": 360900,
-      "throughput_rps": 2072995,
-      "throughput_mbps": 177.8,
+      "concurrency": 15,
+      "repeats": 2,
+      "samples": 26,
+      "rows_mean": 1324752,
+      "chunks_mean": 1029.3,
+      "bytes_mean": 113678712,
+      "bytes_per_chunk_avg": 110432,
+      "bytes_per_chunk_min": 116,
+      "bytes_per_chunk_max": 360901,
+      "throughput_rps": 132126,
+      "throughput_mbps": 11.3,
       "ms": {
-        "min": 937.16,
-        "p50": 937.16,
-        "p95": 937.16,
-        "p99": 937.16,
-        "max": 937.16,
-        "mean": 937.16,
-        "std": 0.0
+        "min": 9909.84,
+        "p50": 10029,
+        "p95": 10095.2,
+        "p99": 10098,
+        "max": 10098,
+        "mean": 10026.39,
+        "std": 44.94
       },
       "first_chunk_ms": {
-        "min": 61.07,
-        "p50": 61.07,
-        "p95": 61.07,
-        "p99": 61.07,
-        "max": 61.07,
-        "mean": 61.07,
-        "std": 0.0
+        "min": 172.94,
+        "p50": 362.81,
+        "p95": 648.03,
+        "p99": 665.54,
+        "max": 665.54,
+        "mean": 424.62,
+        "std": 160.27
       },
       "jains_index": 1.0,
-      "owners_hit_mean": 9,
+      "owners_hit_mean": 7.73,
       "owners_eligible_mean": 9,
       "workload": "small",
       "range": [
@@ -87,37 +87,37 @@
       ]
     },
     {
-      "concurrency": 1,
-      "repeats": 1,
-      "samples": 1,
-      "rows_mean": 34764991,
-      "chunks_mean": 8502,
-      "bytes_mean": 2944277580,
-      "bytes_per_chunk_avg": 346304,
-      "bytes_per_chunk_min": 5784,
-      "bytes_per_chunk_max": 369467,
-      "throughput_rps": 1858812,
-      "throughput_mbps": 157.4,
+      "concurrency": 15,
+      "repeats": 2,
+      "samples": 16,
+      "rows_mean": 20954733,
+      "chunks_mean": 14165.1,
+      "bytes_mean": 1775386268,
+      "bytes_per_chunk_avg": 124995,
+      "bytes_per_chunk_min": 115,
+      "bytes_per_chunk_max": 369962,
+      "throughput_rps": 98322,
+      "throughput_mbps": 8.3,
       "ms": {
-        "min": 18702.8,
-        "p50": 18702.8,
-        "p95": 18702.8,
-        "p99": 18702.8,
-        "max": 18702.8,
-        "mean": 18702.8,
-        "std": 0.0
+        "min": 182850,
+        "p50": 196774,
+        "p95": 257987,
+        "p99": 257991,
+        "max": 257991,
+        "mean": 213123,
+        "std": 34922.56
       },
       "first_chunk_ms": {
-        "min": 322.3,
-        "p50": 322.3,
-        "p95": 322.3,
-        "p99": 322.3,
-        "max": 322.3,
-        "mean": 322.3,
-        "std": 0.0
+        "min": 788.62,
+        "p50": 2198.45,
+        "p95": 2609.8,
+        "p99": 2741.64,
+        "max": 2741.64,
+        "mean": 1953.17,
+        "std": 576.74
       },
-      "jains_index": 1.0,
-      "owners_hit_mean": 9,
+      "jains_index": 0.9739,
+      "owners_hit_mean": 8.06,
       "owners_eligible_mean": 9,
       "workload": "medium",
       "range": [
@@ -126,38 +126,10 @@
       ]
     },
     {
-      "concurrency": 1,
-      "repeats": 1,
-      "samples": 1,
-      "rows_mean": 69973589,
-      "chunks_mean": 17097,
-      "bytes_mean": 5938983340,
-      "bytes_per_chunk_avg": 347369,
-      "bytes_per_chunk_min": 5828,
-      "bytes_per_chunk_max": 373685,
-      "throughput_rps": 1902241,
-      "throughput_mbps": 161.5,
-      "ms": {
-        "min": 36784.8,
-        "p50": 36784.8,
-        "p95": 36784.8,
-        "p99": 36784.8,
-        "max": 36784.8,
-        "mean": 36784.8,
-        "std": 0.0
-      },
-      "first_chunk_ms": {
-        "min": 538.59,
-        "p50": 538.59,
-        "p95": 538.59,
-        "p99": 538.59,
-        "max": 538.59,
-        "mean": 538.59,
-        "std": 0.0
-      },
-      "jains_index": 1.0,
-      "owners_hit_mean": 9,
-      "owners_eligible_mean": 9,
+      "concurrency": 15,
+      "repeats": 2,
+      "samples": 0,
+      "error": "no successful runs",
       "workload": "broad",
       "range": [
         0.0,
@@ -167,133 +139,133 @@
   ],
   "node_ram": {
     "E": {
-      "max_kb": 1029200,
-      "mean_kb": 858985,
-      "samples": 107
+      "max_kb": 933888,
+      "mean_kb": 38743,
+      "samples": 1949
     },
     "D": {
-      "max_kb": 1279520,
-      "mean_kb": 936222,
-      "samples": 107
+      "max_kb": 4008512,
+      "mean_kb": 3075008,
+      "samples": 1949
     },
     "C": {
-      "max_kb": 779152,
-      "mean_kb": 578872,
-      "samples": 107
+      "max_kb": 769120,
+      "mean_kb": 31375,
+      "samples": 1949
     },
     "B": {
-      "max_kb": 1037824,
-      "mean_kb": 827754,
-      "samples": 107
+      "max_kb": 1009328,
+      "mean_kb": 45778,
+      "samples": 1949
     },
     "A": {
-      "max_kb": 923088,
-      "mean_kb": 706088,
-      "samples": 107
+      "max_kb": 858480,
+      "mean_kb": 58036,
+      "samples": 1949
     }
   },
   "per_impl": {
     "cpp": {
-      "p50": 2.0,
-      "p99": 12.0,
-      "mean": 3.0,
-      "n": 14855
+      "p50": 36.0,
+      "p99": 113.0,
+      "mean": 37.8,
+      "n": 76695
     },
     "python": {
-      "p50": 10.0,
-      "p99": 35.0,
-      "mean": 11.0,
-      "n": 9223
+      "p50": 81.0,
+      "p99": 1133.0,
+      "mean": 108.7,
+      "n": 70498
     },
     "cpp_intra": {
-      "p50": 2.0,
-      "p99": 12.0,
-      "mean": 3.0,
-      "n": 14855
+      "p50": 36.0,
+      "p99": 113.0,
+      "mean": 37.8,
+      "n": 76695
     },
     "python_intra": {
-      "p50": 10.0,
-      "p99": 35.0,
-      "mean": 11.0,
-      "n": 9223
+      "p50": 81.0,
+      "p99": 1133.0,
+      "mean": 108.7,
+      "n": 70498
     }
   },
   "startup": {
     "per_node": {
       "A": {
-        "load_ms": 2130,
+        "load_ms": 2394,
         "sort_ms": 0,
-        "range_table_ms": 36,
-        "manifest_ms": 1,
-        "total_ms": 2206,
+        "range_table_ms": 45,
+        "manifest_ms": 0,
+        "total_ms": 2445,
         "rows": 7299081
       },
       "B": {
-        "load_ms": 2446,
+        "load_ms": 2687,
         "sort_ms": 0,
-        "range_table_ms": 30,
+        "range_table_ms": 31,
         "manifest_ms": 1,
-        "total_ms": 2478,
+        "total_ms": 2720,
         "rows": 8759742
       },
       "C": {
-        "load_ms": 1854,
+        "load_ms": 2242,
         "sort_ms": 0,
         "range_table_ms": 36,
         "manifest_ms": 1,
-        "total_ms": 1891,
+        "total_ms": 2284,
         "rows": 6763252
       },
       "D": {
-        "load_ms": 17485,
-        "sort_ms": 17518,
-        "range_table_ms": 3688,
+        "load_ms": 17779,
+        "sort_ms": 17321,
+        "range_table_ms": 3549,
         "manifest_ms": 0,
-        "total_ms": 38846,
+        "total_ms": 38794,
         "rows": 9337246
       },
       "E": {
-        "load_ms": 1573,
+        "load_ms": 2233,
         "sort_ms": 0,
-        "range_table_ms": 49,
-        "manifest_ms": 2,
-        "total_ms": 1623,
+        "range_table_ms": 60,
+        "manifest_ms": 7,
+        "total_ms": 2296,
         "rows": 8937454
       },
       "F": {
-        "load_ms": 11997,
-        "sort_ms": 13489,
-        "range_table_ms": 2201,
+        "load_ms": 12029,
+        "sort_ms": 13970,
+        "range_table_ms": 1985,
         "manifest_ms": 0,
-        "total_ms": 27880,
+        "total_ms": 28175,
         "rows": 5390665
       },
       "G": {
-        "load_ms": 377,
+        "load_ms": 384,
         "sort_ms": 0,
         "range_table_ms": 29,
         "manifest_ms": 0,
-        "total_ms": 407,
+        "total_ms": 415,
         "rows": 6520538
       },
       "H": {
-        "load_ms": 22369,
-        "sort_ms": 21914,
-        "range_table_ms": 3637,
+        "load_ms": 23138,
+        "sort_ms": 21833,
+        "range_table_ms": 3578,
         "manifest_ms": 0,
-        "total_ms": 48231,
+        "total_ms": 48859,
         "rows": 9808431
       },
       "I": {
-        "load_ms": 371,
+        "load_ms": 374,
         "sort_ms": 0,
         "range_table_ms": 28,
         "manifest_ms": 0,
-        "total_ms": 400,
+        "total_ms": 403,
         "rows": 7183591
       }
     },
-    "slowest_total_ms": 48231,
-    "sum_total_ms": 123962
+    "slowest_total_ms": 48859,
+    "sum_total_ms": 126391
   }
 }
