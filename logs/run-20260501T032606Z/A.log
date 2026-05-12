@@ -1,5 +1,0 @@
-[launcher] node=A impl=cpp overlay=/Users/spartan/mini_2/config/topo/star.yaml data=/Users/spartan/mini_2/data/partitions
-20:26:08 [A] listening on 0.0.0.0:50051 role=gateway team=blue
-20:26:31 [A] SubmitQuery rid=req-180060183168541-1 preds=1
-20:26:32 [A] rid=req-180060183168541-1 done; total=545519
-20:26:46 [A] shutdown requested

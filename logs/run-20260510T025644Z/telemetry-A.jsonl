@@ -1,2 +1,0 @@
-{"t_ns":955903699391458,"wall_ns":1778381833903327000,"node":"A","event":"submit_query","rid":"req-955903689783791-1","scheme":"consistent_hash","eligible":6,"total_owners":9}
-{"t_ns":955904795695166,"wall_ns":1778381834999636000,"node":"A","event":"submit_query","rid":"req-955904766921375-1","scheme":"consistent_hash","eligible":9,"total_owners":9}

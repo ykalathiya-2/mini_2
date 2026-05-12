@@ -1,6 +1,0 @@
-ts_utc=20260509T231843Z
-overlay=config/overlay.yaml
-local_host=MLK-SCS-K36CX9YFNV
-remote_host=yash@192.168.50.1
-local_nodes=A B C D E
-remote_nodes=F G H I

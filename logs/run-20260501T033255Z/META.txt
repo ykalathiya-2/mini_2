@@ -1,4 +1,0 @@
-ts_utc=20260501T033255Z
-overlay=/Users/spartan/mini_2/config/topo/tree.yaml
-host=MLK-SCS-K36CX9YFNV
-nodes=I H G F E D C B A

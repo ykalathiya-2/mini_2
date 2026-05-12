@@ -1,7 +1,0 @@
-{"t_ns":956389345883958,"wall_ns":1778382319552080000,"node":"A","event":"submit_query","rid":"req-956389341888750-1","scheme":"consistent_hash","eligible":6,"total_owners":9}
-{"t_ns":956399276199541,"wall_ns":1778382329482442000,"node":"A","event":"submit_query","rid":"req-956399270317125-1","scheme":"consistent_hash","eligible":6,"total_owners":9}
-{"t_ns":956409169964250,"wall_ns":1778382339376253000,"node":"A","event":"submit_query","rid":"req-956409164654750-1","scheme":"consistent_hash","eligible":6,"total_owners":9}
-{"t_ns":956417400536291,"wall_ns":1778382347606863000,"node":"A","event":"submit_query","rid":"req-956417396119041-1","scheme":"consistent_hash","eligible":9,"total_owners":9}
-{"t_ns":956421546694083,"wall_ns":1778382351753040000,"node":"A","event":"submit_query","rid":"req-956421542404333-1","scheme":"consistent_hash","eligible":9,"total_owners":9}
-{"t_ns":956425465930333,"wall_ns":1778382355672295000,"node":"A","event":"submit_query","rid":"req-956425450266541-1","scheme":"consistent_hash","eligible":9,"total_owners":9}
-{"t_ns":956479431723458,"wall_ns":1778382409638339000,"node":"A","event":"submit_query","rid":"req-956479399254041-1","scheme":"consistent_hash","eligible":9,"total_owners":9}

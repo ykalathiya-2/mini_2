@@ -15,7 +15,7 @@ import argparse
 import json
 import statistics
 from pathlib import Path
-from typing import Dict, List
+from typing import List
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS_DIR = ROOT / "bench" / "results"

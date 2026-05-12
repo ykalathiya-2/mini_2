@@ -1,5 +1,0 @@
-[launcher] node=F impl=python overlay=/home/yash/mini_2/config/overlay.yaml data=/home/yash/mini_2/data/partitions_consistent_hash
-2026-05-11 23:45:32,021 INFO mini2.node: [F] loaded 5390665 partition rows from /home/yash/mini_2/data/partitions_consistent_hash/F.csv (load=11851ms sort=13616ms sort_col=trip_distance)
-2026-05-11 23:45:32,698 INFO mini2.node: [F] Python node listening on 0.0.0.0:50056 (advertised 192.168.50.1:50056), role=peer team=yellow
-2026-05-11 23:45:34,029 INFO mini2.node: [F] column range table: 17 cols in 2007 ms
-2026-05-11 23:46:06,308 INFO mini2.node: [F] shutting down

@@ -32,7 +32,7 @@ import time
 from concurrent import futures
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import grpc
 

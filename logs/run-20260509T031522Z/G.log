@@ -1,5 +1,0 @@
-[launcher] node=G impl=cpp overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
-20:15:22 [G] no partition file at /Users/spartan/mini_2/data/partitions_trip_distance/G.csv
-[G] worker_threads=16
-20:15:22 [G] listening on 0.0.0.0:50057 role=peer team=yellow
-20:30:36 [G] shutdown requested

@@ -1,3 +1,0 @@
-{"t_ns":939306540197958,"wall_ns":1778365236653974000,"node":"A","event":"submit_query","rid":"req-939306539906541-1","scheme":"trip_distance","eligible":1,"total_owners":6}
-{"t_ns":939306940621666,"wall_ns":1778365237054396000,"node":"A","event":"submit_query","rid":"req-939306940490583-1","scheme":"trip_distance","eligible":4,"total_owners":6}
-{"t_ns":939337224546500,"wall_ns":1778365267338180000,"node":"A","event":"submit_query","rid":"req-939337224434583-1","scheme":"trip_distance","eligible":6,"total_owners":6}

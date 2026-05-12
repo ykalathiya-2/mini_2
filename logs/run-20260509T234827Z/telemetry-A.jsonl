@@ -1,7 +1,0 @@
-{"t_ns":944587822030583,"wall_ns":1778370517971341000,"node":"A","event":"submit_query","rid":"req-944587819921875-1","scheme":"trip_distance","eligible":1,"total_owners":9}
-{"t_ns":944588671584291,"wall_ns":1778370518820898000,"node":"A","event":"submit_query","rid":"req-944588669867166-1","scheme":"trip_distance","eligible":1,"total_owners":9}
-{"t_ns":944589494613166,"wall_ns":1778370519643931000,"node":"A","event":"submit_query","rid":"req-944589492840833-1","scheme":"trip_distance","eligible":1,"total_owners":9}
-{"t_ns":944590321248458,"wall_ns":1778370520470570000,"node":"A","event":"submit_query","rid":"req-944590319194125-1","scheme":"trip_distance","eligible":1,"total_owners":9}
-{"t_ns":944597330252208,"wall_ns":1778370527479607000,"node":"A","event":"submit_query","rid":"req-944597328513583-1","scheme":"trip_distance","eligible":1,"total_owners":9}
-{"t_ns":944604422086208,"wall_ns":1778370534571474000,"node":"A","event":"submit_query","rid":"req-944604420361833-1","scheme":"trip_distance","eligible":5,"total_owners":9}
-{"t_ns":944667645697333,"wall_ns":1778370597795380000,"node":"A","event":"submit_query","rid":"req-944667643762083-1","scheme":"trip_distance","eligible":5,"total_owners":9}

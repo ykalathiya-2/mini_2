@@ -1,4 +1,0 @@
-[launcher] node=F impl=python overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions
-2026-05-08 17:18:23,743 INFO mini2.node: [F] loaded 3333333 partition rows from /Users/spartan/mini_2/data/partitions/F.csv
-2026-05-08 17:18:23,751 INFO mini2.node: [F] Python node listening on 0.0.0.0:50056 (advertised 192.168.50.1:50056), role=peer team=yellow
-2026-05-08 17:19:34,613 INFO mini2.node: [F] shutting down

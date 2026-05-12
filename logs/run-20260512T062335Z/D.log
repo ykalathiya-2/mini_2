@@ -1,5 +1,0 @@
-[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
-2026-05-11 23:24:13,033 INFO mini2.node: [D] loaded 9337246 partition rows from /Users/spartan/mini_2/data/partitions_consistent_hash/D.csv (load=17063ms sort=16107ms sort_col=trip_distance)
-2026-05-11 23:24:15,883 INFO mini2.node: [D] column range table: 17 cols in 2849 ms
-2026-05-11 23:24:15,898 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
-2026-05-11 23:24:49,904 INFO mini2.node: [D] shutting down

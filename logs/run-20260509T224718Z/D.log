@@ -1,6 +1,0 @@
-[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
-2026-05-09 15:47:28,025 INFO mini2.node: [D] loaded 10660584 partition rows from /Users/spartan/mini_2/data/partitions_trip_distance/D.csv
-2026-05-09 15:47:28,038 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
-2026-05-09 15:47:31,674 INFO mini2.node: [D] rid=req-940921452293625-1 range_search matched=10660584 of 10660584 in 38.93 ms
-2026-05-09 15:47:31,674 INFO mini2.node: [D] accepted forwarded query req-940921452293625-1 (target=D)
-2026-05-09 15:50:24,405 INFO mini2.node: [D] shutting down

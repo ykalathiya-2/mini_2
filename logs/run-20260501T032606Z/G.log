@@ -1,6 +1,0 @@
-[launcher] node=G impl=cpp overlay=/Users/spartan/mini_2/config/topo/star.yaml data=/Users/spartan/mini_2/data/partitions
-20:26:07 [G] loaded 3333333 rows from /Users/spartan/mini_2/data/partitions/G.csv
-20:26:07 [G] listening on 0.0.0.0:50057 role=peer team=yellow
-20:26:31 [G] rid=req-180060183168541-1 range_search matched=90816 of 3333333 in 5ms
-20:26:31 [G] accepted forwarded query req-180060183168541-1 (target=G)
-20:26:46 [G] shutdown requested

@@ -1,4 +1,0 @@
-[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
-2026-05-09 19:53:00,249 INFO mini2.node: [D] loaded 9337246 partition rows from /Users/spartan/mini_2/data/partitions_consistent_hash/D.csv
-2026-05-09 19:53:00,283 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
-2026-05-09 19:56:18,831 INFO mini2.node: [D] shutting down

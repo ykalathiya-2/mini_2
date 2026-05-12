@@ -1,7 +1,0 @@
-[launcher] node=E impl=cpp overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
-16:14:37 [E] loaded 7737758 rows from /Users/spartan/mini_2/data/partitions_trip_distance/E.csv
-[E] worker_threads=8
-16:14:37 [E] listening on 0.0.0.0:50055 role=peer team=yellow
-16:14:43 [E] rid=req-942553478214041-1 range_search matched=7737758 of 7737758 in 36ms
-16:14:43 [E] accepted forwarded query req-942553478214041-1 (target=E)
-16:17:12 [E] shutdown requested

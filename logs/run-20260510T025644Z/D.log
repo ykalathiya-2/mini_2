@@ -1,8 +1,0 @@
-[launcher] node=D impl=python overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_consistent_hash
-2026-05-09 19:57:05,487 INFO mini2.node: [D] loaded 9337246 partition rows from /Users/spartan/mini_2/data/partitions_consistent_hash/D.csv
-2026-05-09 19:57:05,500 INFO mini2.node: [D] Python node listening on 0.0.0.0:50054 (advertised 192.168.50.2:50054), role=peer team=blue
-2026-05-09 19:57:14,143 INFO mini2.node: [D] rid=req-955903689783791-1 range_search matched=0 of 9337246 in 222.81 ms
-2026-05-09 19:57:14,145 INFO mini2.node: [D] accepted forwarded query req-955903689783791-1 (target=D)
-2026-05-09 19:57:15,413 INFO mini2.node: [D] rid=req-955904766921375-1 range_search matched=9334308 of 9337246 in 302.47 ms
-2026-05-09 19:57:15,413 INFO mini2.node: [D] accepted forwarded query req-955904766921375-1 (target=D)
-2026-05-09 20:00:02,970 INFO mini2.node: [D] shutting down

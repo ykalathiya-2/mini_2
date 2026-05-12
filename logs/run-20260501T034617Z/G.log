@@ -1,4 +1,0 @@
-[launcher] node=G impl=cpp overlay=/Users/spartan/mini_2/config/topo/chain.yaml data=/Users/spartan/mini_2/data/partitions
-20:46:18 [G] loaded 3333333 rows from /Users/spartan/mini_2/data/partitions/G.csv
-20:46:18 [G] listening on 0.0.0.0:50057 role=peer team=yellow
-20:52:55 [G] shutdown requested

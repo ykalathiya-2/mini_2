@@ -1,4 +1,0 @@
-[launcher] node=H impl=python overlay=/Users/spartan/mini_2/config/topo/tree.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
-2026-05-08 20:15:22,771 WARNING mini2.node: [H] no partition CSV at /Users/spartan/mini_2/data/partitions_trip_distance/H.csv — running with empty data
-2026-05-08 20:15:22,784 INFO mini2.node: [H] Python node listening on 0.0.0.0:50058 (advertised 192.168.50.1:50058), role=peer team=blue
-2026-05-08 20:30:36,312 INFO mini2.node: [H] shutting down

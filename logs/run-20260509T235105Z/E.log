@@ -1,9 +1,0 @@
-[launcher] node=E impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
-16:51:10 [E] loaded 7737758 rows from /Users/spartan/mini_2/data/partitions_trip_distance/E.csv
-[E] worker_threads=8
-16:51:10 [E] listening on 0.0.0.0:50055 role=peer team=yellow
-16:51:32 [E] rid=req-944762158241208-1 range_search matched=7737758 of 7737758 in 19ms
-16:51:32 [E] accepted forwarded query req-944762158241208-1 (target=E)
-16:52:36 [E] rid=req-944826139641750-1 range_search matched=7737758 of 7737758 in 26ms
-16:52:36 [E] accepted forwarded query req-944826139641750-1 (target=E)
-16:53:45 [E] shutdown requested

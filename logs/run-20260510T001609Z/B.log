@@ -1,5 +1,0 @@
-[launcher] node=B impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_trip_distance
-17:16:16 [B] loaded 8034628 rows from /Users/spartan/mini_2/data/partitions_trip_distance/B.csv
-[B] worker_threads=1
-17:16:16 [B] listening on 0.0.0.0:50052 role=peer team=blue
-17:20:35 [B] shutdown requested

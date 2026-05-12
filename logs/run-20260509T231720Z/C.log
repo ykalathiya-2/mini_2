@@ -1,7 +1,0 @@
-[launcher] node=C impl=cpp overlay=/Users/spartan/mini_2/config/overlay.yaml data=/Users/spartan/mini_2/data/partitions_round_robin
-16:17:26 [C] loaded 7777778 rows from /Users/spartan/mini_2/data/partitions_round_robin/C.csv
-[C] worker_threads=8
-16:17:26 [C] listening on 0.0.0.0:50053 role=peer team=yellow
-16:17:27 [C] rid=req-942716849313666-1 range_search matched=0 of 7777778 in 9ms
-16:17:27 [C] accepted forwarded query req-942716849313666-1 (target=C)
-16:17:27 [C] shutdown requested
